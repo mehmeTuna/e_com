@@ -1,0 +1,1 @@
+Hello Sistemde sadece yonetim paneli ziyaret etmek icin <a href='yonetim/giris'>Bu sayfayi ziyaret ediniz. </a>
