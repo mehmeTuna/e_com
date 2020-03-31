@@ -7,6 +7,37 @@ use Illuminate\Support\Facades\App;
 
 class WelcomeController extends Controller
 {
+    public function index()
+    {
+        $menu = [
+            (object)[
+                'url' => '#',
+                'title' => 'Home'
+            ], (object)[
+                'url' => '#',
+                'title' => 'Woman'
+            ], (object)[
+                'url' => '#',
+                'title' => 'Man'
+            ], (object)[
+                'url' => '#',
+                'title' => 'LOOKBOOK'
+            ], (object)[
+                'url' => '#',
+                'title' => 'BLOG'
+            ], (object)[
+                'url' => '#',
+                'title' => 'CONTACT'
+            ]
+        ];
+
+        $logoUrl = '/public/virus.png';
+
+        return view('home',[
+            'menu' => (object)$menu,
+            'logoUrl' => $logoUrl
+        ]);
+    }
 
     public function noPage()
     {
@@ -32,11 +63,6 @@ class WelcomeController extends Controller
         ]);
     }
 
-    public function index()
-    {
-        //$about = About::where('id', 1)->active()->first();
 
-        return view('home');
-    }
 
 }
