@@ -45,18 +45,6 @@ export default class Sidebar extends React.Component {
               <span className="menu-title"> Slider</span>
             </Link>
           </li>
-          <li className="nav-item">
-            <Link to={'/yonetim/galeri'} className="nav-link">
-              <i className="icon-box menu-icon" />
-              <span className="menu-title">Galeri</span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to={'/yonetim/anasayfa'} className="nav-link">
-              <i className="icon-box menu-icon" />
-              <span className="menu-title">Hakkında</span>
-            </Link>
-          </li>
         </ul>
       </nav>
     )

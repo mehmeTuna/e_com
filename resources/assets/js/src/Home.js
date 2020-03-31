@@ -1,25 +1,25 @@
-import React from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+import React from 'react'
+import axios from 'axios'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
-const sweet = withReactContent(Swal);
+const sweet = withReactContent(Swal)
 
 export default class Home extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
-      aboutText: "",
-      addressText: "",
-      emailText: "",
-      phoneText: "",
+      aboutText: '',
+      addressText: '',
+      emailText: '',
+      phoneText: '',
       logo: []
-    };
+    }
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChangeImg = this.handleChangeImg.bind(this);
-    this.handleSubmitImg = this.handleSubmitImg.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChangeImg = this.handleChangeImg.bind(this)
+    this.handleSubmitImg = this.handleSubmitImg.bind(this)
   }
 
   handleChangeImg(event) {
@@ -28,74 +28,75 @@ export default class Home extends React.Component {
         url: URL.createObjectURL(event.target.files[0]),
         file: event.target.files[0]
       }
-    ];
+    ]
 
-    this.setState({ logo });
+    this.setState({logo})
   }
 
   async componentDidMount() {
-    const { data } = await axios.post("/content/list");
+    const {data} = await axios.post('/content/list')
 
     if (data.status === true) {
       this.setState({
         addressText: data.data.address,
         emailText: data.data.email,
-        aboutText: data.data.about,
+        aboutText: data.data.description,
         phoneText: data.data.phone,
-        logo: data.data.logo
-      });
+        logo: data.data.logo === null ? [] : data.data.logo
+      })
     }
   }
 
   async handleSubmit() {
-    const { data } = await axios
-      .post("/content/ekle", {
-        about: this.state.aboutText,
+    const {data} = await axios
+      .post('/content/ekle', {
+        description: this.state.aboutText,
         address: this.state.addressText,
         email: this.state.emailText,
         phone: this.state.phoneText
       })
-      .catch(e => sweet.fire("Kayit sirasinda hata olustu"));
+      .catch(e => sweet.fire('Kayit sirasinda hata olustu'))
 
-    if (typeof data !== "undefined" && data.status === true) {
-      sweet.fire("Icerik eklendi");
+    if (typeof data !== 'undefined' && data.status === true) {
+      sweet.fire('Icerik eklendi')
       this.setState({
         addressText: data.address,
         emailText: data.email,
         aboutText: data.about,
         phoneText: data.phone
-      });
+      })
     } else {
-      sweet.fire(data.text);
+      sweet.fire(data.text)
     }
   }
 
   async handleSubmitImg() {
     if (this.state.logo.length === 0) {
-      sweet.fire("Logo secin");
+      sweet.fire('Logo secin')
+      return
     }
 
-    let formData = new FormData();
+    let formData = new FormData()
 
     for (let a = 0; a < this.state.logo.length; a++) {
-      formData.set(a, this.state.logo[a].file);
+      formData.set(a, this.state.logo[a].file)
     }
 
-    const { data } = await axios
-      .post("/logoupdate", formData, {
+    const {data} = await axios
+      .post('/logoupdate', formData, {
         headers: {
-          "content-type": "multipart/form-data" // do not forget this
+          'content-type': 'multipart/form-data' // do not forget this
         }
       })
-      .catch(e => sweet.fire("Kayit sirasinda hata olustu"));
+      .catch(e => sweet.fire('Kayit sirasinda hata olustu'))
 
-    if (typeof data !== "undefined" && data.status === true) {
-      sweet.fire("Icerik eklendi");
+    if (typeof data !== 'undefined' && data.status === true) {
+      sweet.fire('Icerik eklendi')
       this.setState({
         logo: data.data.logo
-      });
+      })
     } else {
-      sweet.fire(data.text);
+      sweet.fire(data.text)
     }
   }
 
@@ -114,7 +115,7 @@ export default class Home extends React.Component {
                     <div key={key}>
                       <img
                         src={val.url}
-                        style={{ width: "100px", height: "100px" }}
+                        style={{width: '100px', height: '100px'}}
                         className="img-thumbnail mx-auto"
                       />
                     </div>
@@ -130,7 +131,7 @@ export default class Home extends React.Component {
                   <input
                     type="file"
                     id="upload"
-                    style={{ display: "none" }}
+                    style={{display: 'none'}}
                     onChange={this.handleChangeImg}
                   />
                 </label>
@@ -159,7 +160,7 @@ export default class Home extends React.Component {
                   className="form-control"
                   rows="10"
                   value={this.state.aboutText}
-                  onChange={e => this.setState({ aboutText: e.target.value })}
+                  onChange={e => this.setState({aboutText: e.target.value})}
                   placeholder="Hakkında kısmı için içerik girin"
                 ></textarea>
               </div>
@@ -169,7 +170,7 @@ export default class Home extends React.Component {
                   className="form-control"
                   rows="10"
                   value={this.state.addressText}
-                  onChange={e => this.setState({ addressText: e.target.value })}
+                  onChange={e => this.setState({addressText: e.target.value})}
                   placeholder="Adres kısmı için içerik girin"
                 ></textarea>
               </div>
@@ -179,7 +180,7 @@ export default class Home extends React.Component {
                   className="form-control"
                   type="text"
                   value={this.state.emailText}
-                  onChange={e => this.setState({ emailText: e.target.value })}
+                  onChange={e => this.setState({emailText: e.target.value})}
                   placeholder="Email kısmı için içerik girin"
                 />
               </div>
@@ -189,7 +190,7 @@ export default class Home extends React.Component {
                   className="form-control"
                   type="text"
                   value={this.state.phoneText}
-                  onChange={e => this.setState({ phoneText: e.target.value })}
+                  onChange={e => this.setState({phoneText: e.target.value})}
                   placeholder="Telefon kısmı için içerik girin"
                 />
               </div>
@@ -209,6 +210,6 @@ export default class Home extends React.Component {
           </div>
         </div>
       </React.Fragment>
-    );
+    )
   }
 }

@@ -10,8 +10,8 @@ export default class Category extends React.Component {
     super(props)
 
     this.state = {
-      categoryNameEn: '',
-      categoryNameTr: '',
+      categoryName: '',
+      subCategoryName: 'asdasdasd',
       category: [],
       img: []
     }
@@ -20,11 +20,42 @@ export default class Category extends React.Component {
     this.getCategory = this.getCategory.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.deleteCategory = this.deleteCategory.bind(this)
+    this.newSubCategory = this.newSubCategory.bind(this)
   }
 
   componentDidMount() {
     //kategorileri iste ve listele
     this.getCategory()
+  }
+
+  newSubCategory(upCategoryId) {
+    sweet
+      .fire({
+        title: 'Eklemek istediginiz Alt kategori ismi giriniz',
+        confirmButtonText: 'Ekle',
+        input: 'text'
+      })
+      .then(result => {
+        if (typeof result.value !== 'undefined') {
+          if (result.value === '') {
+            sweet.fire({
+              title: 'eklemek icin birseyler yazmalisiniz',
+              timer: 1500
+            })
+            return
+          }
+          axios
+            .post('/category/create', {
+              name: result.value,
+              upId: upCategoryId
+            })
+            .then(result => {
+              if (result.data.status === true) {
+                window.location.reload()
+              }
+            })
+        }
+      })
   }
 
   handleChange(event) {
@@ -45,8 +76,6 @@ export default class Category extends React.Component {
     if (data.status === true) {
       this.setState({category: data.data})
     }
-
-    console.log(this.state.category)
   }
 
   async newCategory() {
@@ -97,25 +126,11 @@ export default class Category extends React.Component {
             <div className="card-body">
               <div className="form-group">
                 <label>Eklemek istediginiz kategori ismi giriniz</label>
-                <br />
-                <label>Türkçe</label>
                 <input
                   type="text"
                   className="form-control"
-                  value={this.state.categoryNameTr}
-                  onChange={e =>
-                    this.setState({categoryNameTr: e.target.value})
-                  }
-                  placeholder="Kategori ismi"
-                />
-                <label>English</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={this.state.categoryNameEn}
-                  onChange={e =>
-                    this.setState({categoryNameEn: e.target.value})
-                  }
+                  value={this.state.categoryName}
+                  onChange={e => this.setState({categoryName: e.target.value})}
                   placeholder="Kategori ismi"
                 />
               </div>
@@ -175,16 +190,16 @@ export default class Category extends React.Component {
                       <tr>
                         <th>Sil</th>
                         <th>id</th>
-                        <th>Kategori Gorsel</th>
-                        <th>Kategori ismi Turkce</th>
-                        <th>Kategori ismi Ingilizce</th>
+                        <th>Gorsel</th>
+                        <th>Kategori ismi</th>
+                        <th>Alt kategoriler</th>
                         <th>Kayitli urun sayisi</th>
                       </tr>
                     </thead>
                     <tbody>
                       {this.state.category.map(val => (
                         <tr key={val.id}>
-                          <td>
+                          <td style={{cursor: 'pointer'}}>
                             <i
                               onClick={() => this.deleteCategory(val.id)}
                               className="icon-trash"
@@ -195,11 +210,35 @@ export default class Category extends React.Component {
                             <img
                               className="img-fluid"
                               src={val.img}
-                              alt={val.trName}
+                              alt={val.name}
                             />
                           </td>
-                          <td>{val.trName}</td>
-                          <td>{val.enName}</td>
+                          <td>{val.name}</td>
+                          <td>
+                            <button
+                              type="button"
+                              className="btn btn-primary font-weight-bold mt-2 ml-2"
+                              onClick={() => this.newSubCategory(val.id)}
+                            >
+                              <span className="badge">
+                                <i className="icon-circle-plus" />
+                              </span>
+                              <span>Alt Kategori Ekle </span>
+                            </button>
+                            {val.downCategory.length > 0 &&
+                              val.downCategory.map((e, key) => (
+                                <button
+                                  key={key}
+                                  className="btn btn-success mt-2 ml-2"
+                                  onClick={() => this.deleteCategory(e.id)}
+                                >
+                                  <span className="badge">
+                                    <i className="icon-trash" />
+                                  </span>
+                                  <span>{e.name}</span>
+                                </button>
+                              ))}
+                          </td>
                           <td>{val.count}</td>
                         </tr>
                       ))}

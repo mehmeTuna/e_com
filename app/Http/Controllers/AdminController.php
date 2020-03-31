@@ -81,16 +81,15 @@ class AdminController extends Controller
 
     public function categoryList()
     {
-        $category = Category::where('active', 1)->get();
+        $category = Category::where('active', 1)->where('upId', null)->get();
 
         $category = $category->map(function ($data) {
             $result = (object) [];
             $result->id = $data->id;
             $result->img = $data->img;
-            $result->trName = $data->trName;
-            $result->enName = $data->enName;
+            $result->name = $data->name;
+            $result->downCategory = Category::where('active', 1)->where('upId', $data->id)->get();
             $result->count = Product::where('active', 1)->where('categoryId', $data->id)->count();
-
             return $result;
         });
 
@@ -128,9 +127,9 @@ class AdminController extends Controller
         }
 
         $category = Category::create([
-            'trName' => $request->nameTr,
-            'enName' => $request->nameEn,
-            'img' => $img[0],
+            'name' => $request->name,
+            'upId' => $request->upId,
+            'img' => isset($img[0]) ? $img[0] : null,
         ]);
 
         return response()->json([
@@ -323,16 +322,14 @@ class AdminController extends Controller
 
     public function getAboutDAta()
     {
-        return About::where('id', 1)->first();
+        return About::find( 1);
     }
 
     public function getAbout()
     {
-        $about = About::where('id', 1)->first();
-
         return response()->json([
             'status' => true,
-            'data' => $about,
+            'data' => $this->getAboutDAta(),
         ]);
 
     }

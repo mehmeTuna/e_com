@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $visible = ['id', 'active', 'trName', 'img', '', 'enName', 'created_at', 'updated_at'];
-    protected $fillable = ['id', 'active', 'trName', 'img', '', 'enName', 'created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at'];
+    protected $guarded = ['id'];
     protected $table = 'category';
     public $timestamps = true;
 

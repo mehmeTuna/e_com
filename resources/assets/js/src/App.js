@@ -29,12 +29,6 @@ class App extends React.Component {
               <div className="content-wrapper">
                 <div className="row">
                   <Switch>
-                    <Route path="/yonetim/hakkinda">
-                      <About />
-                    </Route>
-                    <Route path="/yonetim/galeri">
-                      <Gallery />
-                    </Route>
                     <Route path="/yonetim/siparisler">
                       <Orders />
                     </Route>

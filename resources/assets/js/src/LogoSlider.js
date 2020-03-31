@@ -1,74 +1,74 @@
-import React from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+import React from 'react'
+import axios from 'axios'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
-const sweet = withReactContent(Swal);
+const sweet = withReactContent(Swal)
 
 export default class LogoSlider extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       slider: []
-    };
+    }
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChangeSlider = this.handleChangeSlider.bind(this);
-    this.handleDeleteImg = this.handleDeleteImg.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChangeSlider = this.handleChangeSlider.bind(this)
+    this.handleDeleteImg = this.handleDeleteImg.bind(this)
   }
 
   async componentDidMount() {
-    const { data } = await axios.post("/content/list");
+    const {data} = await axios.post('/content/list')
 
     if (data.status === true && data.data.slider !== null) {
       this.setState({
         slider: data.data.slider
-      });
+      })
     }
   }
 
   handleChangeSlider(event) {
-    let slider = this.state.slider;
+    let slider = this.state.slider
     slider.push({
       url: URL.createObjectURL(event.target.files[0]),
       file: event.target.files[0]
-    });
+    })
 
-    this.setState({ slider });
+    this.setState({slider})
   }
 
   async handleSubmit() {
     if (this.state.slider.length === 0) {
-      sweet.fire("Slider secin");
+      sweet.fire('Slider secin')
     }
 
-    let formData = new FormData();
+    let formData = new FormData()
 
     for (let a = 0; a < this.state.slider.length; a++) {
-      formData.set(a, this.state.slider[a].file);
+      formData.set(a, this.state.slider[a].file)
     }
 
-    const { data } = await axios
-      .post("/sliderupdate", formData, {
+    const {data} = await axios
+      .post('/sliderupdate', formData, {
         headers: {
-          "content-type": "multipart/form-data" // do not forget this
+          'content-type': 'multipart/form-data' // do not forget this
         }
       })
-      .catch(e => sweet.fire("Kayit sirasinda hata olustu"));
+      .catch(e => sweet.fire('Kayit sirasinda hata olustu'))
 
-    if (typeof data !== "undefined" && data.status === true) {
-      sweet.fire("İçerik guncellendi");
+    if (typeof data !== 'undefined' && data.status === true) {
+      sweet.fire('İçerik guncellendi')
     } else {
-      sweet.fire(data.text);
+      sweet.fire(data.text)
     }
   }
 
   handleDeleteImg(key) {
-    let slider = this.state.slider;
-    slider.splice(key, 1);
-    this.setState({ slider });
-    this.handleSubmit();
+    let slider = this.state.slider
+    slider.splice(key, 1)
+    this.setState({slider})
+    this.handleSubmit()
   }
 
   render() {
@@ -87,7 +87,7 @@ export default class LogoSlider extends React.Component {
                       key={key}
                       src={val.url}
                       onClick={() => this.handleDeleteImg(key)}
-                      style={{ width: "100px", height: "100px" }}
+                      style={{width: '100px', height: '100px'}}
                       className="img-thumbnail mx-auto"
                     />
                   ))}
@@ -101,7 +101,7 @@ export default class LogoSlider extends React.Component {
                   <input
                     type="file"
                     id="upload"
-                    style={{ display: "none" }}
+                    style={{display: 'none'}}
                     onChange={this.handleChangeSlider}
                   />
                 </label>
@@ -122,6 +122,6 @@ export default class LogoSlider extends React.Component {
           </div>
         </div>
       </React.Fragment>
-    );
+    )
   }
 }

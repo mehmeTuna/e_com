@@ -24,7 +24,7 @@ class SiteUpdateDataRequest extends FormRequest
     public function rules()
     {
         return [
-            'about' => 'required|min:3',
+            'description' => 'required|min:3',
             'address' => 'required|min:3',
             'email' => 'required|min:3',
             'phone' => 'required|min:3',
