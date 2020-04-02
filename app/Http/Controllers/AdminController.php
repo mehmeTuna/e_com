@@ -6,6 +6,7 @@ use App\About;
 use App\Admin;
 use App\Category;
 use App\Http\Requests\SiteUpdateDataRequest;
+use App\Orders;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -331,7 +332,49 @@ class AdminController extends Controller
             'status' => true,
             'data' => $this->getAboutDAta(),
         ]);
+    }
 
+    public function orderDelete(Request $request)
+    {
+        $id = $request->id ;
+
+        $order = Orders::find( $id);
+        if($order == null){
+            return response()->json([
+                'status' => false,
+            ]);
+        }
+
+        $order->m_status = 0 ;
+        $order->save();
+
+        return response()->json([
+            'status' => true,
+        ]);
+    }
+
+    public function orderConfirmation(Request $request)
+    {
+        $id = $request->id;
+        $company = $request->company;
+        $trackingNumber = $request->trackingNumber;
+
+        $order = Orders::find( $id);
+        if($order == null){
+            return response()->json([
+                'status' => false,
+            ]);
+        }
+
+        $order->m_status = 2;
+        $order->company = $company;
+        $order->trackingNumber = $request->trackingNumber ;
+
+        $order->save();
+
+        return response()->json([
+            'status' => true,
+        ]);
     }
 
 }

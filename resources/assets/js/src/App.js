@@ -6,9 +6,7 @@ import Navbar from './Navbar'
 import Sidebar from './Sidebar'
 import Footer from './Footer'
 
-import About from './About'
 import Home from './Home'
-import Gallery from './Gallery'
 import LogoSlider from './LogoSlider'
 import Orders from './Orders'
 import Products from './Products'
@@ -18,6 +16,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
   }
+
   render() {
     return (
       <Router>

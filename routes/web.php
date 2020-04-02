@@ -42,6 +42,9 @@ Route::middleware(['admin'])->group(function () {
     Route::post('product/list', 'AdminController@productList');
     Route::post('product/delete', 'AdminController@productDelete');
 
+    Route::delete('orders', 'AdminController@orderDelete');
+    Route::post('orders/update', 'AdminController@orderConfirmation');
+
     Route::post('galleryupdate', 'AdminController@galleryUpdate');
     Route::post('logoupdate', 'AdminController@logoUpdate');
     Route::post('sliderupdate', 'AdminController@sliderUpdate');

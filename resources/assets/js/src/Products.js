@@ -21,8 +21,6 @@ export default class Products extends React.Component {
       width: '',
       features: '',
       weight: '',
-      nameEn: '',
-      contentEn: '',
       product: []
     }
 
@@ -53,7 +51,6 @@ export default class Products extends React.Component {
 
     let formData = new FormData()
     formData.set('name', this.state.name)
-    formData.set('nameEn', this.state.nameEn)
 
     if (this.state.img.length > 0) {
       for (let a = 0; a < this.state.img.length; a++) {
@@ -67,7 +64,6 @@ export default class Products extends React.Component {
     formData.set('cardText', this.state.content)
     formData.set('code', this.state.code)
     formData.set('features', this.state.features)
-    formData.set('contentEn', this.state.contentEn)
 
     const {data} = await Axios.post('/product/create', formData, {
       headers: {
@@ -76,7 +72,7 @@ export default class Products extends React.Component {
     })
 
     if (data.status === true) {
-      this.setState({redirect: `/yonetim/urunler`})
+      this.setState({redirect: '/yonetim/urunler'})
     }
   }
 
@@ -132,7 +128,7 @@ export default class Products extends React.Component {
                         : ''
                     }
                   >
-                    Ürün Adı Türkçe
+                    Ürün Adı
                   </label>
                   <input
                     type="text"
@@ -142,25 +138,6 @@ export default class Products extends React.Component {
                     onChange={e => this.setState({name: e.target.value})}
                   />
                 </div>
-                <div className="form-group">
-                  <label
-                    className={
-                      this.state.alert === true && this.state.nameEn === ''
-                        ? 'text-danger'
-                        : ''
-                    }
-                  >
-                    Ürün Adı İngilizce
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Ürün Adı"
-                    value={this.state.nameEn}
-                    onChange={e => this.setState({nameEn: e.target.value})}
-                  />
-                </div>
-
                 <div className="form-group">
                   <label
                     className={
@@ -247,23 +224,14 @@ export default class Products extends React.Component {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Ürün Açıklaması Türkçe</label>
+                  <label>Ürün Açıklaması</label>
                   <textarea
                     className="form-control"
                     id="exampleTextarea1"
-                    rows="4"
+                    rows="6"
                     value={this.state.content}
                     onChange={e => this.setState({content: e.target.value})}
-                  ></textarea>
-
-                  <label>Ürün Açıklaması İngilizce</label>
-                  <textarea
-                    className="form-control"
-                    id="exampleTextarea1"
-                    rows="4"
-                    value={this.state.contentEn}
-                    onChange={e => this.setState({contentEn: e.target.value})}
-                  ></textarea>
+                  />
                 </div>
                 <div className="form-group">
                   <label
@@ -283,7 +251,7 @@ export default class Products extends React.Component {
                     <option>Kategori Sec</option>
                     {this.state.allCategory.map((val, key) => (
                       <option key={key} value={val.id}>
-                        {val.trName}
+                        {val.name}
                       </option>
                     ))}
                   </select>
@@ -338,11 +306,9 @@ export default class Products extends React.Component {
         </div>
         <React.Fragment>
           {this.state.product.length === 0 && (
-            <React.Fragment>
-              <h1 className="mx-auto mt-4 col-12 text-center">
-                Urun bulunamadi. Yeni bir tane ekleyin.
-              </h1>
-            </React.Fragment>
+            <h1 className="mx-auto mt-4 col-12 text-center">
+              Urun bulunamadi. Yeni bir tane ekleyin.
+            </h1>
           )}
           {this.state.product.length > 0 && (
             <div className="col-lg-12 grid-margin stretch-card">
@@ -378,7 +344,7 @@ export default class Products extends React.Component {
                               <i
                                 onClick={() => this.deleteProduct(val.id)}
                                 className="icon-trash"
-                              ></i>
+                              />
                             </td>
                             <td>{val.code}</td>
                             <td className="text-center">
