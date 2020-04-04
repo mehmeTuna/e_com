@@ -323,7 +323,7 @@ class AdminController extends Controller
 
     public function getAboutDAta()
     {
-        return About::find( 1);
+        return About::find(1);
     }
 
     public function getAbout()
@@ -336,16 +336,16 @@ class AdminController extends Controller
 
     public function orderDelete(Request $request)
     {
-        $id = $request->id ;
+        $id = $request->id;
 
-        $order = Orders::find( $id);
-        if($order == null){
+        $order = Orders::find($id);
+        if ($order == null) {
             return response()->json([
                 'status' => false,
             ]);
         }
 
-        $order->m_status = 0 ;
+        $order->m_status = 0;
         $order->save();
 
         return response()->json([
@@ -359,8 +359,8 @@ class AdminController extends Controller
         $company = $request->company;
         $trackingNumber = $request->trackingNumber;
 
-        $order = Orders::find( $id);
-        if($order == null){
+        $order = Orders::find($id);
+        if ($order == null) {
             return response()->json([
                 'status' => false,
             ]);
@@ -368,12 +368,37 @@ class AdminController extends Controller
 
         $order->m_status = 2;
         $order->company = $company;
-        $order->trackingNumber = $request->trackingNumber ;
+        $order->trackingNumber = $request->trackingNumber;
 
         $order->save();
 
         return response()->json([
             'status' => true,
+        ]);
+    }
+
+    public function getOrders()
+    {
+        $orders = Orders::all();
+
+        $orders = $orders->map(function ($value) {
+            switch ($value->m_status) {
+                case 0:
+                    $value->m_status = 'wait';
+                    break;
+                case 1:
+                    $value->m_status = 'confirm';
+                    break;
+                case 2:
+                    $value->m_status = 'cancel';
+                    break;
+            }
+            return $value;
+        });
+
+        return response()->json([
+            'status' => true,
+            'data' => $orders,
         ]);
     }
 

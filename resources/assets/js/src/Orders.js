@@ -10,21 +10,26 @@ export default class Orders extends React.Component {
     super(props)
 
     this.state = {
-      orders: [
-        {
-          date: '23.05.2020',
-          orderNum: '435634',
-          customer: 'Mehmet Tuna',
-          productCode: '123123wfes',
-          productName: 'Telefon',
-          features: '50mmx40mm',
-          quantity: 3,
-          unitPrice: 23.5
-        }
-      ]
+      page: 'wait',
+      orders: []
     }
     this.orderDelete = this.orderDelete.bind(this)
     this.orderconfirm = this.orderconfirm.bind(this)
+    this.pageUpdate = this.pageUpdate.bind(this)
+  }
+
+  async componentDidMount() {
+    const {data} = await axios.get('/orders')
+
+    if (data.status === true) {
+      //this.setState({orders: data.data})
+    }
+
+    console.log(data)
+  }
+
+  pageUpdate() {
+    this.setState({orders: orders.map(e => e.m_status == this.state.page)})
   }
 
   orderconfirm(id) {
@@ -104,9 +109,17 @@ export default class Orders extends React.Component {
             </div>
             <div className="col-lg-12 grid-margin stretch-card">
               <div className="card">
-                <div className="card-body ">
+                <div className="card-body">
                   <div className="d-flex justify-content-between">
-                    <h2 className="card-title">Gelen Siparisler</h2>
+                    {this.state.page === 'wait' && (
+                      <h2 className="card-title">Gelen Siparisler</h2>
+                    )}
+                    {this.state.page === 'confirm' && (
+                      <h2 className="card-title">Onaylanan Siparisler</h2>
+                    )}
+                    {this.state.page === 'cancel' && (
+                      <h2 className="card-title">Iptal Olan Siparisler</h2>
+                    )}
                     <p> Siparisler Toplam: {this.state.orders.length}</p>
                   </div>
                   <div className="table-responsive pt-3">

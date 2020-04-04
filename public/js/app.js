@@ -60396,23 +60396,65 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Orders).call(this, props));
     _this.state = {
-      orders: [{
-        date: '23.05.2020',
-        orderNum: '435634',
-        customer: 'Mehmet Tuna',
-        productCode: '123123wfes',
-        productName: 'Telefon',
-        features: '50mmx40mm',
-        quantity: 3,
-        unitPrice: 23.5
-      }]
+      page: 'wait',
+      orders: []
     };
     _this.orderDelete = _this.orderDelete.bind(_assertThisInitialized(_this));
     _this.orderconfirm = _this.orderconfirm.bind(_assertThisInitialized(_this));
+    _this.pageUpdate = _this.pageUpdate.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Orders, [{
+    key: "componentDidMount",
+    value: function () {
+      var _componentDidMount = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _ref, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_4___default.a.get('/orders');
+
+              case 2:
+                _ref = _context.sent;
+                data = _ref.data;
+
+                if (data.status === true) {//this.setState({orders: data.data})
+                }
+
+                console.log(data);
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function componentDidMount() {
+        return _componentDidMount.apply(this, arguments);
+      }
+
+      return componentDidMount;
+    }()
+  }, {
+    key: "pageUpdate",
+    value: function pageUpdate() {
+      var _this2 = this;
+
+      this.setState({
+        orders: orders.map(function (e) {
+          return e.m_status == _this2.state.page;
+        })
+      });
+    }
+  }, {
     key: "orderconfirm",
     value: function orderconfirm(id) {
       sweet.mixin({
@@ -60449,21 +60491,21 @@ function (_React$Component) {
     value: function () {
       var _orderDelete = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(id) {
-        var _ref, data;
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(id) {
+        var _ref2, data;
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _context.next = 2;
+                _context2.next = 2;
                 return axios__WEBPACK_IMPORTED_MODULE_4___default.a["delete"]('/orders', {
                   id: id
                 });
 
               case 2:
-                _ref = _context.sent;
-                data = _ref.data;
+                _ref2 = _context2.sent;
+                data = _ref2.data;
 
                 if (data.status === true) {
                   sweet.fire('Siparis Iptal Edildi');
@@ -60473,10 +60515,10 @@ function (_React$Component) {
 
               case 5:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }));
 
       function orderDelete(_x) {
@@ -60488,7 +60530,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, this.state.orders.length === 0 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", {
         className: "mx-auto mt-4 col-12 text-center"
@@ -60516,12 +60558,16 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card-body "
+        className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "d-flex justify-content-between"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
+      }, this.state.page === 'wait' && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
         className: "card-title"
-      }, "Gelen Siparisler"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, " Siparisler Toplam: ", this.state.orders.length)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, "Gelen Siparisler"), this.state.page === 'confirm' && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
+        className: "card-title"
+      }, "Onaylanan Siparisler"), this.state.page === 'cancel' && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
+        className: "card-title"
+      }, "Iptal Olan Siparisler"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, " Siparisler Toplam: ", this.state.orders.length)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "table-responsive pt-3"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
         className: "table table-bordered"
@@ -60534,13 +60580,13 @@ function (_React$Component) {
           type: "button",
           className: "btn btn-success m-1",
           onClick: function onClick() {
-            return _this2.orderconfirm(val.id);
+            return _this3.orderconfirm(val.id);
           }
         }, "Siparisi Onayla"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
           type: "button",
           className: "btn btn-warning m-1",
           onClick: function onClick() {
-            return _this2.orderDelete(val.id);
+            return _this3.orderDelete(val.id);
           }
         }, "Siparisi Iptal Et")));
       })))))))));
