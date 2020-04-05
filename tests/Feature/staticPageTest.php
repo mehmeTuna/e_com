@@ -18,4 +18,25 @@ class staticPageTest extends TestCase
     {
         $this->assertTrue(true);
     }
+
+    public function homePAge()
+    {
+        $response = $this->get('/');
+
+        $response->assertStatus(200);
+    }
+
+    public function aboutPage()
+    {
+        $response = $this->get('hakkinda');
+
+        $response->assertStatus(200);
+    }
+
+    public function galleryPage()
+    {
+        $response = $this->get('galeri');
+
+        $response->assertStatus(200);
+    }
 }

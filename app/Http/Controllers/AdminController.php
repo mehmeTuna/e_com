@@ -8,9 +8,11 @@ use App\Category;
 use App\Http\Requests\SiteUpdateDataRequest;
 use App\Orders;
 use App\Product;
+use FastExcel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class AdminController extends Controller
 {
@@ -100,6 +102,24 @@ class AdminController extends Controller
         ]);
     }
 
+    public function allCategory()
+    {
+        $category = Category::where('active', 1)->get();
+
+        $category = $category->map(function ($data) {
+            $result = (object) [];
+            $result->id = $data->id;
+            $result->img = $data->img;
+            $result->name = $data->name;
+            return $result;
+        });
+
+        return response()->json([
+            'status' => true,
+            'data' => $category,
+        ]);
+    }
+
     public function categoryDelete(Request $request)
     {
         $result = Category::where('active', 1)->where('id', $request->id)->first();
@@ -141,14 +161,12 @@ class AdminController extends Controller
     public function productCreate(Request $request)
     {
         $productName = $request->name;
-        $nameEn = $request->nameEn;
         $category = $request->category;
         $quantity = $request->quantity < 0 ? 1 : $request->quantity;
         $price = $request->price;
         $content = $request->cardText;
         $code = $request->code;
-        $features = $request->features;
-        $contentEn = $request->contentEn;
+        $minorders = $request->minorders;
         $img = [];
 
         if ($request->hasFile('img0')) {
@@ -185,16 +203,14 @@ class AdminController extends Controller
 
         $product = Product::create([
             'price' => $price,
-            'trName' => $productName,
-            'enName' => $nameEn,
+            'name' => $productName,
             'quantity' => $quantity,
             'categoryId' => $category,
-            'trContent' => $content,
+            'content' => $content,
             'img' => $img[0],
             'otherImg' => $img,
             'code' => $code,
-            'features' => (int) $features,
-            'enContent' => $contentEn,
+            'minorders' => (int) $minorders,
         ]);
 
         return response()->json([
@@ -224,12 +240,11 @@ class AdminController extends Controller
             $data->id = $val->id;
             $data->code = $val->code;
             $data->img = $val->img;
-            $data->trName = $val->trName;
-            $data->features = $val->features;
-            $data->trContent = $val->trContent;
-            $data->enContent = $val->enContent;
-            $data->date = $val->created_at;
-            $data->category = $category->trName;
+            $data->name = $val->name;
+            $data->minorders = $val->minorders;
+            $data->content = $val->content;
+            $data->date = $val->created_at->toDateString();
+            $data->category = $category->name;
             $data->stok = $val->quantity;
             $data->price = $val->price;
             return $data;
@@ -400,6 +415,23 @@ class AdminController extends Controller
             'status' => true,
             'data' => $orders,
         ]);
+    }
+
+    public function ordersInvoice()
+    {
+
+        $html = view('orders.ordersInvoiceTemplate')->render();
+
+        return PDF::load($html)->show();
+
+    }
+
+    public function excel()
+    {
+        $orders = Orders::all();
+
+        // Export all users
+        return (new FastExcel($orders))->download('file.xlsx');
     }
 
 }

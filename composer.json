@@ -9,7 +9,9 @@
         "doctrine/dbal": "^2.10",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "simplesoftwareio/simple-qrcode": "^2.0"
+        "rap2hpoutre/fast-excel": "^1.7",
+        "simplesoftwareio/simple-qrcode": "^2.0",
+        "vsmoraes/laravel-pdf": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.9",

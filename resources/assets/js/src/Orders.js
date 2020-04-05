@@ -24,8 +24,6 @@ export default class Orders extends React.Component {
     if (data.status === true) {
       //this.setState({orders: data.data})
     }
-
-    console.log(data)
   }
 
   pageUpdate() {
@@ -140,8 +138,8 @@ export default class Orders extends React.Component {
                       <tbody>
                         {this.state.orders.map((val, key) => (
                           <tr key={key}>
-                            <td>{val.date}</td>
-                            <td> {val.orderNum}</td>
+                            <td>{val.created_at}</td>
+                            <td> {val.order_id}</td>
                             <td className="text-center">{val.customer}</td>
                             <td> {val.productCode}</td>
                             <td> {val.productName}</td>

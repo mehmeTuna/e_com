@@ -13,6 +13,8 @@
 
 //herhangi bir url eslesme olmaz ise bu sayfa goruntulenecek
 Route::any('/', 'WelcomeController@index');
+Route::get('pdf', 'AdminController@ordersInvoice');
+Route::get('excel', 'Admincontroller@excel');
 
 Route::get('hakkinda', 'WelcomeController@about');
 Route::get('galeri', 'WelcomeController@gallery');
@@ -36,6 +38,7 @@ Route::middleware(['admin'])->group(function () {
 
     Route::post('category/create', 'AdminController@categoryCreate');
     Route::post('category/list', 'AdminController@categoryList');
+    Route::get('category/all', 'AdminController@allCategory');
     Route::post('category/delete', 'AdminController@categoryDelete');
 
     Route::post('product/create', 'AdminController@productCreate');

@@ -1,6 +1,6 @@
 import React from 'react'
 import Axios from 'axios'
-import {Redirect} from 'react-router-dom'
+import {ProductList, ChexBoxOption, SelectBoxOption} from './productList'
 
 export default class Products extends React.Component {
   constructor(props) {
@@ -11,27 +11,35 @@ export default class Products extends React.Component {
       category: '',
       name: '',
       code: '',
-      quantity: '',
+      quantity: 1,
       content: '',
       img: [],
-      redirect: null,
       height: '',
       size: '',
       price: '',
       width: '',
-      features: '',
+      features: 1,
       weight: '',
-      product: []
+      product: [],
+      minorders: 1,
+      selectedOption: {
+        selectBox: false,
+        checkBox: false
+      },
+      selectBox: [],
+      checkBox: [],
+      selectedOptionHover: 0
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.getProductList = this.getProductList.bind(this)
-    this.deleteProduct = this.deleteProduct.bind(this)
+    this.getCategoryList = this.getCategoryList.bind(this)
   }
 
   async componentDidMount() {
     this.getProductList()
+    this.getCategoryList()
   }
 
   async handleSubmit() {
@@ -63,7 +71,7 @@ export default class Products extends React.Component {
     formData.set('price', this.state.price)
     formData.set('cardText', this.state.content)
     formData.set('code', this.state.code)
-    formData.set('features', this.state.features)
+    formData.set('minorders', this.state.minorders)
 
     const {data} = await Axios.post('/product/create', formData, {
       headers: {
@@ -72,7 +80,7 @@ export default class Products extends React.Component {
     })
 
     if (data.status === true) {
-      this.setState({redirect: '/yonetim/urunler'})
+      window.location.href = '/yonetim/urunler'
     }
   }
 
@@ -84,13 +92,11 @@ export default class Products extends React.Component {
     }
   }
 
-  async deleteProduct(id) {
-    const {data} = await Axios.post('/product/delete', {
-      id: id
-    })
+  async getCategoryList() {
+    const {data} = await Axios.get('/category/all')
 
     if (data.status === true) {
-      window.location.reload()
+      this.setState({allCategory: data.data})
     }
   }
 
@@ -107,16 +113,13 @@ export default class Products extends React.Component {
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />
-    }
     return (
       <React.Fragment>
         <div className="col-12 grid-margin stretch-card">
           <div className="card">
             <div className="card-body">
-              <h4 className="card-title">Ürün Ekleme</h4>
-              <p className="card-description">
+              <h1 className="display-2 text-center">Ürün Detayları</h1>
+              <p className="text-center">
                 Eklemek istediğiniz ürünün detaylarını giriniz
               </p>
               <form className="forms-sample">
@@ -170,10 +173,10 @@ export default class Products extends React.Component {
                     type="number"
                     className="form-control"
                     placeholder="Minimum Sipariş Adeti"
-                    value={this.state.features}
+                    value={this.state.minorders}
                     onChange={e =>
                       this.setState({
-                        features: e.target.value <= 0 ? 1 : e.target.value
+                        minorders: e.target.value <= 0 ? 1 : e.target.value
                       })
                     }
                   />
@@ -233,6 +236,128 @@ export default class Products extends React.Component {
                     onChange={e => this.setState({content: e.target.value})}
                   />
                 </div>
+                <div className="row mt-2 mb-2">
+                  <div
+                    style={{cursor: 'pointer'}}
+                    className={
+                      this.state.selectedOption.selectBox === true ||
+                      this.state.selectedOptionHover === 1
+                        ? 'col-md-6 border border-primary'
+                        : 'col-md-6 '
+                    }
+                    onMouseEnter={() => this.setState({selectedOptionHover: 1})}
+                    onMouseLeave={() => this.setState({selectedOptionHover: 0})}
+                    onClick={() =>
+                      this.setState({
+                        selectedOption: Object.assign(
+                          {},
+                          this.state.selectedOption,
+                          {selectBox: !this.state.selectedOption.selectBox}
+                        )
+                      })
+                    }
+                  >
+                    <div className="form-group">
+                      <label>Fiyati etkilemeyen ozellikler</label>
+                      <select className="form-control form-control-sm">
+                        <option>Ozellik 1</option>
+                        <option>Ozellik 2</option>
+                        <option>Ozellik 3</option>
+                        <option>Ozellik 4</option>
+                        <option>Ozellik 5</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div
+                    style={{cursor: 'pointer'}}
+                    className={
+                      this.state.selectedOption.checkBox === true ||
+                      this.state.selectedOptionHover === 2
+                        ? 'col-md-6 border border-primary'
+                        : 'col-md-6 '
+                    }
+                    onMouseEnter={() => this.setState({selectedOptionHover: 2})}
+                    onMouseLeave={() => this.setState({selectedOptionHover: 0})}
+                    onClick={() =>
+                      this.setState({
+                        selectedOption: Object.assign(
+                          {},
+                          this.state.selectedOption,
+                          {checkBox: !this.state.selectedOption.checkBox}
+                        )
+                      })
+                    }
+                  >
+                    <div className="d-flex d-block h-100 align-items-center">
+                      <div className="row w-100 d-flex justify-content-center">
+                        <label className="col-sm-5 col-form-label">
+                          Fiyati Etkileyen ozellikler
+                        </label>
+                        <div className="col-sm-3">
+                          <div className="form-check">
+                            <label className="form-check-label">
+                              <input
+                                type="radio"
+                                className="form-check-input"
+                                checked={true}
+                                onChange={() => console.log('clicked')}
+                              />
+                              Ozellik 1<i className="input-helper"></i>
+                            </label>
+                          </div>
+                        </div>
+                        <div className="col-sm-4">
+                          <div className="form-check">
+                            <label className="form-check-label">
+                              <input
+                                type="radio"
+                                className="form-check-input"
+                                checked={false}
+                                onChange={() => console.log('clicked')}
+                              />
+                              Ozellik 2<i className="input-helper"></i>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  {this.state.selectedOption.checkBox === true && (
+                    <ChexBoxOption
+                      checkBoxList={this.state.checkBox}
+                      addCheckBox={e =>
+                        this.setState({checkBox: this.state.checkBox.push(e)})
+                      }
+                      deleteCheckBox={e =>
+                        this.setState({
+                          checkBox: this.state.checkBox.splice(e, 1)
+                        })
+                      }
+                    />
+                  )}
+                </div>
+                <div className="row">
+                  {this.state.selectedOption.selectBox === true && (
+                    <SelectBoxOption
+                      selectBoxList={this.state.selectBox}
+                      adselectBox={e => {
+                        let data = this.state.selectBox
+                        data.push(e)
+                        this.setState({selectBox: data})
+                      }}
+                      deleteSelectBox={e => {
+                        console.log(e)
+                        let data = this.state.selectBox
+                        data.splice(e, 1)
+                        this.setState({
+                          selectBox: data
+                        })
+                      }}
+                    />
+                  )}
+                </div>
                 <div className="form-group">
                   <label
                     className={
@@ -268,8 +393,9 @@ export default class Products extends React.Component {
                   </label>
                   <div className="d-flex justify-content-start">
                     {this.state.img.length > 0 &&
-                      this.state.img.map(val => (
+                      this.state.img.map((val, key) => (
                         <img
+                          key={key}
                           src={val.url}
                           className="w-25 rounded mx-auto d-block"
                         />
@@ -295,7 +421,6 @@ export default class Products extends React.Component {
                 </div>
               </form>
               <button
-                type="submit"
                 className="btn btn-success mr-2"
                 onClick={this.handleSubmit}
               >
@@ -304,75 +429,6 @@ export default class Products extends React.Component {
             </div>
           </div>
         </div>
-        <React.Fragment>
-          {this.state.product.length === 0 && (
-            <h1 className="mx-auto mt-4 col-12 text-center">
-              Urun bulunamadi. Yeni bir tane ekleyin.
-            </h1>
-          )}
-          {this.state.product.length > 0 && (
-            <div className="col-lg-12 grid-margin stretch-card">
-              <div className="card">
-                <div className="card-body">
-                  <h4 className="card-title">
-                    Urunler Toplam: {this.state.product.length}
-                  </h4>
-                  <p className="card-description"></p>
-                  <div className="table-responsive pt-3">
-                    <table className="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Sil</th>
-                          <th>Urun kodu</th>
-                          <th>Urun gorseli</th>
-                          <th>Urun adi</th>
-                          <th>Urun adi</th>
-                          <th>Urun Aciklamasi</th>
-                          <th>Urun Aciklamasi</th>
-                          <th>Urun Ozellikleri</th>
-                          <th>Eklenme tarihi</th>
-                          <th>Kategori</th>
-                          <th>Stok</th>
-                          <th>Minimum Sipariş Sayısı</th>
-                          <th>Fiyat</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {this.state.product.map((val, key) => (
-                          <tr key={key}>
-                            <td>
-                              <i
-                                onClick={() => this.deleteProduct(val.id)}
-                                className="icon-trash"
-                              />
-                            </td>
-                            <td>{val.code}</td>
-                            <td className="text-center">
-                              <img
-                                className="img-fluid"
-                                src={val.img}
-                                alt={val.trName}
-                              />
-                            </td>
-                            <td>{val.trName}</td>
-                            <td>{val.enName}</td>
-                            <td>{val.trContent}</td>
-                            <td>{val.enContent}</td>
-                            <td>{val.date}</td>
-                            <td>{val.category}</td>
-                            <td>{val.stok}</td>
-                            <td>{val.features}</td>
-                            <td>{val.price}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </React.Fragment>
       </React.Fragment>
     )
   }

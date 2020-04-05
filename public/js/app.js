@@ -60427,9 +60427,7 @@ function (_React$Component) {
                 if (data.status === true) {//this.setState({orders: data.data})
                 }
 
-                console.log(data);
-
-              case 6:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -60574,7 +60572,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Siparis Tarihi"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Siparis Numarasi"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Alici"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Satici Stok Kodu"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Urun Adi"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Ozellikler"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Adet"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Birim Fiyati"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Siparisleri Exel'e aktar"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, this.state.orders.map(function (val, key) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
           key: key
-        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, val.date), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", val.orderNum), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", {
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, val.created_at), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", val.order_id), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", {
           className: "text-center"
         }, val.customer), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", val.productCode), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", val.productName), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", val.features), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", val.quantity), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", val.unitPrice), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
           type: "button",
@@ -60616,7 +60614,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _productList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./productList */ "./resources/assets/js/src/productList.js");
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -60661,22 +60659,29 @@ function (_React$Component) {
       category: '',
       name: '',
       code: '',
-      quantity: '',
+      quantity: 1,
       content: '',
       img: [],
-      redirect: null,
       height: '',
       size: '',
       price: '',
       width: '',
-      features: '',
+      features: 1,
       weight: '',
-      product: []
+      product: [],
+      minorders: 1,
+      selectedOption: {
+        selectBox: false,
+        checkBox: false
+      },
+      selectBox: [],
+      checkBox: [],
+      selectedOptionHover: 0
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.getProductList = _this.getProductList.bind(_assertThisInitialized(_this));
-    _this.deleteProduct = _this.deleteProduct.bind(_assertThisInitialized(_this));
+    _this.getCategoryList = _this.getCategoryList.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -60691,8 +60696,9 @@ function (_React$Component) {
             switch (_context.prev = _context.next) {
               case 0:
                 this.getProductList();
+                this.getCategoryList();
 
-              case 1:
+              case 2:
               case "end":
                 return _context.stop();
             }
@@ -60743,7 +60749,7 @@ function (_React$Component) {
                 formData.set('price', this.state.price);
                 formData.set('cardText', this.state.content);
                 formData.set('code', this.state.code);
-                formData.set('features', this.state.features);
+                formData.set('minorders', this.state.minorders);
                 _context2.next = 14;
                 return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/product/create', formData, {
                   headers: {
@@ -60757,9 +60763,7 @@ function (_React$Component) {
                 data = _ref.data;
 
                 if (data.status === true) {
-                  this.setState({
-                    redirect: '/yonetim/urunler'
-                  });
+                  window.location.href = '/yonetim/urunler';
                 }
 
               case 17:
@@ -60816,11 +60820,11 @@ function (_React$Component) {
       return getProductList;
     }()
   }, {
-    key: "deleteProduct",
+    key: "getCategoryList",
     value: function () {
-      var _deleteProduct = _asyncToGenerator(
+      var _getCategoryList = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(id) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
         var _ref3, data;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
@@ -60828,16 +60832,16 @@ function (_React$Component) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/product/delete', {
-                  id: id
-                });
+                return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/category/all');
 
               case 2:
                 _ref3 = _context4.sent;
                 data = _ref3.data;
 
                 if (data.status === true) {
-                  window.location.reload();
+                  this.setState({
+                    allCategory: data.data
+                  });
                 }
 
               case 5:
@@ -60845,14 +60849,14 @@ function (_React$Component) {
                 return _context4.stop();
             }
           }
-        }, _callee4);
+        }, _callee4, this);
       }));
 
-      function deleteProduct(_x) {
-        return _deleteProduct.apply(this, arguments);
+      function getCategoryList() {
+        return _getCategoryList.apply(this, arguments);
       }
 
-      return deleteProduct;
+      return getCategoryList;
     }()
   }, {
     key: "handleChange",
@@ -60872,22 +60876,16 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      if (this.state.redirect) {
-        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Redirect"], {
-          to: this.state.redirect
-        });
-      }
-
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "col-12 grid-margin stretch-card"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-body"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", {
-        className: "card-title"
-      }, "\xDCr\xFCn Ekleme"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
-        className: "card-description"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", {
+        className: "display-2 text-center"
+      }, "\xDCr\xFCn Detaylar\u0131"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
+        className: "text-center"
       }, "Eklemek istedi\u011Finiz \xFCr\xFCn\xFCn detaylar\u0131n\u0131 giriniz"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
         className: "forms-sample"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -60926,10 +60924,10 @@ function (_React$Component) {
         type: "number",
         className: "form-control",
         placeholder: "Minimum Sipari\u015F Adeti",
-        value: this.state.features,
+        value: this.state.minorders,
         onChange: function onChange(e) {
           return _this2.setState({
-            features: e.target.value <= 0 ? 1 : e.target.value
+            minorders: e.target.value <= 0 ? 1 : e.target.value
           });
         }
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -60974,6 +60972,127 @@ function (_React$Component) {
           });
         }
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row mt-2 mb-2"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        style: {
+          cursor: 'pointer'
+        },
+        className: this.state.selectedOption.selectBox === true || this.state.selectedOptionHover === 1 ? 'col-md-6 border border-primary' : 'col-md-6 ',
+        onMouseEnter: function onMouseEnter() {
+          return _this2.setState({
+            selectedOptionHover: 1
+          });
+        },
+        onMouseLeave: function onMouseLeave() {
+          return _this2.setState({
+            selectedOptionHover: 0
+          });
+        },
+        onClick: function onClick() {
+          return _this2.setState({
+            selectedOption: Object.assign({}, _this2.state.selectedOption, {
+              selectBox: !_this2.state.selectedOption.selectBox
+            })
+          });
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", null, "Fiyati etkilemeyen ozellikler"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
+        className: "form-control form-control-sm"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", null, "Ozellik 1"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", null, "Ozellik 2"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", null, "Ozellik 3"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", null, "Ozellik 4"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", null, "Ozellik 5")))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        style: {
+          cursor: 'pointer'
+        },
+        className: this.state.selectedOption.checkBox === true || this.state.selectedOptionHover === 2 ? 'col-md-6 border border-primary' : 'col-md-6 ',
+        onMouseEnter: function onMouseEnter() {
+          return _this2.setState({
+            selectedOptionHover: 2
+          });
+        },
+        onMouseLeave: function onMouseLeave() {
+          return _this2.setState({
+            selectedOptionHover: 0
+          });
+        },
+        onClick: function onClick() {
+          return _this2.setState({
+            selectedOption: Object.assign({}, _this2.state.selectedOption, {
+              checkBox: !_this2.state.selectedOption.checkBox
+            })
+          });
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "d-flex d-block h-100 align-items-center"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row w-100 d-flex justify-content-center"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        className: "col-sm-5 col-form-label"
+      }, "Fiyati Etkileyen ozellikler"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-sm-3"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-check"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        className: "form-check-label"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "radio",
+        className: "form-check-input",
+        checked: true,
+        onChange: function onChange() {
+          return console.log('clicked');
+        }
+      }), "Ozellik 1", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+        className: "input-helper"
+      })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-sm-4"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-check"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        className: "form-check-label"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "radio",
+        className: "form-check-input",
+        checked: false,
+        onChange: function onChange() {
+          return console.log('clicked');
+        }
+      }), "Ozellik 2", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+        className: "input-helper"
+      })))))))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row"
+      }, this.state.selectedOption.checkBox === true && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_productList__WEBPACK_IMPORTED_MODULE_3__["ChexBoxOption"], {
+        checkBoxList: this.state.checkBox,
+        addCheckBox: function addCheckBox(e) {
+          return _this2.setState({
+            checkBox: _this2.state.checkBox.push(e)
+          });
+        },
+        deleteCheckBox: function deleteCheckBox(e) {
+          return _this2.setState({
+            checkBox: _this2.state.checkBox.splice(e, 1)
+          });
+        }
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row"
+      }, this.state.selectedOption.selectBox === true && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_productList__WEBPACK_IMPORTED_MODULE_3__["SelectBoxOption"], {
+        selectBoxList: this.state.selectBox,
+        adselectBox: function adselectBox(e) {
+          var data = _this2.state.selectBox;
+          data.push(e);
+
+          _this2.setState({
+            selectBox: data
+          });
+        },
+        deleteSelectBox: function deleteSelectBox(e) {
+          console.log(e);
+          var data = _this2.state.selectBox;
+          data.splice(e, 1);
+
+          _this2.setState({
+            selectBox: data
+          });
+        }
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "form-group"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
         className: this.state.alert === true && this.state.category === '' ? 'text-danger' : ''
@@ -60996,8 +61115,9 @@ function (_React$Component) {
         className: this.state.alert === true && this.state.img.length === 0 ? 'text-danger' : ''
       }, "\xDCr\xFCn G\xF6rseli ekle ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), " Maksimum 4 adet eklenebilir"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "d-flex justify-content-start"
-      }, this.state.img.length > 0 && this.state.img.map(function (val) {
+      }, this.state.img.length > 0 && this.state.img.map(function (val, key) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+          key: key,
           src: val.url,
           className: "w-25 rounded mx-auto d-block"
         });
@@ -61015,41 +61135,9 @@ function (_React$Component) {
         className: "custom-file-label",
         htmlFor: "inputGroupFile01"
       }, "Yuklemek icin resim secin"))))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-        type: "submit",
         className: "btn btn-success mr-2",
         onClick: this.handleSubmit
-      }, "Ekle")))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, this.state.product.length === 0 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", {
-        className: "mx-auto mt-4 col-12 text-center"
-      }, "Urun bulunamadi. Yeni bir tane ekleyin."), this.state.product.length > 0 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "col-lg-12 grid-margin stretch-card"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card-body"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", {
-        className: "card-title"
-      }, "Urunler Toplam: ", this.state.product.length), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
-        className: "card-description"
-      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "table-responsive pt-3"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
-        className: "table table-bordered"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Sil"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Urun kodu"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Urun gorseli"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Urun adi"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Urun adi"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Urun Aciklamasi"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Urun Aciklamasi"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Urun Ozellikleri"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Eklenme tarihi"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Kategori"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Stok"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Minimum Sipari\u015F Say\u0131s\u0131"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Fiyat"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, this.state.product.map(function (val, key) {
-        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
-          key: key
-        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
-          onClick: function onClick() {
-            return _this2.deleteProduct(val.id);
-          },
-          className: "icon-trash"
-        })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, val.code), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", {
-          className: "text-center"
-        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
-          className: "img-fluid",
-          src: val.img,
-          alt: val.trName
-        })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, val.trName), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, val.enName), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, val.trContent), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, val.enContent), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, val.date), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, val.category), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, val.stok), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, val.features), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, val.price));
-      })))))))));
+      }, "Ekle")))));
     }
   }]);
 
@@ -61274,6 +61362,131 @@ function (_React$Component) {
 
 if (document.getElementById('root')) {
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, null), document.getElementById('root'));
+}
+
+/***/ }),
+
+/***/ "./resources/assets/js/src/productList.js":
+/*!************************************************!*\
+  !*** ./resources/assets/js/src/productList.js ***!
+  \************************************************/
+/*! exports provided: ChexBoxOption, SelectBoxOption */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChexBoxOption", function() { return ChexBoxOption; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectBoxOption", function() { return SelectBoxOption; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var sweetalert2_react_content__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2-react-content */ "./node_modules/sweetalert2-react-content/dist/sweetalert2-react-content.umd.js");
+/* harmony import */ var sweetalert2_react_content__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_react_content__WEBPACK_IMPORTED_MODULE_3__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+
+
+
+
+var sweet = sweetalert2_react_content__WEBPACK_IMPORTED_MODULE_3___default()(sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a);
+
+function addSelectBoxData(adselectBox) {
+  sweet.fire({
+    title: 'Eklemek istediginiz opsiyon ismi giriniz',
+    confirmButtonText: 'Ekle',
+    input: 'text'
+  }).then(function (result) {
+    if (typeof result.value !== 'undefined') {
+      if (result.value === '') {
+        sweet.fire({
+          title: 'eklemek icin birseyler yazmalisiniz',
+          timer: 1500
+        });
+        return;
+      }
+
+      adselectBox({
+        title: result.value
+      });
+    }
+  });
+}
+
+function deleteProduct(id, name) {
+  sweet.fire("".concat(name, " \xFCr\xFCn\xFC silmek istedi\u011Finize eminmisiniz ?")).then(function (result) {
+    if (_typeof(result.value) != undefined && result.value === true) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/product/delete', {
+        id: id
+      }).then(function (e) {
+        window.location.reload();
+      });
+    }
+  });
+}
+
+function ChexBoxOption(_ref) {
+  var checkBoxList = _ref.checkBoxList,
+      addCheckBox = _ref.addCheckBox,
+      deleteCheckBox = _ref.deleteCheckBox;
+  return react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("div", {
+    className: " mx-auto"
+  }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("p", {
+    className: "lead"
+  }, "Bu kisimdaki opsiyonlar fiyati etkiler, Opsiyon ile birlikte yeni fiyatini giriniz"), react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("button", {
+    type: "button",
+    className: "btn btn-primary font-weight-bold mt-2 ml-2"
+  }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("span", {
+    className: "badge"
+  }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("i", {
+    className: "icon-circle-plus"
+  })), react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("span", null, "Opsiyon Ekle ")), checkBoxList.length > 0 && checkBoxList.map(function (e, key) {
+    return react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("button", {
+      key: key,
+      onClick: function onClick() {
+        return deleteCheckBox(key);
+      },
+      className: "btn btn-success mt-2 ml-2"
+    }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("span", {
+      className: "badge"
+    }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("i", {
+      className: "icon-trash"
+    })), react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("span", null, e.title));
+  }));
+}
+function SelectBoxOption(_ref2) {
+  var selectBoxList = _ref2.selectBoxList,
+      adselectBox = _ref2.adselectBox,
+      deleteSelectBox = _ref2.deleteSelectBox;
+  return react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("div", {
+    className: " mx-auto"
+  }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("p", {
+    className: "lead "
+  }, "Bu kisimdaki opsiyonlar fiyati etkilemez"), react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("button", {
+    type: "button",
+    onClick: function onClick() {
+      return addSelectBoxData(adselectBox);
+    },
+    className: "btn btn-primary font-weight-bold mt-2 ml-2"
+  }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("span", {
+    className: "badge"
+  }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("i", {
+    className: "icon-circle-plus"
+  })), react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("span", null, "Opsiyon Ekle ")), selectBoxList.length > 0 && selectBoxList.map(function (e, key) {
+    return react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("button", {
+      key: key,
+      onClick: function onClick() {
+        return deleteSelectBox(key);
+      },
+      className: "btn btn-success mt-2 ml-2"
+    }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("span", {
+      className: "badge"
+    }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("i", {
+      className: "icon-trash"
+    })), react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("span", null, e.title));
+  }));
 }
 
 /***/ }),
