@@ -60614,7 +60614,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _productList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./productList */ "./resources/assets/js/src/productList.js");
+/* harmony import */ var _chexBoxOption__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./chexBoxOption */ "./resources/assets/js/src/chexBoxOption.js");
+/* harmony import */ var _selectBoxOption__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./selectBoxOption */ "./resources/assets/js/src/selectBoxOption.js");
+/* harmony import */ var _productList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./productList */ "./resources/assets/js/src/productList.js");
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -60638,6 +60640,8 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
 
 
 
@@ -61059,7 +61063,7 @@ function (_React$Component) {
         className: "input-helper"
       })))))))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "row"
-      }, this.state.selectedOption.checkBox === true && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_productList__WEBPACK_IMPORTED_MODULE_3__["ChexBoxOption"], {
+      }, this.state.selectedOption.checkBox === true && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chexBoxOption__WEBPACK_IMPORTED_MODULE_3__["default"], {
         checkBoxList: this.state.checkBox,
         addCheckBox: function addCheckBox(e) {
           return _this2.setState({
@@ -61073,7 +61077,7 @@ function (_React$Component) {
         }
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "row"
-      }, this.state.selectedOption.selectBox === true && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_productList__WEBPACK_IMPORTED_MODULE_3__["SelectBoxOption"], {
+      }, this.state.selectedOption.selectBox === true && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_selectBoxOption__WEBPACK_IMPORTED_MODULE_4__["default"], {
         selectBoxList: this.state.selectBox,
         adselectBox: function adselectBox(e) {
           var data = _this2.state.selectBox;
@@ -61137,7 +61141,7 @@ function (_React$Component) {
       }, "Yuklemek icin resim secin"))))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
         className: "btn btn-success mr-2",
         onClick: this.handleSubmit
-      }, "Ekle")))));
+      }, "Ekle")))), Object(_productList__WEBPACK_IMPORTED_MODULE_5__["default"])());
     }
   }]);
 
@@ -61366,32 +61370,109 @@ if (document.getElementById('root')) {
 
 /***/ }),
 
-/***/ "./resources/assets/js/src/productList.js":
-/*!************************************************!*\
-  !*** ./resources/assets/js/src/productList.js ***!
-  \************************************************/
-/*! exports provided: ChexBoxOption, SelectBoxOption */
+/***/ "./resources/assets/js/src/chexBoxOption.js":
+/*!**************************************************!*\
+  !*** ./resources/assets/js/src/chexBoxOption.js ***!
+  \**************************************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChexBoxOption", function() { return ChexBoxOption; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectBoxOption", function() { return SelectBoxOption; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ChexBoxOption; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+function ChexBoxOption(_ref) {
+  var checkBoxList = _ref.checkBoxList,
+      addCheckBox = _ref.addCheckBox,
+      deleteCheckBox = _ref.deleteCheckBox;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: " mx-auto"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: "lead"
+  }, "Bu kisimdaki opsiyonlar fiyati etkiler, Opsiyon ile birlikte yeni fiyatini giriniz"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    type: "button",
+    className: "btn btn-primary font-weight-bold mt-2 ml-2"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "badge"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "icon-circle-plus"
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Opsiyon Ekle ")), checkBoxList.length > 0 && checkBoxList.map(function (e, key) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      key: key,
+      onClick: function onClick() {
+        return deleteCheckBox(key);
+      },
+      className: "btn btn-success mt-2 ml-2"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      className: "badge"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "icon-trash"
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, e.title));
+  }));
+}
+
+/***/ }),
+
+/***/ "./resources/assets/js/src/productList.js":
+/*!************************************************!*\
+  !*** ./resources/assets/js/src/productList.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var sweetalert2_react_content__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2-react-content */ "./node_modules/sweetalert2-react-content/dist/sweetalert2-react-content.umd.js");
-/* harmony import */ var sweetalert2_react_content__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_react_content__WEBPACK_IMPORTED_MODULE_3__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 
 
 
+function deleteProduct(id, name) {
+  sweet.fire("".concat(name, " \xFCr\xFCn\xFC silmek istedi\u011Finize eminmisiniz ?")).then(function (result) {
+    if (_typeof(result.value) != undefined && result.value === true) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/product/delete', {
+        id: id
+      }).then(function (e) {
+        window.location.reload();
+      });
+    }
+  });
+}
 
-var sweet = sweetalert2_react_content__WEBPACK_IMPORTED_MODULE_3___default()(sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a);
+var ProductList = function ProductList() {
+  return react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("div", null, "Listeleme kismi");
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (ProductList);
+
+/***/ }),
+
+/***/ "./resources/assets/js/src/selectBoxOption.js":
+/*!****************************************************!*\
+  !*** ./resources/assets/js/src/selectBoxOption.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return SelectBoxOption; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var sweetalert2_react_content__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2-react-content */ "./node_modules/sweetalert2-react-content/dist/sweetalert2-react-content.umd.js");
+/* harmony import */ var sweetalert2_react_content__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_react_content__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+var sweet = sweetalert2_react_content__WEBPACK_IMPORTED_MODULE_2___default()(sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a);
 
 function addSelectBoxData(adselectBox) {
   sweet.fire({
@@ -61415,77 +61496,36 @@ function addSelectBoxData(adselectBox) {
   });
 }
 
-function deleteProduct(id, name) {
-  sweet.fire("".concat(name, " \xFCr\xFCn\xFC silmek istedi\u011Finize eminmisiniz ?")).then(function (result) {
-    if (_typeof(result.value) != undefined && result.value === true) {
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/product/delete', {
-        id: id
-      }).then(function (e) {
-        window.location.reload();
-      });
-    }
-  });
-}
-
-function ChexBoxOption(_ref) {
-  var checkBoxList = _ref.checkBoxList,
-      addCheckBox = _ref.addCheckBox,
-      deleteCheckBox = _ref.deleteCheckBox;
-  return react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("div", {
+function SelectBoxOption(_ref) {
+  var selectBoxList = _ref.selectBoxList,
+      adselectBox = _ref.adselectBox,
+      deleteSelectBox = _ref.deleteSelectBox;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: " mx-auto"
-  }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("p", {
-    className: "lead"
-  }, "Bu kisimdaki opsiyonlar fiyati etkiler, Opsiyon ile birlikte yeni fiyatini giriniz"), react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("button", {
-    type: "button",
-    className: "btn btn-primary font-weight-bold mt-2 ml-2"
-  }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("span", {
-    className: "badge"
-  }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("i", {
-    className: "icon-circle-plus"
-  })), react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("span", null, "Opsiyon Ekle ")), checkBoxList.length > 0 && checkBoxList.map(function (e, key) {
-    return react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("button", {
-      key: key,
-      onClick: function onClick() {
-        return deleteCheckBox(key);
-      },
-      className: "btn btn-success mt-2 ml-2"
-    }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("span", {
-      className: "badge"
-    }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("i", {
-      className: "icon-trash"
-    })), react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("span", null, e.title));
-  }));
-}
-function SelectBoxOption(_ref2) {
-  var selectBoxList = _ref2.selectBoxList,
-      adselectBox = _ref2.adselectBox,
-      deleteSelectBox = _ref2.deleteSelectBox;
-  return react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("div", {
-    className: " mx-auto"
-  }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("p", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
     className: "lead "
-  }, "Bu kisimdaki opsiyonlar fiyati etkilemez"), react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("button", {
+  }, "Bu kisimdaki opsiyonlar fiyati etkilemez"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     type: "button",
     onClick: function onClick() {
       return addSelectBoxData(adselectBox);
     },
     className: "btn btn-primary font-weight-bold mt-2 ml-2"
-  }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("span", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "badge"
-  }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("i", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "icon-circle-plus"
-  })), react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("span", null, "Opsiyon Ekle ")), selectBoxList.length > 0 && selectBoxList.map(function (e, key) {
-    return react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("button", {
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Opsiyon Ekle ")), selectBoxList.length > 0 && selectBoxList.map(function (e, key) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       key: key,
       onClick: function onClick() {
         return deleteSelectBox(key);
       },
       className: "btn btn-success mt-2 ml-2"
-    }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("span", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       className: "badge"
-    }, react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
       className: "icon-trash"
-    })), react__WEBPACK_IMPORTED_MODULE_0__["React"].createElement("span", null, e.title));
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, e.title));
   }));
 }
 

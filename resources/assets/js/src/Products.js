@@ -1,6 +1,8 @@
 import React from 'react'
 import Axios from 'axios'
-import {ProductList, ChexBoxOption, SelectBoxOption} from './productList'
+import ChexBoxOption from './chexBoxOption'
+import SelectBoxOption from './selectBoxOption'
+import ProductList from './productList'
 
 export default class Products extends React.Component {
   constructor(props) {
@@ -429,6 +431,7 @@ export default class Products extends React.Component {
             </div>
           </div>
         </div>
+        {ProductList()}
       </React.Fragment>
     )
   }

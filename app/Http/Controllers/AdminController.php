@@ -149,6 +149,7 @@ class AdminController extends Controller
 
         $category = Category::create([
             'name' => $request->name,
+            'nameSlug' => str_slug($request->name),
             'upId' => $request->upId,
             'img' => isset($img[0]) ? $img[0] : null,
         ]);
@@ -204,6 +205,7 @@ class AdminController extends Controller
         $product = Product::create([
             'price' => $price,
             'name' => $productName,
+            'nameSlug' => str_slug($productName),
             'quantity' => $quantity,
             'categoryId' => $category,
             'content' => $content,

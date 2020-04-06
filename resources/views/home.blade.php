@@ -254,55 +254,25 @@
             <!-- Home Slider -->
             <div class="home_slider_container">
                 <div class="owl-carousel owl-theme home_slider">
-
                     <!-- Slide -->
-                    <div class="owl-item">
-                        <div class="background_image" style="background-image:url(/public/front/images/home_slider_1.jpg)"></div>
-                        <div class="home_content_container">
-                            <div class="home_content">
-                                <div class="home_discount d-flex flex-row align-items-end justify-content-start">
-                                    <div class="home_discount_num">20</div>
-                                    <div class="home_discount_text">Discount on the</div>
+                    @foreach($siteData->slider as $value )
+                        <div class="owl-item">
+                            <div class="background_image" style="background-image:url({{$value->url}})"></div>
+                            <div class="home_content_container">
+                                <div class="home_content">
+                                    <!--
+                                    <div class="home_discount d-flex flex-row align-items-end justify-content-start">
+                                        <div class="home_discount_num">20</div>
+                                        <div class="home_discount_text">Discount on the</div>
+                                    </div>
+                                    <div class="home_title">New Collection</div>
+                                    <div class="button button_1 home_button trans_200"><a href="categories.html">Shop
+                                            NOW!</a></div>
+                                    -->
                                 </div>
-                                <div class="home_title">New Collection</div>
-                                <div class="button button_1 home_button trans_200"><a href="categories.html">Shop
-                                        NOW!</a></div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Slide -->
-                    <div class="owl-item">
-                        <div class="background_image" style="background-image:url(images/home_slider_1.jpg)"></div>
-                        <div class="home_content_container">
-                            <div class="home_content">
-                                <div class="home_discount d-flex flex-row align-items-end justify-content-start">
-                                    <div class="home_discount_num">20</div>
-                                    <div class="home_discount_text">Discount on the</div>
-                                </div>
-                                <div class="home_title">New Collection</div>
-                                <div class="button button_1 home_button trans_200"><a href="categories.html">Shop
-                                        NOW!</a></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Slide -->
-                    <div class="owl-item">
-                        <div class="background_image" style="background-image:url(images/home_slider_1.jpg)"></div>
-                        <div class="home_content_container">
-                            <div class="home_content">
-                                <div class="home_discount d-flex flex-row align-items-end justify-content-start">
-                                    <div class="home_discount_num">20</div>
-                                    <div class="home_discount_text">Discount on the</div>
-                                </div>
-                                <div class="home_title">New Collection</div>
-                                <div class="button button_1 home_button trans_200"><a href="categories.html">Shop
-                                        NOW!</a></div>
-                            </div>
-                        </div>
-                    </div>
-
+                    @endforeach
                 </div>
 
                 <!-- Home Slider Navigation -->
@@ -324,31 +294,15 @@
             <div class="section_container">
                 <div class="container">
                     <div class="row">
-
-                        <!-- Box -->
-                        <div class="col-lg-4 box_col">
-                            <div class="box">
-                                <div class="box_image"><img src="/public/front/images/box_1.jpg" alt=""></div>
-                                <div class="box_title trans_200"><a href="categories.html">summer collection</a></div>
+                        @foreach($category as $value)
+                            <!-- Box -->
+                            <div class="col-lg-4 box_col">
+                                <div class="box">
+                                    <div class="box_image"><img src="{{$value->img}}" alt=""></div>
+                                    <div class="box_title trans_200"><a href="{{$value->nameSlug}}"> {{$value->name}}</a></div>
+                                </div>
                             </div>
-                        </div>
-
-                        <!-- Box -->
-                        <div class="col-lg-4 box_col">
-                            <div class="box">
-                                <div class="box_image"><img src="/public/front/images/box_2.jpg" alt=""></div>
-                                <div class="box_title trans_200"><a href="categories.html">eyewear collection</a></div>
-                            </div>
-                        </div>
-
-                        <!-- Box -->
-                        <div class="col-lg-4 box_col">
-                            <div class="box">
-                                <div class="box_image"><img src="/public/front/images/box_3.jpg" alt=""></div>
-                                <div class="box_title trans_200"><a href="categories.html">basic pieces</a></div>
-                            </div>
-                        </div>
-
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -383,35 +337,23 @@
                         <div class="col">
                             <div class="products_container grid">
 
+                                @foreach($products as $value)
                                 <!-- Product -->
                                 <div class="product grid-item hot">
                                     <div class="product_inner">
                                         <div class="product_image">
-                                            <img src="/public/front/images/product_1.jpg" alt="">
+                                            <img src="{{$value->img}}" alt="{{$value->name}}">
                                             <div class="product_tag">hot</div>
                                         </div>
                                         <div class="product_content text-center">
-                                            <div class="product_title"><a href="product.html">long red shirt</a></div>
-                                            <div class="product_price">$39.90</div>
-                                            <div class="product_button ml-auto mr-auto trans_200"><a href="#">add to
-                                                    cart</a></div>
+                                            <div class="product_title"><a href="{{$value->nameSlug}}">{{$value->name}}</a></div>
+                                            <div class="product_price">{{$value->price}}</div>
+                                            <div class="product_button ml-auto mr-auto trans_200"><a href="{{$value->nameSlug}}">Urunu Incele</a></div>
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
 
-                                <!-- Product -->
-                                <div class="product grid-item">
-                                    <div class="product_inner">
-                                        <div class="product_image"><img src="/public/front/images/product_2.jpg" alt="">
-                                        </div>
-                                        <div class="product_content text-center">
-                                            <div class="product_title"><a href="product.html">hype grey shirt</a></div>
-                                            <div class="product_price">$19.50</div>
-                                            <div class="product_button ml-auto mr-auto trans_200"><a href="#">add to
-                                                    cart</a></div>
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <!-- Product -->
                                 <div class="product grid-item sale">
@@ -430,83 +372,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Product -->
-                                <div class="product grid-item">
-                                    <div class="product_inner">
-                                        <div class="product_image">
-                                            <img src="/public/front/images/product_4.jpg" alt="">
-                                        </div>
-                                        <div class="product_content text-center">
-                                            <div class="product_title"><a href="product.html">denim men shirt</a></div>
-                                            <div class="product_price">$59.90</div>
-                                            <div class="product_button ml-auto mr-auto trans_200"><a href="#">add to
-                                                    cart</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Product -->
-                                <div class="product grid-item">
-                                    <div class="product_inner">
-                                        <div class="product_image">
-                                            <img src="/public/front/images/product_5.jpg" alt="">
-                                        </div>
-                                        <div class="product_content text-center">
-                                            <div class="product_title"><a href="product.html">long red shirt</a></div>
-                                            <div class="product_price">$79.90</div>
-                                            <div class="product_button ml-auto mr-auto trans_200"><a href="#">add to
-                                                    cart</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Product -->
-                                <div class="product grid-item new">
-                                    <div class="product_inner">
-                                        <div class="product_image">
-                                            <img src="/public/front/images/product_6.jpg" alt="">
-                                            <div class="product_tag">new</div>
-                                        </div>
-                                        <div class="product_content text-center">
-                                            <div class="product_title"><a href="product.html">hype grey shirt</a></div>
-                                            <div class="product_price">$59.90</div>
-                                            <div class="product_button ml-auto mr-auto trans_200"><a href="#">add to
-                                                    cart</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Product -->
-                                <div class="product grid-item">
-                                    <div class="product_inner">
-                                        <div class="product_image">
-                                            <img src="/public/front/images/product_7.jpg" alt="">
-                                        </div>
-                                        <div class="product_content text-center">
-                                            <div class="product_title"><a href="product.html">long sleeve jacket</a>
-                                            </div>
-                                            <div class="product_price">$15.90</div>
-                                            <div class="product_button ml-auto mr-auto trans_200"><a href="#">add to
-                                                    cart</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Product -->
-                                <div class="product grid-item sale">
-                                    <div class="product_inner">
-                                        <div class="product_image">
-                                            <img src="/public/front/images/product_8.jpg" alt="">
-                                            <div class="product_tag">sale</div>
-                                        </div>
-                                        <div class="product_content text-center">
-                                            <div class="product_title"><a href="product.html">denim men shirt</a></div>
-                                            <div class="product_price">$43.99<span>RRP 64.40</span></div>
-                                            <div class="product_button ml-auto mr-auto trans_200"><a href="#">add to
-                                                    cart</a></div>
-                                        </div>
-                                    </div>
-                                </div>
 
                             </div>
                         </div>
@@ -519,7 +384,7 @@
 
         <div class="newsletter">
             <div class="parallax_background parallax-window" data-parallax="scroll"
-                data-image-src="/public/front/images/newsletter.jpg" data-speed="0.8"></div>
+                 data-image-src="/public/front/images/newsletter.jpg" data-speed="0.8"></div>
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
@@ -531,7 +396,7 @@
                             <div class="newsletter_form_container">
                                 <form action="#" id="newsletter_form" class="newsletter_form">
                                     <input type="email" class="newsletter_input" placeholder="your e-mail here"
-                                        required="required">
+                                           required="required">
                                     <button class="newsletter_button">submit</button>
                                 </form>
                             </div>
@@ -554,13 +419,12 @@
                                 <div class="footer_about">
                                     <!-- Logo -->
                                     <div class="footer_logo">
-                                        <a href="#">
-                                            <div>a<span>star</span></div>
+                                        <a href="/">
+                                            <img src="{{$logoUrl}}" alt="logo" >
                                         </a>
                                     </div>
                                     <div class="footer_about_text">
-                                        <p>Donec vitae purus nunc. Morbi faucibus erat sit amet congue mattis. Nullam
-                                            fringilla faucibus urna, id dapibus erat iaculis ut. Integer ac sem.</p>
+                                        <p> {{$siteData->description}}</p>
                                     </div>
                                     <div class="cards">
                                         <ul class="d-flex flex-row align-items-center justify-content-start">
@@ -635,24 +499,16 @@
                             <!-- Contact -->
                             <div class="col-xxl-3 col-md-6 footer_col">
                                 <div class="footer_contact">
-                                    <div class="footer_title">contact</div>
+                                    <div class="footer_title">@lang('site.iletisim')</div>
                                     <div class="footer_contact_list">
                                         <ul>
                                             <li class="d-flex flex-row align-items-start justify-content-start">
-                                                <span>C.</span>
-                                                <div>Your Company Ltd</div>
+                                                <span>Phone</span>
+                                                <div>{{$siteData->phone}}</div>
                                             </li>
                                             <li class="d-flex flex-row align-items-start justify-content-start">
-                                                <span>A.</span>
-                                                <div>1481 Creekside Lane Avila Beach, CA 93424, P.O. BOX 68</div>
-                                            </li>
-                                            <li class="d-flex flex-row align-items-start justify-content-start">
-                                                <span>T.</span>
-                                                <div>+53 345 7953 32453</div>
-                                            </li>
-                                            <li class="d-flex flex-row align-items-start justify-content-start">
-                                                <span>E.</span>
-                                                <div>office@youremail.com</div>
+                                                <span>Email:</span>
+                                                <div>{{$siteData->email}}</div>
                                             </li>
                                         </ul>
                                     </div>
@@ -678,24 +534,6 @@
                                             <div class="footer_social_icon"><i class="fa fa-instagram"
                                                     aria-hidden="true"></i></div>
                                             <div class="footer_social_title">instagram</div>
-                                        </div>
-                                    </a>
-                                    <!-- Google + -->
-                                    <a href="#">
-                                        <div
-                                            class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-                                            <div class="footer_social_icon"><i class="fa fa-google-plus"
-                                                    aria-hidden="true"></i></div>
-                                            <div class="footer_social_title">google +</div>
-                                        </div>
-                                    </a>
-                                    <!-- Pinterest -->
-                                    <a href="#">
-                                        <div
-                                            class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-                                            <div class="footer_social_icon"><i class="fa fa-pinterest"
-                                                    aria-hidden="true"></i></div>
-                                            <div class="footer_social_title">pinterest</div>
                                         </div>
                                     </a>
                                     <!-- Facebook -->
@@ -725,15 +563,6 @@
                                             <div class="footer_social_title">youtube</div>
                                         </div>
                                     </a>
-                                    <!-- Tumblr -->
-                                    <a href="#">
-                                        <div
-                                            class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-                                            <div class="footer_social_icon"><i class="fa fa-tumblr-square"
-                                                    aria-hidden="true"></i></div>
-                                            <div class="footer_social_title">tumblr</div>
-                                        </div>
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -749,13 +578,7 @@
                             <div class="col">
                                 <div class="credits_content d-flex flex-row align-items-center justify-content-end">
                                     <div class="credits_text">
-                                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                        Copyright &copy;<script>
-                                        document.write(new Date().getFullYear());
-                                        </script> All rights reserved | This template is made with <i
-                                            class="fa fa-heart-o" aria-hidden="true"></i> by <a
-                                            href="https://colorlib.com" target="_blank">Colorlib</a>
-                                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+
                                     </div>
                                 </div>
                             </div>
