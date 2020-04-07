@@ -75,6 +75,9 @@ export default class Products extends React.Component {
     formData.set('code', this.state.code)
     formData.set('minorders', this.state.minorders)
 
+    formData.set('selectBox', JSON.stringify(this.state.selectBox))
+    formData.set('checkBox', JSON.stringify(this.state.checkBox))
+
     const {data} = await Axios.post('/product/create', formData, {
       headers: {
         'content-type': 'multipart/form-data' // do not forget this
@@ -82,7 +85,7 @@ export default class Products extends React.Component {
     })
 
     if (data.status === true) {
-      window.location.href = '/yonetim/urunler'
+      window.location.reload()
     }
   }
 
@@ -254,7 +257,9 @@ export default class Products extends React.Component {
                         selectedOption: Object.assign(
                           {},
                           this.state.selectedOption,
-                          {selectBox: !this.state.selectedOption.selectBox}
+                          {
+                            selectBox: !this.state.selectedOption.selectBox
+                          }
                         )
                       })
                     }
@@ -285,7 +290,9 @@ export default class Products extends React.Component {
                         selectedOption: Object.assign(
                           {},
                           this.state.selectedOption,
-                          {checkBox: !this.state.selectedOption.checkBox}
+                          {
+                            checkBox: !this.state.selectedOption.checkBox
+                          }
                         )
                       })
                     }
@@ -325,22 +332,7 @@ export default class Products extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div className="row">
-                  {this.state.selectedOption.checkBox === true && (
-                    <ChexBoxOption
-                      checkBoxList={this.state.checkBox}
-                      addCheckBox={e =>
-                        this.setState({checkBox: this.state.checkBox.push(e)})
-                      }
-                      deleteCheckBox={e =>
-                        this.setState({
-                          checkBox: this.state.checkBox.splice(e, 1)
-                        })
-                      }
-                    />
-                  )}
-                </div>
-                <div className="row">
+                <div className="row mt-4 mb-2">
                   {this.state.selectedOption.selectBox === true && (
                     <SelectBoxOption
                       selectBoxList={this.state.selectBox}
@@ -350,11 +342,29 @@ export default class Products extends React.Component {
                         this.setState({selectBox: data})
                       }}
                       deleteSelectBox={e => {
-                        console.log(e)
                         let data = this.state.selectBox
                         data.splice(e, 1)
                         this.setState({
                           selectBox: data
+                        })
+                      }}
+                    />
+                  )}
+                </div>
+                <div className="row mt-4 mb-2">
+                  {this.state.selectedOption.checkBox === true && (
+                    <ChexBoxOption
+                      checkBoxList={this.state.checkBox}
+                      addCheckBox={e => {
+                        let data = this.state.checkBox
+                        data.push(e)
+                        this.setState({checkBox: data})
+                      }}
+                      deleteCheckBox={e => {
+                        let data = this.state.checkBox
+                        data.splice(e, 1)
+                        this.setState({
+                          checkBox: data
                         })
                       }}
                     />
@@ -422,16 +432,13 @@ export default class Products extends React.Component {
                   </div>
                 </div>
               </form>
-              <button
-                className="btn btn-success mr-2"
-                onClick={this.handleSubmit}
-              >
+              <button className="btn btn-success" onClick={this.handleSubmit}>
                 Ekle
               </button>
             </div>
           </div>
         </div>
-        {ProductList()}
+        <ProductList products={this.state.product} />
       </React.Fragment>
     )
   }

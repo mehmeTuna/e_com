@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\About;
 use App\Admin;
 use App\Category;
+use App\Features;
 use App\Http\Requests\SiteUpdateDataRequest;
 use App\Orders;
 use App\Product;
@@ -12,6 +13,7 @@ use FastExcel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Mockery\Exception;
 use PDF;
 
 class AdminController extends Controller
@@ -215,6 +217,44 @@ class AdminController extends Controller
             'minorders' => (int) $minorders,
         ]);
 
+        $selectBox = [];
+        try {
+            $selectBox = json_decode($request->selectBox);
+        }catch (Exception $e){
+            return response()->json([
+                'status' => false
+            ]);
+        }
+
+        foreach ($selectBox as $value)
+        {
+            $features = Features::create([
+                'product_id' => $product->id ,
+                'name' => $value->title,
+                'type' => 'selectBox',
+                'price' => $product->price,
+            ]);
+        }
+
+        $checkBox = [];
+        try {
+            $checkBox = json_decode($request->checkBox);
+        }catch (Exception $e){
+            return response()->json([
+                'status' => false
+            ]);
+        }
+
+        foreach ($checkBox as $value)
+        {
+            $features = Features::create([
+                'product_id' => $product->id ,
+                'name' => $value->title,
+                'type' => 'checkBox',
+                'price' => $value->price,
+                ]);
+        }
+
         return response()->json([
             'status' => true,
         ]);
@@ -249,6 +289,8 @@ class AdminController extends Controller
             $data->category = $category->name;
             $data->stok = $val->quantity;
             $data->price = $val->price;
+            $data->selectBox = Features::where('active', 1)->where('type', 'selectBox')->where('product_id', $val->id)->get();
+            $data->checkBox = Features::where('active', 1)->where('type', 'checkBox')->where('product_id', $val->id)->get();
             return $data;
         });
 

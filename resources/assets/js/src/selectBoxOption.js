@@ -31,7 +31,7 @@ export default function SelectBoxOption({
   deleteSelectBox
 }) {
   return (
-    <div className=" mx-auto">
+    <div className="mx-auto">
       <p className="lead ">Bu kisimdaki opsiyonlar fiyati etkilemez</p>
       <button
         type="button"

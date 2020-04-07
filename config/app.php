@@ -178,7 +178,6 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
-        Vsmoraes\Pdf\PdfServiceProvider::class,
 
     ],
 
@@ -230,7 +229,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
-        'PDF' => 'Vsmoraes\Pdf\PdfFacade',
         'FastExcel' => Rap2hpoutre\FastExcel\Facades\FastExcel::class,
 
     ],

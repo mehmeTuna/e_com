@@ -13,6 +13,8 @@
 
 //herhangi bir url eslesme olmaz ise bu sayfa goruntulenecek
 Route::any('/', 'WelcomeController@index');
+Route::get('detay', 'WelcomeController@demov');
+
 Route::get('pdf', 'AdminController@ordersInvoice');
 Route::get('excel', 'Admincontroller@excel');
 

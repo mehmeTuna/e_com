@@ -11,7 +11,7 @@ export default class Category extends React.Component {
 
     this.state = {
       categoryName: '',
-      subCategoryName: 'asdasdasd',
+      subCategoryName: '',
       category: [],
       img: []
     }
@@ -79,14 +79,13 @@ export default class Category extends React.Component {
   }
 
   async newCategory() {
-    if (this.state.categoryNameTr === '') {
+    if (this.state.categoryName === '') {
       sweet.fire('Lutfen karegori ismi giriniz')
       return
     }
 
     let formData = new FormData()
-    formData.set('nameTr', this.state.categoryNameTr)
-    formData.set('nameEn', this.state.categoryNameEn)
+    formData.set('name', this.state.categoryName)
 
     if (this.state.img.length > 0) {
       for (let a = 0; a < this.state.img.length; a++) {

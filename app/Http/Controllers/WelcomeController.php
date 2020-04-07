@@ -9,46 +9,45 @@ use Illuminate\Support\Facades\App;
 
 class WelcomeController extends Controller
 {
+    public function demov()
+    {
+        return view('detay');
+    }
+
     public function index()
     {
-        $menu = [
-            (object)[
-                'url' => '#',
-                'title' => 'Home'
-            ], (object)[
-                'url' => '#',
-                'title' => 'Woman'
-            ], (object)[
-                'url' => '#',
-                'title' => 'Man'
-            ], (object)[
-                'url' => '#',
-                'title' => 'LOOKBOOK'
-            ], (object)[
-                'url' => '#',
-                'title' => 'BLOG'
-            ], (object)[
-                'url' => '#',
-                'title' => 'CONTACT'
-            ], (object)[
-                'url' => 'tr/giris',
-                'title' => 'Login / Register'
-            ]
-        ];
 
         $logoUrl = '/public/virus.png';
 
         $siteData = About::find(1);
-        $category = Category::where('active', 1)->where('upId', '!=', 'null')->limit(3)->get();
+        $categories = Category::where('active', 1)->where('upId',  null)->limit(15)->get();
+
+        $categories = $categories->map(function($value){
+            $data = (object)[];
+            $data->name = $value->name ;
+            $data->slug = $value->nameSlug ;
+            $data->img = $value->img ;
+            $data->subCategory = Category::where('active', 1)->where('upId', $value->id)->get();
+            $data->subCategory = $data->subCategory->map(function($value){
+                $data = (object)[];
+                $data->name = $value->name ;
+                $data->slug = $value->nameSlug ;
+                $data->img = $value->img ;
+                return $data ;
+            });
+            return $data;
+        });
 
         $products = Product::where('active', 1)->get();
 
-        return view('home',[
-            'menu' => (object)$menu,
+        return view('home', [
             'logoUrl' => $logoUrl,
             'siteData' => $siteData,
-            'category' => $category,
-            'products' => $products
+            'categories' => $categories,
+            'products' => $products,
+            'cartCount' => 0,
+            'cartItems' => [],
+            'cardTotal' => 0
         ]);
     }
 

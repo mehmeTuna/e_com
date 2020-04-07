@@ -16,3 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//v1 api route
+
+Route::prefix('v1')->group(function(){
+    Route::get('hello', function(){
+        return response(\App\Cart\Cart::id('0870874')->getCount());
+    });
+});

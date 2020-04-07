@@ -1,607 +1,501 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zxx">
+
 <head>
-<title>Blog</title>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="aStar Fashion Template Project">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="styles/bootstrap-4.1.3/bootstrap.css">
-<link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
-<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
-<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
-<link rel="stylesheet" type="text/css" href="styles/blog.css">
-<link rel="stylesheet" type="text/css" href="styles/blog_responsive.css">
+    <meta charset="UTF-8">
+    <meta name="description" content="Fashi Template">
+    <meta name="keywords" content="Fashi, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fashi | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/themify-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
+
 <body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
 
-<div class="super_container">
+    <!-- Header Section Begin -->
+    <header class="header-section">
+        <div class="header-top">
+            <div class="container">
+                <div class="ht-left">
+                    <div class="mail-service">
+                        <i class=" fa fa-envelope"></i>
+                        hello.colorlib@gmail.com
+                    </div>
+                    <div class="phone-service">
+                        <i class=" fa fa-phone"></i>
+                        +65 11.188.888
+                    </div>
+                </div>
+                <div class="ht-right">
+                    <a href="#" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                    <div class="lan-selector">
+                        <select class="language_drop" name="countries" id="countries" style="width:300px;">
+                            <option value='yt' data-image="img/flag-1.jpg" data-imagecss="flag yt"
+                                data-title="English">English</option>
+                            <option value='yu' data-image="img/flag-2.jpg" data-imagecss="flag yu"
+                                data-title="Bangladesh">German</option>
+                        </select>
+                    </div>
+                    <div class="top-social">
+                        <a href="#"><i class="ti-facebook"></i></a>
+                        <a href="#"><i class="ti-twitter-alt"></i></a>
+                        <a href="#"><i class="ti-linkedin"></i></a>
+                        <a href="#"><i class="ti-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="inner-header">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2">
+                        <div class="logo">
+                            <a href="./index.html">
+                                <img src="img/logo.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        <div class="advanced-search">
+                            <button type="button" class="category-btn">All Categories</button>
+                            <form action="#" class="input-group">
+                                <input type="text" placeholder="What do you need?">
+                                <button type="button"><i class="ti-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 text-right col-md-3">
+                        <ul class="nav-right">
+                            <li class="heart-icon"><a href="#">
+                                    <i class="icon_heart_alt"></i>
+                                    <span>1</span>
+                                </a>
+                            </li>
+                            <li class="cart-icon"><a href="#">
+                                    <i class="icon_bag_alt"></i>
+                                    <span>3</span>
+                                </a>
+                                <div class="cart-hover">
+                                    <div class="select-items">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="si-pic"><img src="img/select-product-1.jpg" alt=""></td>
+                                                    <td class="si-text">
+                                                        <div class="product-selected">
+                                                            <p>$60.00 x 1</p>
+                                                            <h6>Kabino Bedside Table</h6>
+                                                        </div>
+                                                    </td>
+                                                    <td class="si-close">
+                                                        <i class="ti-close"></i>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="si-pic"><img src="img/select-product-2.jpg" alt=""></td>
+                                                    <td class="si-text">
+                                                        <div class="product-selected">
+                                                            <p>$60.00 x 1</p>
+                                                            <h6>Kabino Bedside Table</h6>
+                                                        </div>
+                                                    </td>
+                                                    <td class="si-close">
+                                                        <i class="ti-close"></i>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="select-total">
+                                        <span>total:</span>
+                                        <h5>$120.00</h5>
+                                    </div>
+                                    <div class="select-button">
+                                        <a href="#" class="primary-btn view-card">VIEW CARD</a>
+                                        <a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="cart-price">$150.00</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-item">
+            <div class="container">
+                <div class="nav-depart">
+                    <div class="depart-btn">
+                        <i class="ti-menu"></i>
+                        <span>All departments</span>
+                        <ul class="depart-hover">
+                            <li class="active"><a href="#">Women’s Clothing</a></li>
+                            <li><a href="#">Men’s Clothing</a></li>
+                            <li><a href="#">Underwear</a></li>
+                            <li><a href="#">Kid's Clothing</a></li>
+                            <li><a href="#">Brand Fashion</a></li>
+                            <li><a href="#">Accessories/Shoes</a></li>
+                            <li><a href="#">Luxury Brands</a></li>
+                            <li><a href="#">Brand Outdoor Apparel</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <nav class="nav-menu mobile-menu">
+                    <ul>
+                        <li><a href="./index.html">Home</a></li>
+                        <li><a href="./shop.html">Shop</a></li>
+                        <li><a href="#">Collection</a>
+                            <ul class="dropdown">
+                                <li><a href="#">Men's</a></li>
+                                <li><a href="#">Women's</a></li>
+                                <li><a href="#">Kid's</a></li>
+                            </ul>
+                        </li>
+                        <li class="active"><a href="./blog.html">Blog</a></li>
+                        <li><a href="./contact.html">Contact</a></li>
+                        <li><a href="#">Pages</a>
+                            <ul class="dropdown">
+                                <li><a href="./blog-details.html">Blog Details</a></li>
+                                <li><a href="./shopping-cart.html">Shopping Cart</a></li>
+                                <li><a href="./check-out.html">Checkout</a></li>
+                                <li><a href="./faq.html">Faq</a></li>
+                                <li><a href="./register.html">Register</a></li>
+                                <li><a href="./login.html">Login</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <div id="mobile-menu-wrap"></div>
+            </div>
+        </div>
+    </header>
+    <!-- Header End -->
 
-	<!-- Header -->
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <a href="#"><i class="fa fa-home"></i> Home</a>
+                        <span>Blog</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Begin -->
 
-	<header class="header">
-		<div class="header_content d-flex flex-row align-items-center justify-content-start">
-			
-			<!-- Hamburger -->
-			<div class="hamburger menu_mm"><i class="fa fa-bars menu_mm" aria-hidden="true"></i></div>
+    <!-- Blog Section Begin -->
+    <section class="blog-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1">
+                    <div class="blog-sidebar">
+                        <div class="search-form">
+                            <h4>Search</h4>
+                            <form action="#">
+                                <input type="text" placeholder="Search . . .  ">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                        <div class="blog-catagory">
+                            <h4>Categories</h4>
+                            <ul>
+                                <li><a href="#">Fashion</a></li>
+                                <li><a href="#">Travel</a></li>
+                                <li><a href="#">Picnic</a></li>
+                                <li><a href="#">Model</a></li>
+                            </ul>
+                        </div>
+                        <div class="recent-post">
+                            <h4>Recent Post</h4>
+                            <div class="recent-blog">
+                                <a href="#" class="rb-item">
+                                    <div class="rb-pic">
+                                        <img src="img/blog/recent-1.jpg" alt="">
+                                    </div>
+                                    <div class="rb-text">
+                                        <h6>The Personality Trait That Makes...</h6>
+                                        <p>Fashion <span>- May 19, 2019</span></p>
+                                    </div>
+                                </a>
+                                <a href="#" class="rb-item">
+                                    <div class="rb-pic">
+                                        <img src="img/blog/recent-2.jpg" alt="">
+                                    </div>
+                                    <div class="rb-text">
+                                        <h6>The Personality Trait That Makes...</h6>
+                                        <p>Fashion <span>- May 19, 2019</span></p>
+                                    </div>
+                                </a>
+                                <a href="#" class="rb-item">
+                                    <div class="rb-pic">
+                                        <img src="img/blog/recent-3.jpg" alt="">
+                                    </div>
+                                    <div class="rb-text">
+                                        <h6>The Personality Trait That Makes...</h6>
+                                        <p>Fashion <span>- May 19, 2019</span></p>
+                                    </div>
+                                </a>
+                                <a href="#" class="rb-item">
+                                    <div class="rb-pic">
+                                        <img src="img/blog/recent-4.jpg" alt="">
+                                    </div>
+                                    <div class="rb-text">
+                                        <h6>The Personality Trait That Makes...</h6>
+                                        <p>Fashion <span>- May 19, 2019</span></p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="blog-tags">
+                            <h4>Product Tags</h4>
+                            <div class="tag-item">
+                                <a href="#">Towel</a>
+                                <a href="#">Shoes</a>
+                                <a href="#">Coat</a>
+                                <a href="#">Dresses</a>
+                                <a href="#">Trousers</a>
+                                <a href="#">Men's hats</a>
+                                <a href="#">Backpack</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 order-1 order-lg-2">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="blog-item">
+                                <div class="bi-pic">
+                                    <img src="img/blog/blog-1.jpg" alt="">
+                                </div>
+                                <div class="bi-text">
+                                    <a href="./blog-details.html">
+                                        <h4>The Personality Trait That Makes People Happier</h4>
+                                    </a>
+                                    <p>travel <span>- May 19, 2019</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="blog-item">
+                                <div class="bi-pic">
+                                    <img src="img/blog/blog-2.jpg" alt="">
+                                </div>
+                                <div class="bi-text">
+                                    <a href="./blog-details.html">
+                                        <h4>This was one of our first days in Hawaii last week.</h4>
+                                    </a>
+                                    <p>Fashion <span>- May 19, 2019</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="blog-item">
+                                <div class="bi-pic">
+                                    <img src="img/blog/blog-3.jpg" alt="">
+                                </div>
+                                <div class="bi-text">
+                                    <a href="./blog-details.html">
+                                        <h4>Last week I had my first work trip of the year to Sonoma Valley</h4>
+                                    </a>
+                                    <p>travel <span>- May 19, 2019</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="blog-item">
+                                <div class="bi-pic">
+                                    <img src="img/blog/blog-4.jpg" alt="">
+                                </div>
+                                <div class="bi-text">
+                                    <a href="./blog-details.html">
+                                        <h4>Happppppy New Year! I know I am a little late on this post</h4>
+                                    </a>
+                                    <p>Fashion <span>- May 19, 2019</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="blog-item">
+                                <div class="bi-pic">
+                                    <img src="img/blog/blog-5.jpg" alt="">
+                                </div>
+                                <div class="bi-text">
+                                    <a href="./blog-details.html">
+                                        <h4>Absolue collection. The Lancome team has been one…</h4>
+                                    </a>
+                                    <p>Model <span>- May 19, 2019</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="blog-item">
+                                <div class="bi-pic">
+                                    <img src="img/blog/blog-6.jpg" alt="">
+                                </div>
+                                <div class="bi-text">
+                                    <a href="./blog-details.html">
+                                        <h4>Writing has always been kind of therapeutic for me</h4>
+                                    </a>
+                                    <p>Fashion <span>- May 19, 2019</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="loading-more">
+                                <i class="icon_loading"></i>
+                                <a href="#">
+                                    Loading More
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog Section End -->
 
-			<!-- Logo -->
-			<div class="header_logo">
-				<a href="#"><div>a<span>star</span></div></a>
-			</div>
+    <!-- Partner Logo Section Begin -->
+    <div class="partner-logo">
+        <div class="container">
+            <div class="logo-carousel owl-carousel">
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-1.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-2.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-3.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-4.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-5.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Partner Logo Section End -->
 
-			<!-- Navigation -->
-			<nav class="header_nav">
-				<ul class="d-flex flex-row align-items-center justify-content-start">
-					<li><a href="index.html">home</a></li>
-					<li><a href="#">woman</a></li>
-					<li><a href="#">man</a></li>
-					<li><a href="#">lookbook</a></li>
-					<li><a href="#">blog</a></li>
-					<li><a href="#">contact</a></li>
-				</ul>
-			</nav>
-
-			<!-- Header Extra -->
-			<div class="header_extra ml-auto d-flex flex-row align-items-center justify-content-start">
-
-				<!-- Language -->
-				<div class="info_languages has_children">
-					<div class="language_flag"><img src="images/flag_1.svg" alt="https://www.flaticon.com/authors/freepik"></div>
-					<div class="dropdown_text">english</div>
-					<div class="dropdown_arrow"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
-					
-					<!-- Language Dropdown Menu -->
-					 <ul>
-					 	<li><a href="#">
-				 			<div class="language_flag"><img src="images/flag_2.svg" alt="https://www.flaticon.com/authors/freepik"></div>
-							<div class="dropdown_text">french</div>
-					 	</a></li>
-					 	<li><a href="#">
-				 			<div class="language_flag"><img src="images/flag_3.svg" alt="https://www.flaticon.com/authors/freepik"></div>
-							<div class="dropdown_text">japanese</div>
-					 	</a></li>
-					 	<li><a href="#">
-				 			<div class="language_flag"><img src="images/flag_4.svg" alt="https://www.flaticon.com/authors/freepik"></div>
-							<div class="dropdown_text">russian</div>
-					 	</a></li>
-					 	<li><a href="#">
-				 			<div class="language_flag"><img src="images/flag_5.svg" alt="https://www.flaticon.com/authors/freepik"></div>
-							<div class="dropdown_text">spanish</div>
-					 	</a></li>
-					 </ul>
-
-				</div>
-
-				<!-- Currency -->
-				<div class="info_currencies has_children">
-					<div class="dropdown_text">usd</div>
-					<div class="dropdown_arrow"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
-
-					<!-- Currencies Dropdown Menu -->
-					 <ul>
-					 	<li><a href="#"><div class="dropdown_text">EUR</div></a></li>
-					 	<li><a href="#"><div class="dropdown_text">YEN</div></a></li>
-					 	<li><a href="#"><div class="dropdown_text">GBP</div></a></li>
-					 	<li><a href="#"><div class="dropdown_text">CAD</div></a></li>
-					 </ul>
-
-				</div>
-
-				<!-- Cart -->
-				<div class="cart d-flex flex-row align-items-center justify-content-start">
-					<div class="cart_icon"><a href="cart.html">
-						<img src="images/bag.png" alt="">
-						<div class="cart_num">2</div>
-					</a></div>
-				</div>
-
-			</div>
-
-		</div>
-	</header>
-
-	<!-- Menu -->
-
-	<div class="menu d-flex flex-column align-items-start justify-content-start menu_mm trans_400">
-		<div class="menu_close_container"><div class="menu_close"><div></div><div></div></div></div>
-		<div class="menu_top d-flex flex-row align-items-center justify-content-start">
-
-			<!-- Language -->
-			<div class="info_languages has_children">
-				<div class="language_flag"><img src="images/flag_1.svg" alt="https://www.flaticon.com/authors/freepik"></div>
-				<div class="dropdown_text">english</div>
-				<div class="dropdown_arrow"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
-				
-				<!-- Language Dropdown Menu -->
-				 <ul>
-				 	<li><a href="#">
-			 			<div class="language_flag"><img src="images/flag_2.svg" alt="https://www.flaticon.com/authors/freepik"></div>
-						<div class="dropdown_text">french</div>
-				 	</a></li>
-				 	<li><a href="#">
-			 			<div class="language_flag"><img src="images/flag_3.svg" alt="https://www.flaticon.com/authors/freepik"></div>
-						<div class="dropdown_text">japanese</div>
-				 	</a></li>
-				 	<li><a href="#">
-			 			<div class="language_flag"><img src="images/flag_4.svg" alt="https://www.flaticon.com/authors/freepik"></div>
-						<div class="dropdown_text">russian</div>
-				 	</a></li>
-				 	<li><a href="#">
-			 			<div class="language_flag"><img src="images/flag_5.svg" alt="https://www.flaticon.com/authors/freepik"></div>
-						<div class="dropdown_text">spanish</div>
-				 	</a></li>
-				 </ul>
-
-			</div>
-
-			<!-- Currency -->
-			<div class="info_currencies has_children">
-				<div class="dropdown_text">usd</div>
-				<div class="dropdown_arrow"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
-
-				<!-- Currencies Dropdown Menu -->
-				 <ul>
-				 	<li><a href="#"><div class="dropdown_text">EUR</div></a></li>
-				 	<li><a href="#"><div class="dropdown_text">YEN</div></a></li>
-				 	<li><a href="#"><div class="dropdown_text">GBP</div></a></li>
-				 	<li><a href="#"><div class="dropdown_text">CAD</div></a></li>
-				 </ul>
-
-			</div>
-
-		</div>
-		<div class="menu_search">
-			<form action="#" class="header_search_form menu_mm">
-				<input type="search" class="search_input menu_mm" placeholder="Search" required="required">
-				<button class="header_search_button d-flex flex-column align-items-center justify-content-center menu_mm">
-					<i class="fa fa-search menu_mm" aria-hidden="true"></i>
-				</button>
-			</form>
-		</div>
-		<nav class="menu_nav">
-			<ul class="menu_mm">
-				<li class="menu_mm"><a href="index.html">home</a></li>
-				<li class="menu_mm"><a href="#">woman</a></li>
-				<li class="menu_mm"><a href="#">man</a></li>
-				<li class="menu_mm"><a href="#">lookbook</a></li>
-				<li class="menu_mm"><a href="blog.html">blog</a></li>
-				<li class="menu_mm"><a href="contact.html">contact</a></li>
-			</ul>
-		</nav>
-		<div class="menu_extra">
-			<div class="menu_social">
-				<ul>
-					<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-					<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-					<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-					<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	
-	<!-- Sidebar -->
-
-	<div class="sidebar">
-		
-		<!-- Info -->
-		<div class="info">
-			<div class="info_content d-flex flex-row align-items-center justify-content-start">
-				
-				<!-- Language -->
-				<div class="info_languages has_children">
-					<div class="language_flag"><img src="images/flag_1.svg" alt="https://www.flaticon.com/authors/freepik"></div>
-					<div class="dropdown_text">english</div>
-					<div class="dropdown_arrow"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
-					
-					<!-- Language Dropdown Menu -->
-					 <ul>
-					 	<li><a href="#">
-				 			<div class="language_flag"><img src="images/flag_2.svg" alt="https://www.flaticon.com/authors/freepik"></div>
-							<div class="dropdown_text">french</div>
-					 	</a></li>
-					 	<li><a href="#">
-				 			<div class="language_flag"><img src="images/flag_3.svg" alt="https://www.flaticon.com/authors/freepik"></div>
-							<div class="dropdown_text">japanese</div>
-					 	</a></li>
-					 	<li><a href="#">
-				 			<div class="language_flag"><img src="images/flag_4.svg" alt="https://www.flaticon.com/authors/freepik"></div>
-							<div class="dropdown_text">russian</div>
-					 	</a></li>
-					 	<li><a href="#">
-				 			<div class="language_flag"><img src="images/flag_5.svg" alt="https://www.flaticon.com/authors/freepik"></div>
-							<div class="dropdown_text">spanish</div>
-					 	</a></li>
-					 </ul>
-
-				</div>
-
-				<!-- Currency -->
-				<div class="info_currencies has_children">
-					<div class="dropdown_text">usd</div>
-					<div class="dropdown_arrow"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
-
-					<!-- Currencies Dropdown Menu -->
-					 <ul>
-					 	<li><a href="#"><div class="dropdown_text">EUR</div></a></li>
-					 	<li><a href="#"><div class="dropdown_text">YEN</div></a></li>
-					 	<li><a href="#"><div class="dropdown_text">GBP</div></a></li>
-					 	<li><a href="#"><div class="dropdown_text">CAD</div></a></li>
-					 </ul>
-
-				</div>
-
-			</div>
-		</div>
-
-		<!-- Logo -->
-		<div class="sidebar_logo">
-			<a href="#"><div>a<span>star</span></div></a>
-		</div>
-
-		<!-- Sidebar Navigation -->
-		<nav class="sidebar_nav">
-			<ul>
-				<li><a href="index.html">home<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-				<li><a href="#">woman<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-				<li><a href="#">man<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-				<li><a href="#">lookbook<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-				<li><a href="blog.html">blog<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-				<li><a href="#">contact<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-			</ul>
-		</nav>
-
-		<!-- Search -->
-		<div class="search">
-			<form action="#" class="search_form" id="sidebar_search_form">
-				<input type="text" class="search_input" placeholder="Search" required="required">
-				<button class="search_button"><i class="fa fa-search" aria-hidden="true"></i></button>
-			</form>
-		</div>
-
-		<!-- Cart -->
-		<div class="cart d-flex flex-row align-items-center justify-content-start">
-			<div class="cart_icon"><a href="cart.html">
-				<img src="images/bag.png" alt="">
-				<div class="cart_num">2</div>
-			</a></div>
-			<div class="cart_text">bag</div>
-			<div class="cart_price">$39.99 (1)</div>
-		</div>
-	</div>
-
-	<!-- Home -->
-
-	<div class="home">
-		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/blog.jpg" data-speed="0.8"></div>
-		<div class="home_container">
-			<div class="home_content">
-				<div class="home_title">The Blog</div>
-				<div class="breadcrumbs">
-					<ul class="d-flex flex-row align-items-center justify-content-start">
-						<li><a href="index.html">Home</a></li>
-						<li>Blog</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Blog -->
-
-	<div class="blog">
-		<div class="section_container">
-			<div class="container">
-				<div class="row">
-					<div class="col">
-						
-						<!-- Blog Posts -->
-						<div class="blog_bosts">
-							
-							<!-- Blog Post -->
-							<div class="blog_post">
-								<div class="blog_post_image"><img src="images/blog_1.jpg" alt="https://unsplash.com/@saskiafairfull"></div>
-								<div class="blog_post_content">
-									<div class="blog_post_date"><a href="#">June 18, 2018</a></div>
-									<div class="blog_post_title"><a href="#">10 Nightwear dresses you need to see</a></div>
-									<div class="blog_post_info d-flex flex-row align-items-start justify-content-start">
-										<div class="blog_post_author">By<a href="#"> Admin</a></div>
-										<div class="blog_post_category">
-											<ul>
-												<li>in <a href="#">Fashion</a></li>
-											</ul>
-										</div>
-										<div class="blog_post_comments"><a href="#">3 Comments</a></div>
-									</div>
-									<div class="blog_post_text">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing eli t. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integ er bibendum sodales arcu id te mpus. Ut consectetur lacus. Lorem ipsum dolor sit amet, consectetur adipiscing eli t. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integ er bibendum sodales arcu id te mpus. Ut consectetur lacus.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<!-- Blog Posts -->
-						<div class="blog_bosts">
-							
-							<!-- Blog Post -->
-							<div class="blog_post">
-								<div class="blog_post_image"><img src="images/blog_2.jpg" alt="https://unsplash.com/@veronezcaroline"></div>
-								<div class="blog_post_content">
-									<div class="blog_post_date"><a href="#">June 18, 2018</a></div>
-									<div class="blog_post_title"><a href="#">Summer Vibes with these 10 essential pieces</a></div>
-									<div class="blog_post_info d-flex flex-row align-items-start justify-content-start">
-										<div class="blog_post_author">By<a href="#"> Admin</a></div>
-										<div class="blog_post_category">
-											<ul>
-												<li>in <a href="#">Fashion</a></li>
-											</ul>
-										</div>
-										<div class="blog_post_comments"><a href="#">3 Comments</a></div>
-									</div>
-									<div class="blog_post_text">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing eli t. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integ er bibendum sodales arcu id te mpus. Ut consectetur lacus. Lorem ipsum dolor sit amet, consectetur adipiscing eli t. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integ er bibendum sodales arcu id te mpus. Ut consectetur lacus.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<!-- Blog Posts -->
-						<div class="blog_bosts">
-							
-							<!-- Blog Post -->
-							<div class="blog_post">
-								<div class="blog_post_image"><img src="images/blog_3.jpg" alt=""></div>
-								<div class="blog_post_content">
-									<div class="blog_post_date"><a href="#">June 18, 2018</a></div>
-									<div class="blog_post_title"><a href="#">Trend Allert: Hot Summer Sunglesses</a></div>
-									<div class="blog_post_info d-flex flex-row align-items-start justify-content-start">
-										<div class="blog_post_author">By<a href="#"> Admin</a></div>
-										<div class="blog_post_category">
-											<ul>
-												<li>in <a href="#">Fashion</a></li>
-											</ul>
-										</div>
-										<div class="blog_post_comments"><a href="#">3 Comments</a></div>
-									</div>
-									<div class="blog_post_text">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing eli t. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integ er bibendum sodales arcu id te mpus. Ut consectetur lacus. Lorem ipsum dolor sit amet, consectetur adipiscing eli t. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integ er bibendum sodales arcu id te mpus. Ut consectetur lacus.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-				<div class="row load_more_row">
-					<div class="col">
-						<div class="load_more_button trans_200 ml-auto mr-auto"><a href="#">load more</a></div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Newsletter -->
-
-	<div class="newsletter">
-		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/newsletter.jpg" data-speed="0.8"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2">
-					<div class="newsletter_content text-center">
-						<div class="newsletter_title_container">
-							<div class="newsletter_title">subscribe to our newsletter</div>
-							<div class="newsletter_subtitle">we won't spam, we promise!</div>
-						</div>
-						<div class="newsletter_form_container">
-							<form action="#" id="newsletter_form" class="newsletter_form">
-								<input type="email" class="newsletter_input" placeholder="your e-mail here" required="required">
-								<button class="newsletter_button">submit</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Footer -->
-
-	<footer class="footer">
-		<div class="footer_content">
-			<div class="section_container">
-				<div class="container">
-					<div class="row">
-						
-						<!-- About -->
-						<div class="col-xxl-3 col-md-6 footer_col">
-							<div class="footer_about">
-								<!-- Logo -->
-								<div class="footer_logo">
-									<a href="#"><div>a<span>star</span></div></a>
-								</div>
-								<div class="footer_about_text">
-									<p>Donec vitae purus nunc. Morbi faucibus erat sit amet congue mattis. Nullam fringilla faucibus urna, id dapibus erat iaculis ut. Integer ac sem.</p>
-								</div>
-								<div class="cards">
-									<ul class="d-flex flex-row align-items-center justify-content-start">
-										<li><a href="#"><img src="images/card_1.jpg" alt=""></a></li>
-										<li><a href="#"><img src="images/card_2.jpg" alt=""></a></li>
-										<li><a href="#"><img src="images/card_3.jpg" alt=""></a></li>
-										<li><a href="#"><img src="images/card_4.jpg" alt=""></a></li>
-										<li><a href="#"><img src="images/card_5.jpg" alt=""></a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-
-						<!-- Questions -->
-						<div class="col-xxl-3 col-md-6 footer_col">
-							<div class="footer_questions">
-								<div class="footer_title">questions</div>
-								<div class="footer_list">
-									<ul>
-										<li><a href="#">About us</a></li>
-										<li><a href="#">Track Orders</a></li>
-										<li><a href="#">Returns</a></li>
-										<li><a href="#">Jobs</a></li>
-										<li><a href="#">Shipping</a></li>
-										<li><a href="#">Blog</a></li>
-										<li><a href="#">Partners</a></li>
-										<li><a href="#">Bloggers</a></li>
-										<li><a href="#">Support</a></li>
-										<li><a href="#">Terms of Use</a></li>
-										<li><a href="#">Press</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-
-						<!-- Blog -->
-						<div class="col-xxl-3 col-md-6 footer_col">
-							<div class="footer_blog">
-								<div class="footer_title">blog</div>
-								<div class="footer_blog_container">
-
-									<!-- Blog Item -->
-									<div class="footer_blog_item d-flex flex-row align-items-start justify-content-start">
-										<div class="footer_blog_image"><a href="blog.html"><img src="images/footer_blog_1.jpg" alt=""></a></div>
-										<div class="footer_blog_content">
-											<div class="footer_blog_title"><a href="blog.html">what shoes to wear</a></div>
-											<div class="footer_blog_date">june 06, 2018</div>
-											<div class="footer_blog_link"><a href="blog.html">Read More</a></div>
-										</div>
-									</div>
-
-									<!-- Blog Item -->
-									<div class="footer_blog_item d-flex flex-row align-items-start justify-content-start">
-										<div class="footer_blog_image"><a href="blog.html"><img src="images/footer_blog_2.jpg" alt=""></a></div>
-										<div class="footer_blog_content">
-											<div class="footer_blog_title"><a href="blog.html">trends this year</a></div>
-											<div class="footer_blog_date">june 06, 2018</div>
-											<div class="footer_blog_link"><a href="blog.html">Read More</a></div>
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</div>
-
-						<!-- Contact -->
-						<div class="col-xxl-3 col-md-6 footer_col">
-							<div class="footer_contact">
-								<div class="footer_title">contact</div>
-								<div class="footer_contact_list">
-									<ul>
-										<li class="d-flex flex-row align-items-start justify-content-start"><span>C.</span><div>Your Company Ltd</div></li>
-										<li class="d-flex flex-row align-items-start justify-content-start"><span>A.</span><div>1481 Creekside Lane  Avila Beach, CA 93424, P.O. BOX 68</div></li>
-										<li class="d-flex flex-row align-items-start justify-content-start"><span>T.</span><div>+53 345 7953 32453</div></li>
-										<li class="d-flex flex-row align-items-start justify-content-start"><span>E.</span><div>office@youremail.com</div></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Social -->
-		<div class="footer_social">
-			<div class="section_container">
-				<div class="container">
-					<div class="row">
-						<div class="col">
-							<div class="footer_social_container d-flex flex-row align-items-center justify-content-between">
-								<!-- Instagram -->
-								<a href="#">
-									<div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-										<div class="footer_social_icon"><i class="fa fa-instagram" aria-hidden="true"></i></div>
-										<div class="footer_social_title">instagram</div>
-									</div>
-								</a>
-								<!-- Google + -->
-								<a href="#">
-									<div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-										<div class="footer_social_icon"><i class="fa fa-google-plus" aria-hidden="true"></i></div>
-										<div class="footer_social_title">google +</div>
-									</div>
-								</a>
-								<!-- Pinterest -->
-								<a href="#">
-									<div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-										<div class="footer_social_icon"><i class="fa fa-pinterest" aria-hidden="true"></i></div>
-										<div class="footer_social_title">pinterest</div>
-									</div>
-								</a>
-								<!-- Facebook -->
-								<a href="#">
-									<div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-										<div class="footer_social_icon"><i class="fa fa-facebook" aria-hidden="true"></i></div>
-										<div class="footer_social_title">facebook</div>
-									</div>
-								</a>
-								<!-- Twitter -->
-								<a href="#">
-									<div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-										<div class="footer_social_icon"><i class="fa fa-twitter" aria-hidden="true"></i></div>
-										<div class="footer_social_title">twitter</div>
-									</div>
-								</a>
-								<!-- YouTube -->
-								<a href="#">
-									<div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-										<div class="footer_social_icon"><i class="fa fa-youtube" aria-hidden="true"></i></div>
-										<div class="footer_social_title">youtube</div>
-									</div>
-								</a>
-								<!-- Tumblr -->
-								<a href="#">
-									<div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-										<div class="footer_social_icon"><i class="fa fa-tumblr-square" aria-hidden="true"></i></div>
-										<div class="footer_social_title">tumblr</div>
-									</div>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>				
-		</div>
-
-		<!-- Credits -->
-		<div class="credits">
-			<div class="section_container">
-				<div class="container">
-					<div class="row">
-						<div class="col">
-							<div class="credits_content d-flex flex-row align-items-center justify-content-end">
-								<div class="credits_text"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+    <!-- Footer Section Begin -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="footer-left">
+                        <div class="footer-logo">
+                            <a href="#"><img src="img/footer-logo.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Address: 60-49 Road 11378 New York</li>
+                            <li>Phone: +65 11.188.888</li>
+                            <li>Email: hello.colorlib@gmail.com</li>
+                        </ul>
+                        <div class="footer-social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-lg-1">
+                    <div class="footer-widget">
+                        <h5>Information</h5>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Checkout</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Serivius</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="footer-widget">
+                        <h5>My Account</h5>
+                        <ul>
+                            <li><a href="#">My Account</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Shopping Cart</a></li>
+                            <li><a href="#">Shop</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="newslatter-item">
+                        <h5>Join Our Newsletter Now</h5>
+                        <p>Get E-mail updates about our latest shop and special offers.</p>
+                        <form action="#" class="subscribe-form">
+                            <input type="text" placeholder="Enter Your Mail">
+                            <button type="button">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-reserved">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="copyright-text">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </div>
+                        <div class="payment-pic">
+                            <img src="img/payment-method.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
 
-</div>
-
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="styles/bootstrap-4.1.3/popper.js"></script>
-<script src="styles/bootstrap-4.1.3/bootstrap.min.js"></script>
-<script src="plugins/greensock/TweenMax.min.js"></script>
-<script src="plugins/greensock/TimelineMax.min.js"></script>
-<script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
-<script src="plugins/greensock/animation.gsap.min.js"></script>
-<script src="plugins/greensock/ScrollToPlugin.min.js"></script>
-<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-<script src="plugins/easing/easing.js"></script>
-<script src="plugins/parallax-js-master/parallax.min.js"></script>
-<script src="js/blog.js"></script>
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery.zoom.min.js"></script>
+    <script src="js/jquery.dd.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
+
 </html>

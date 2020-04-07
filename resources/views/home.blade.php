@@ -2,608 +2,787 @@
 <html lang="{{app()->getLocale()}}">
 
 <head>
-    <title>aStar</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="aStar Fashion Template Project">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="/public/front/styles/bootstrap-4.1.3/bootstrap.css">
-    <link href="/public/front/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="/public/front/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
-    <link rel="stylesheet" type="text/css" href="/public/front/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
-    <link rel="stylesheet" type="text/css" href="/public/front/plugins/OwlCarousel2-2.2.1/animate.css">
-    <link rel="stylesheet" type="text/css" href="/public/front/styles/main_styles.css">
-    <link rel="stylesheet" type="text/css" href="/public/front/styles/responsive.css">
+    <meta charset="UTF-8">
+    <meta name="description" content="Fashi Template">
+    <meta name="keywords" content="Fashi, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fashi | Template</title>
 
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/public/front/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/public/front/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/public/front/css/themify-icons.css" type="text/css">
+    <link rel="stylesheet" href="/public/front/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/public/front/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/public/front/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/public/front/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/public/front/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/public/front/css/style.css" type="text/css">
 </head>
 
 <body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
 
-    <div class="super_container">
-
-        <!-- Header -->
-
-        <header class="header">
-            <div class="header_content d-flex flex-row align-items-center justify-content-start">
-
-                <!-- Hamburger -->
-                <div class="hamburger menu_mm"><i class="fa fa-bars menu_mm" aria-hidden="true"></i></div>
-
-                <!-- Logo -->
-                <div class="header_logo">
-                    <a href="/">
-                        <img src="{{$logoUrl}}" alt="logo" >
-                    </a>
+    <!-- Header Section Begin -->
+    <header class="header-section">
+        <div class="header-top">
+            <div class="container">
+                <div class="ht-left">
+                    <div class="mail-service">
+                        <i class=" fa fa-phone"></i>
+                        {{$siteData->email}}
+                    </div>
+                    <div class="phone-service">
+                        <i class=" fa fa-phone"></i>
+                        {{$siteData->phone}}
+                    </div>
                 </div>
-
-                <!-- Navigation -->
-                <nav class="header_nav">
-                    <ul class="d-flex flex-row align-items-center justify-content-start">
-                        @foreach($menu as $value)
-                            <li><a href="{{$value->url}}">{{$value->title}}</a></li>
+                <div class="ht-right">
+                    <a href="/giris" class="login-panel"><i class="fa fa-user"></i>Giriş Yap</a>
+                    <div class="top-social">
+                        <a href="#"><i class="ti-facebook"></i></a>
+                        <a href="#"><i class="ti-twitter-alt"></i></a>
+                        <a href="#"><i class="ti-linkedin"></i></a>
+                        <a href="#"><i class="ti-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="inner-header">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2">
+                        <div class="logo">
+                            <a href="/">
+                                <img src="{{$logoUrl}}" alt="{{$siteData->name}}">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        <div class="advanced-search">
+                            <button type="button" class="category-btn">Kategoriler</button>
+                            <div class="input-group">
+                                <input type="text" id="searchValue" placeholder="Ara">
+                                <button type="button" onclick="search()"><i class="ti-search"></i></button>
+                            </div>
+                            <script>
+                                function search(){
+                                  const value = document.getElementById('searchValue').value.trim()
+                                  if(value.length > 3){
+                                    window.location.href = `/ara/${value}`
+                                  }
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 text-right col-md-3">
+                        <ul class="nav-right">
+                            <li class="cart-icon">
+                                <a href="#">
+                                    <i class="icon_bag_alt"></i>
+                                    <span>{{$cartCount}}</span>
+                                </a>
+                                <div class="cart-hover">
+                                    <div class="select-items">
+                                        <table>
+                                            <tbody>
+                                                @foreach($cartItems as $value)
+                                                    <tr>
+                                                        <td class="si-pic"><img src="/public/front/img/select-product-1.jpg"
+                                                                                alt=""></td>
+                                                        <td class="si-text">
+                                                            <div class="product-selected">
+                                                                <p>$60.00 x 1</p>
+                                                                <h6>Kabino Bedside Table</h6>
+                                                            </div>
+                                                        </td>
+                                                        <td class="si-close">
+                                                            <i class="ti-close"></i>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="select-total">
+                                        <span>Toplam:</span>
+                                        <h5>{{$cardTotal}}</h5>
+                                    </div>
+                                    <div class="select-button">
+                                        <a href="/sepet" class="primary-btn view-card">Sepete Git</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="cart-price">{{$cardTotal}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-item">
+            <div class="container">
+                <div class="nav-depart">
+                    <div class="depart-btn">
+                        <i class="ti-menu"></i>
+                        <span>Kategoriler</span>
+                        <ul class="depart-hover">
+                            @foreach($categories as $value)
+                                <li class="active"><a href="{{$value->slug}}">{{$value->name}}</a></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+                <nav class="nav-menu mobile-menu">
+                    <ul>
+                        @foreach($categories as $value)
+                            <li><a href="{{$value->slug}}">{{$value->name}}</a>
+                                @if($value->subCategory != (object)[])
+                                    <ul class="dropdown">
+                                        @foreach($value->subCategory as $value)
+                                            <li><a href="{{$value->slug}}">{{$value->name}}</a></li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </li>
                         @endforeach
                     </ul>
                 </nav>
-
-                <!-- Header Extra -->
-                <div class="header_extra ml-auto d-flex flex-row align-items-center justify-content-start">
-                    <!-- Language -->
-                    <div class="info_languages has_children">
-                        <div class="language_flag"></div>
-                        <div class="dropdown_text">
-                            @if(app()->getLocale() == 'tr')
-                              Türkçe
-                            @else
-                             English
-                            @endif
-                        </div>
-                        <div class="dropdown_arrow"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
-
-                        <!-- Language Dropdown Menu -->
-                        <ul>
-                            @if(app()->getLocale() == 'tr')
-                                <li><a href="/en">
-                                        <div class="language_flag"></div>
-                                        <div class="dropdown_text">English</div>
-                                    </a></li>
-                            @else
-                                <li><a href="/tr">
-                                        <div class="language_flag"></div>
-                                        <div class="dropdown_text">Türkçe</div>
-                                    </a></li>
-                            @endif
-                        </ul>
-
-                    </div>
-
-                    <!-- Cart -->
-                    <div class="cart d-flex flex-row align-items-center justify-content-start">
-                        <div class="cart_icon"><a href="/sepetim">
-                                <img src="/public/front/images/bag.png" alt="">
-                                <div class="cart_num">{{session('cardCount', 0)}}</div>
-                            </a></div>
-                    </div>
-                </div>
-
-            </div>
-        </header>
-
-        <!-- Menu -->
-
-        <div class="menu d-flex flex-column align-items-start justify-content-start menu_mm trans_400">
-            <div class="menu_close_container">
-                <div class="menu_close">
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>
-            <div class="menu_top d-flex flex-row align-items-center justify-content-start">
-
-                <!-- Language -->
-                <div class="info_languages has_children">
-                    <div class="language_flag"></div>
-                    <div class="dropdown_text">
-                        @if(app()->getLocale() == 'tr')
-                            Türkçe
-                        @else
-                            English
-                        @endif
-                    </div>
-                    <div class="dropdown_arrow"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
-
-                    <!-- Language Dropdown Menu -->
-                    <ul>
-                        @if(app()->getLocale() == 'tr')
-                            <li><a href="/en">
-                                    <div class="language_flag"></div>
-                                    <div class="dropdown_text">English</div>
-                                </a></li>
-                        @else
-                            <li><a href="/tr">
-                                    <div class="language_flag"></div>
-                                    <div class="dropdown_text">Türkçe</div>
-                                </a></li>
-                        @endif
-                    </ul>
-
-                </div>
-
-            </div>
-            <div class="menu_search">
-                <form action="#" class="header_search_form menu_mm">
-                    <input type="search" class="search_input menu_mm" id="searchInput" placeholder="@lang('site.ara')" required="required">
-
-                </form>
-                <span
-                    onclick="searching()"
-                    class="header_search_button d-flex flex-column align-items-center justify-content-center menu_mm">
-                        <i class="fa fa-search menu_mm" aria-hidden="true"></i>
-                </span>
-                <script>
-                    function searching(){
-                      const value = document.getElementById('searchInput').value.trim()
-                      if(value !== ''){
-                        console.log('clicked')
-                        window.location = `/ara?v=${value}`
-                      }
-                    }
-                </script>
-            </div>
-            <nav class="menu_nav">
-                <ul class="menu_mm">
-                    @foreach($menu as $value)
-                        <li class="menu_mm"><a href="{{$value->url}}">{{$value->title}}</a></li>
-                    @endforeach
-                </ul>
-            </nav>
-            <div class="menu_extra">
-                <div class="menu_social">
-                    <ul>
-                        <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                    </ul>
-                </div>
+                <div id="mobile-menu-wrap"></div>
             </div>
         </div>
+    </header>
+    <!-- Header End -->
 
-        <!-- Sidebar -->
-
-        <div class="sidebar">
-
-            <!-- Info -->
-            <div class="info">
-                <div class="info_content d-flex flex-row align-items-center justify-content-start">
-
-                    <!-- Language -->
-                    <div class="info_languages has_children">
-                        <div class="language_flag"></div>
-                        <div class="dropdown_text">
-                            @if(app()->getLocale() == 'tr')
-                                Türkçe
-                            @else
-                                English
-                            @endif
-                        </div>
-                        <div class="dropdown_arrow"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
-
-                        <!-- Language Dropdown Menu -->
-                        <ul>
-                            @if(app()->getLocale() == 'tr')
-                                <li><a href="/en">
-                                        <div class="language_flag"></div>
-                                        <div class="dropdown_text">English</div>
-                                    </a></li>
-                            @else
-                                <li><a href="/tr">
-                                        <div class="language_flag"></div>
-                                        <div class="dropdown_text">Türkçe</div>
-                                    </a></li>
-                            @endif
-                        </ul>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- Logo -->
-            <div class="sidebar_logo">
-                <a href="/">
-                    <img src="{{$logoUrl}}" alt="logo" >
-                </a>
-            </div>
-
-            <!-- Sidebar Navigation -->
-            <nav class="sidebar_nav">
-                <ul>
-                    @foreach($menu as $value)
-                        <li><a href="{{$value->url}}">{{$value->title}} <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                    @endforeach
-                </ul>
-            </nav>
-
-            <!-- Search -->
-            <div class="search">
-                <form action="#" class="header_search_form menu_mm">
-                    <input type="search" class="search_input menu_mm" id="searchInput" placeholder="@lang('site.ara')" required="required">
-                    <span
-                            onclick="searching()"
-                            class="header_search_button d-flex flex-column align-items-center justify-content-center menu_mm">
-                            <i class="fa fa-search menu_mm" aria-hidden="true"></i>
-                    </span>
-                </form>
-                <script>
-                  function searching(){
-                    const value = document.getElementById('searchInput').value.trim()
-                    if(value !== ''){
-                      console.log('clicked')
-                      window.location = `/ara?v=${value}`
-                    }
-                  }
-                </script>
-            </div>
-
-
-        </div>
-
-        <!-- Home -->
-
-        <div class="home">
-
-            <!-- Home Slider -->
-            <div class="home_slider_container">
-                <div class="owl-carousel owl-theme home_slider">
-                    <!-- Slide -->
-                    @foreach($siteData->slider as $value )
-                        <div class="owl-item">
-                            <div class="background_image" style="background-image:url({{$value->url}})"></div>
-                            <div class="home_content_container">
-                                <div class="home_content">
-                                    <!--
-                                    <div class="home_discount d-flex flex-row align-items-end justify-content-start">
-                                        <div class="home_discount_num">20</div>
-                                        <div class="home_discount_text">Discount on the</div>
-                                    </div>
-                                    <div class="home_title">New Collection</div>
-                                    <div class="button button_1 home_button trans_200"><a href="categories.html">Shop
-                                            NOW!</a></div>
-                                    -->
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-
-                <!-- Home Slider Navigation -->
-                <div class="home_slider_nav home_slider_prev trans_200">
-                    <div class=" d-flex flex-column align-items-center justify-content-center"><img
-                            src="/public/front/images/prev.png" alt=""></div>
-                </div>
-                <div class="home_slider_nav home_slider_next trans_200">
-                    <div class=" d-flex flex-column align-items-center justify-content-center"><img
-                            src="/public/front/images/next.png" alt=""></div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Boxes -->
-
-        <div class="boxes">
-            <div class="section_container">
+    <!-- Hero Section Begin -->
+    <section class="hero-section">
+        <div class="hero-items owl-carousel">
+            <div class="single-hero-items set-bg" data-setbg="/public/front/img/hero-1.jpg">
                 <div class="container">
                     <div class="row">
-                        @foreach($category as $value)
-                            <!-- Box -->
-                            <div class="col-lg-4 box_col">
-                                <div class="box">
-                                    <div class="box_image"><img src="{{$value->img}}" alt=""></div>
-                                    <div class="box_title trans_200"><a href="{{$value->nameSlug}}"> {{$value->name}}</a></div>
-                                </div>
-                            </div>
-                        @endforeach
+                        <div class="col-lg-5">
+                            <span>Bag,kids</span>
+                            <h1>Black friday</h1>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore</p>
+                            <a href="#" class="primary-btn">Shop Now</a>
+                        </div>
+                    </div>
+                    <div class="off-card">
+                        <h2>Sale <span>50%</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="single-hero-items set-bg" data-setbg="/public/front/img/hero-2.jpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <span>Bag,kids</span>
+                            <h1>Black friday</h1>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore</p>
+                            <a href="#" class="primary-btn">Shop Now</a>
+                        </div>
+                    </div>
+                    <div class="off-card">
+                        <h2>Sale <span>50%</span></h2>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+    <!-- Hero Section End -->
 
-        <!-- Categories -->
+    <!-- Banner Section Begin -->
+    <div class="banner-section spad">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="single-banner">
+                        <img src="/public/front/img/banner-1.jpg" alt="">
+                        <div class="inner-text">
+                            <h4>Men’s</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="single-banner">
+                        <img src="/public/front/img/banner-2.jpg" alt="">
+                        <div class="inner-text">
+                            <h4>Women’s</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="single-banner">
+                        <img src="/public/front/img/banner-3.jpg" alt="">
+                        <div class="inner-text">
+                            <h4>Kid’s</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Banner Section End -->
 
-        <div class="categories">
-            <div class="section_container">
-                <div class="container">
-                    <div class="row">
-                        <div class="col text-center">
-                            <div class="categories_list_container">
-                                <ul class="categories_list d-flex flex-row align-items-center justify-content-start">
-                                    <li><a href="categories.html">new arrivals</a></li>
-                                    <li><a href="categories.html">recommended</a></li>
-                                    <li><a href="categories.html">best sellers</a></li>
+    <!-- Women Banner Section Begin -->
+    <section class="women-banner spad">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="product-large set-bg" data-setbg="/public/front/img/products/women-large.jpg">
+                        <h2>Women’s</h2>
+                        <a href="#">Discover More</a>
+                    </div>
+                </div>
+                <div class="col-lg-8 offset-lg-1">
+                    <div class="filter-control">
+                        <ul>
+                            <li class="active">Clothings</li>
+                            <li>HandBag</li>
+                            <li>Shoes</li>
+                            <li>Accessories</li>
+                        </ul>
+                    </div>
+                    <div class="product-slider owl-carousel">
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <img src="/public/front/img/products/women-1.jpg" alt="">
+                                <div class="sale">Sale</div>
+                                <div class="icon">
+                                    <i class="icon_heart_alt"></i>
+                                </div>
+                                <ul>
+                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                                 </ul>
                             </div>
+                            <div class="pi-text">
+                                <div class="catagory-name">Coat</div>
+                                <a href="#">
+                                    <h5>Pure Pineapple</h5>
+                                </a>
+                                <div class="product-price">
+                                    $14.00
+                                    <span>$35.00</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Products -->
-
-        <div class="products">
-            <div class="section_container">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <div class="products_container grid">
-
-                                @foreach($products as $value)
-                                <!-- Product -->
-                                <div class="product grid-item hot">
-                                    <div class="product_inner">
-                                        <div class="product_image">
-                                            <img src="{{$value->img}}" alt="{{$value->name}}">
-                                            <div class="product_tag">hot</div>
-                                        </div>
-                                        <div class="product_content text-center">
-                                            <div class="product_title"><a href="{{$value->nameSlug}}">{{$value->name}}</a></div>
-                                            <div class="product_price">{{$value->price}}</div>
-                                            <div class="product_button ml-auto mr-auto trans_200"><a href="{{$value->nameSlug}}">Urunu Incele</a></div>
-                                        </div>
-                                    </div>
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <img src="/public/front/img/products/women-2.jpg" alt="">
+                                <div class="icon">
+                                    <i class="icon_heart_alt"></i>
                                 </div>
-                                @endforeach
-
-
-                                <!-- Product -->
-                                <div class="product grid-item sale">
-                                    <div class="product_inner">
-                                        <div class="product_image">
-                                            <img src="/public/front/images/product_3.jpg" alt="">
-                                            <div class="product_tag">sale</div>
-                                        </div>
-                                        <div class="product_content text-center">
-                                            <div class="product_title"><a href="product.html">long sleeve jacket</a>
-                                            </div>
-                                            <div class="product_price">$32.20<span>RRP 64.40</span></div>
-                                            <div class="product_button ml-auto mr-auto trans_200"><a href="#">add to
-                                                    cart</a></div>
-                                        </div>
-                                    </div>
+                                <ul>
+                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pi-text">
+                                <div class="catagory-name">Shoes</div>
+                                <a href="#">
+                                    <h5>Guangzhou sweater</h5>
+                                </a>
+                                <div class="product-price">
+                                    $13.00
                                 </div>
-
-
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <img src="/public/front/img/products/women-3.jpg" alt="">
+                                <div class="icon">
+                                    <i class="icon_heart_alt"></i>
+                                </div>
+                                <ul>
+                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pi-text">
+                                <div class="catagory-name">Towel</div>
+                                <a href="#">
+                                    <h5>Pure Pineapple</h5>
+                                </a>
+                                <div class="product-price">
+                                    $34.00
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <img src="/public/front/img/products/women-4.jpg" alt="">
+                                <div class="icon">
+                                    <i class="icon_heart_alt"></i>
+                                </div>
+                                <ul>
+                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pi-text">
+                                <div class="catagory-name">Towel</div>
+                                <a href="#">
+                                    <h5>Converse Shoes</h5>
+                                </a>
+                                <div class="product-price">
+                                    $34.00
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+    <!-- Women Banner Section End -->
 
-        <!-- Newsletter -->
+    <!-- Deal Of The Week Section Begin-->
+    <section class="deal-of-week set-bg spad" data-setbg="/public/front/img/time-bg.jpg">
+        <div class="container">
+            <div class="col-lg-6 text-center">
+                <div class="section-title">
+                    <h2>Deal Of The Week</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed<br /> do ipsum dolor sit amet,
+                        consectetur adipisicing elit </p>
+                    <div class="product-price">
+                        $35.00
+                        <span>/ HanBag</span>
+                    </div>
+                </div>
+                <div class="countdown-timer" id="countdown">
+                    <div class="cd-item">
+                        <span>56</span>
+                        <p>Days</p>
+                    </div>
+                    <div class="cd-item">
+                        <span>12</span>
+                        <p>Hrs</p>
+                    </div>
+                    <div class="cd-item">
+                        <span>40</span>
+                        <p>Mins</p>
+                    </div>
+                    <div class="cd-item">
+                        <span>52</span>
+                        <p>Secs</p>
+                    </div>
+                </div>
+                <a href="#" class="primary-btn">Shop Now</a>
+            </div>
+        </div>
+    </section>
+    <!-- Deal Of The Week Section End -->
 
-        <div class="newsletter">
-            <div class="parallax_background parallax-window" data-parallax="scroll"
-                 data-image-src="/public/front/images/newsletter.jpg" data-speed="0.8"></div>
+    <!-- Man Banner Section Begin -->
+    <section class="man-banner spad">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="filter-control">
+                        <ul>
+                            <li class="active">Clothings</li>
+                            <li>HandBag</li>
+                            <li>Shoes</li>
+                            <li>Accessories</li>
+                        </ul>
+                    </div>
+                    <div class="product-slider owl-carousel">
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <img src="/public/front/img/products/man-1.jpg" alt="">
+                                <div class="sale">Sale</div>
+                                <div class="icon">
+                                    <i class="icon_heart_alt"></i>
+                                </div>
+                                <ul>
+                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pi-text">
+                                <div class="catagory-name">Coat</div>
+                                <a href="#">
+                                    <h5>Pure Pineapple</h5>
+                                </a>
+                                <div class="product-price">
+                                    $14.00
+                                    <span>$35.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <img src="/public/front/img/products/man-2.jpg" alt="">
+                                <div class="icon">
+                                    <i class="icon_heart_alt"></i>
+                                </div>
+                                <ul>
+                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pi-text">
+                                <div class="catagory-name">Shoes</div>
+                                <a href="#">
+                                    <h5>Guangzhou sweater</h5>
+                                </a>
+                                <div class="product-price">
+                                    $13.00
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <img src="/public/front/img/products/man-3.jpg" alt="">
+                                <div class="icon">
+                                    <i class="icon_heart_alt"></i>
+                                </div>
+                                <ul>
+                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pi-text">
+                                <div class="catagory-name">Towel</div>
+                                <a href="#">
+                                    <h5>Pure Pineapple</h5>
+                                </a>
+                                <div class="product-price">
+                                    $34.00
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <img src="/public/front/img/products/man-4.jpg" alt="">
+                                <div class="icon">
+                                    <i class="icon_heart_alt"></i>
+                                </div>
+                                <ul>
+                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pi-text">
+                                <div class="catagory-name">Towel</div>
+                                <a href="#">
+                                    <h5>Converse Shoes</h5>
+                                </a>
+                                <div class="product-price">
+                                    $34.00
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 offset-lg-1">
+                    <div class="product-large set-bg m-large" data-setbg="/public/front/img/products/man-large.jpg">
+                        <h2>Men’s</h2>
+                        <a href="#">Discover More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Man Banner Section End -->
+
+    <!-- Instagram Section Begin -->
+    <div class="instagram-photo">
+        <div class="insta-item set-bg" data-setbg="/public/front/img/insta-1.jpg">
+            <div class="inside-text">
+                <i class="ti-instagram"></i>
+                <h5><a href="#">colorlib_Collection</a></h5>
+            </div>
+        </div>
+        <div class="insta-item set-bg" data-setbg="/public/front/img/insta-2.jpg">
+            <div class="inside-text">
+                <i class="ti-instagram"></i>
+                <h5><a href="#">colorlib_Collection</a></h5>
+            </div>
+        </div>
+        <div class="insta-item set-bg" data-setbg="/public/front/img/insta-3.jpg">
+            <div class="inside-text">
+                <i class="ti-instagram"></i>
+                <h5><a href="#">colorlib_Collection</a></h5>
+            </div>
+        </div>
+        <div class="insta-item set-bg" data-setbg="/public/front/img/insta-4.jpg">
+            <div class="inside-text">
+                <i class="ti-instagram"></i>
+                <h5><a href="#">colorlib_Collection</a></h5>
+            </div>
+        </div>
+        <div class="insta-item set-bg" data-setbg="/public/front/img/insta-5.jpg">
+            <div class="inside-text">
+                <i class="ti-instagram"></i>
+                <h5><a href="#">colorlib_Collection</a></h5>
+            </div>
+        </div>
+        <div class="insta-item set-bg" data-setbg="/public/front/img/insta-6.jpg">
+            <div class="inside-text">
+                <i class="ti-instagram"></i>
+                <h5><a href="#">colorlib_Collection</a></h5>
+            </div>
+        </div>
+    </div>
+    <!-- Instagram Section End -->
+
+    <!-- Latest Blog Section Begin -->
+    <section class="latest-blog spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>From The Blog</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-latest-blog">
+                        <img src="/public/front/img/latest-1.jpg" alt="">
+                        <div class="latest-text">
+                            <div class="tag-list">
+                                <div class="tag-item">
+                                    <i class="fa fa-calendar-o"></i>
+                                    May 4,2019
+                                </div>
+                                <div class="tag-item">
+                                    <i class="fa fa-comment-o"></i>
+                                    5
+                                </div>
+                            </div>
+                            <a href="#">
+                                <h4>The Best Street Style From London Fashion Week</h4>
+                            </a>
+                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-latest-blog">
+                        <img src="/public/front/img/latest-2.jpg" alt="">
+                        <div class="latest-text">
+                            <div class="tag-list">
+                                <div class="tag-item">
+                                    <i class="fa fa-calendar-o"></i>
+                                    May 4,2019
+                                </div>
+                                <div class="tag-item">
+                                    <i class="fa fa-comment-o"></i>
+                                    5
+                                </div>
+                            </div>
+                            <a href="#">
+                                <h4>Vogue's Ultimate Guide To Autumn/Winter 2019 Shoes</h4>
+                            </a>
+                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-latest-blog">
+                        <img src="/public/front/img/latest-3.jpg" alt="">
+                        <div class="latest-text">
+                            <div class="tag-list">
+                                <div class="tag-item">
+                                    <i class="fa fa-calendar-o"></i>
+                                    May 4,2019
+                                </div>
+                                <div class="tag-item">
+                                    <i class="fa fa-comment-o"></i>
+                                    5
+                                </div>
+                            </div>
+                            <a href="#">
+                                <h4>How To Brighten Your Wardrobe With A Dash Of Lime</h4>
+                            </a>
+                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="benefit-items">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="single-benefit">
+                            <div class="sb-icon">
+                                <img src="/public/front/img/icon-1.png" alt="">
+                            </div>
+                            <div class="sb-text">
+                                <h6>Free Shipping</h6>
+                                <p>For all order over 99$</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="single-benefit">
+                            <div class="sb-icon">
+                                <img src="/public/front/img/icon-2.png" alt="">
+                            </div>
+                            <div class="sb-text">
+                                <h6>Delivery On Time</h6>
+                                <p>If good have prolems</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="single-benefit">
+                            <div class="sb-icon">
+                                <img src="/public/front/img/icon-1.png" alt="">
+                            </div>
+                            <div class="sb-text">
+                                <h6>Secure Payment</h6>
+                                <p>100% secure payment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Latest Blog Section End -->
+
+    <!-- Partner Logo Section Begin -->
+    <div class="partner-logo">
+        <div class="container">
+            <div class="logo-carousel owl-carousel">
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="/public/front/img/logo-carousel/logo-1.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="/public/front/img/logo-carousel/logo-2.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="/public/front/img/logo-carousel/logo-3.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="/public/front/img/logo-carousel/logo-4.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="/public/front/img/logo-carousel/logo-5.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Partner Logo Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="footer-left">
+                        <div class="footer-logo">
+                            <a href="#"><img src="/public/front/img/footer-logo.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Address: 60-49 Road 11378 New York</li>
+                            <li>Phone: +65 11.188.888</li>
+                            <li>Email: hello.colorlib@gmail.com</li>
+                        </ul>
+                        <div class="footer-social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-lg-1">
+                    <div class="footer-widget">
+                        <h5>Information</h5>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Checkout</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Serivius</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="footer-widget">
+                        <h5>My Account</h5>
+                        <ul>
+                            <li><a href="#">My Account</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Shopping Cart</a></li>
+                            <li><a href="#">Shop</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="newslatter-item">
+                        <h5>Join Our Newsletter Now</h5>
+                        <p>Get E-mail updates about our latest shop and special offers.</p>
+                        <form action="#" class="subscribe-form">
+                            <input type="text" placeholder="Enter Your Mail">
+                            <button type="button">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-reserved">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8 offset-lg-2">
-                        <div class="newsletter_content text-center">
-                            <div class="newsletter_title_container">
-                                <div class="newsletter_title">subscribe to our newsletter</div>
-                                <div class="newsletter_subtitle">we won't spam, we promise!</div>
-                            </div>
-                            <div class="newsletter_form_container">
-                                <form action="#" id="newsletter_form" class="newsletter_form">
-                                    <input type="email" class="newsletter_input" placeholder="your e-mail here"
-                                           required="required">
-                                    <button class="newsletter_button">submit</button>
-                                </form>
-                            </div>
+                    <div class="col-lg-12">
+                        <div class="copyright-text">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;<script>
+                            document.write(new Date().getFullYear());
+                            </script> All rights reserved | This template is made with <i class="fa fa-heart-o"
+                                aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </div>
+                        <div class="payment-pic">
+                            <img src="/public/front/img/payment-method.png" alt="">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </footer>
+    <!-- Footer Section End -->
 
-        <!-- Footer -->
-
-        <footer class="footer">
-            <div class="footer_content">
-                <div class="section_container">
-                    <div class="container">
-                        <div class="row">
-
-                            <!-- About -->
-                            <div class="col-xxl-3 col-md-6 footer_col">
-                                <div class="footer_about">
-                                    <!-- Logo -->
-                                    <div class="footer_logo">
-                                        <a href="/">
-                                            <img src="{{$logoUrl}}" alt="logo" >
-                                        </a>
-                                    </div>
-                                    <div class="footer_about_text">
-                                        <p> {{$siteData->description}}</p>
-                                    </div>
-                                    <div class="cards">
-                                        <ul class="d-flex flex-row align-items-center justify-content-start">
-                                            <li><a href="#"><img src="/public/front/images/card_1.jpg" alt=""></a></li>
-                                            <li><a href="#"><img src="/public/front/images/card_2.jpg" alt=""></a></li>
-                                            <li><a href="#"><img src="/public/front/images/card_3.jpg" alt=""></a></li>
-                                            <li><a href="#"><img src="/public/front/images/card_4.jpg" alt=""></a></li>
-                                            <li><a href="#"><img src="/public/front/images/card_5.jpg" alt=""></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Questions -->
-                            <div class="col-xxl-3 col-md-6 footer_col">
-                                <div class="footer_questions">
-                                    <div class="footer_title">questions</div>
-                                    <div class="footer_list">
-                                        <ul>
-                                            <li><a href="#">About us</a></li>
-                                            <li><a href="#">Track Orders</a></li>
-                                            <li><a href="#">Returns</a></li>
-                                            <li><a href="#">Jobs</a></li>
-                                            <li><a href="#">Shipping</a></li>
-                                            <li><a href="#">Blog</a></li>
-                                            <li><a href="#">Partners</a></li>
-                                            <li><a href="#">Bloggers</a></li>
-                                            <li><a href="#">Support</a></li>
-                                            <li><a href="#">Terms of Use</a></li>
-                                            <li><a href="#">Press</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Blog -->
-                            <div class="col-xxl-3 col-md-6 footer_col">
-                                <div class="footer_blog">
-                                    <div class="footer_title">blog</div>
-                                    <div class="footer_blog_container">
-
-                                        <!-- Blog Item -->
-                                        <div
-                                            class="footer_blog_item d-flex flex-row align-items-start justify-content-start">
-                                            <div class="footer_blog_image"><a href="blog.html"><img
-                                                        src="/public/front/images/footer_blog_1.jpg" alt=""></a></div>
-                                            <div class="footer_blog_content">
-                                                <div class="footer_blog_title"><a href="blog.html">what shoes to
-                                                        wear</a></div>
-                                                <div class="footer_blog_date">june 06, 2018</div>
-                                                <div class="footer_blog_link"><a href="blog.html">Read More</a></div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Blog Item -->
-                                        <div
-                                            class="footer_blog_item d-flex flex-row align-items-start justify-content-start">
-                                            <div class="footer_blog_image"><a href="blog.html"><img
-                                                        src="/public/front/images/footer_blog_2.jpg" alt=""></a></div>
-                                            <div class="footer_blog_content">
-                                                <div class="footer_blog_title"><a href="blog.html">trends this year</a>
-                                                </div>
-                                                <div class="footer_blog_date">june 06, 2018</div>
-                                                <div class="footer_blog_link"><a href="blog.html">Read More</a></div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Contact -->
-                            <div class="col-xxl-3 col-md-6 footer_col">
-                                <div class="footer_contact">
-                                    <div class="footer_title">@lang('site.iletisim')</div>
-                                    <div class="footer_contact_list">
-                                        <ul>
-                                            <li class="d-flex flex-row align-items-start justify-content-start">
-                                                <span>Phone</span>
-                                                <div>{{$siteData->phone}}</div>
-                                            </li>
-                                            <li class="d-flex flex-row align-items-start justify-content-start">
-                                                <span>Email:</span>
-                                                <div>{{$siteData->email}}</div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Social -->
-            <div class="footer_social">
-                <div class="section_container">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <div
-                                    class="footer_social_container d-flex flex-row align-items-center justify-content-between">
-                                    <!-- Instagram -->
-                                    <a href="#">
-                                        <div
-                                            class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-                                            <div class="footer_social_icon"><i class="fa fa-instagram"
-                                                    aria-hidden="true"></i></div>
-                                            <div class="footer_social_title">instagram</div>
-                                        </div>
-                                    </a>
-                                    <!-- Facebook -->
-                                    <a href="#">
-                                        <div
-                                            class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-                                            <div class="footer_social_icon"><i class="fa fa-facebook"
-                                                    aria-hidden="true"></i></div>
-                                            <div class="footer_social_title">facebook</div>
-                                        </div>
-                                    </a>
-                                    <!-- Twitter -->
-                                    <a href="#">
-                                        <div
-                                            class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-                                            <div class="footer_social_icon"><i class="fa fa-twitter"
-                                                    aria-hidden="true"></i></div>
-                                            <div class="footer_social_title">twitter</div>
-                                        </div>
-                                    </a>
-                                    <!-- YouTube -->
-                                    <a href="#">
-                                        <div
-                                            class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-                                            <div class="footer_social_icon"><i class="fa fa-youtube"
-                                                    aria-hidden="true"></i></div>
-                                            <div class="footer_social_title">youtube</div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Credits -->
-            <div class="credits">
-                <div class="section_container">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <div class="credits_content d-flex flex-row align-items-center justify-content-end">
-                                    <div class="credits_text">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
-    </div>
-
-    <script src="/public/front/js/jquery-3.2.1.min.js"></script>
-    <script src="/public/front/styles/bootstrap-4.1.3/popper.js"></script>
-    <script src="/public/front/styles/bootstrap-4.1.3/bootstrap.min.js"></script>
-    <script src="/public/front/plugins/greensock/TweenMax.min.js"></script>
-    <script src="/public/front/plugins/greensock/TimelineMax.min.js"></script>
-    <script src="/public/front/plugins/scrollmagic/ScrollMagic.min.js"></script>
-    <script src="/public/front/plugins/greensock/animation.gsap.min.js"></script>
-    <script src="/public/front/plugins/greensock/ScrollToPlugin.min.js"></script>
-    <script src="/public/front/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-    <script src="/public/front/plugins/easing/easing.js"></script>
-    <script src="/public/front/plugins/parallax-js-master/parallax.min.js"></script>
-    <script src="/public/front/plugins/Isotope/isotope.pkgd.min.js"></script>
-    <script src="/public/front/plugins/Isotope/fitcolumns.js"></script>
-    <script src="/public/front/js/custom.js"></script>
+    <!-- Js Plugins -->
+    <script src="/public/front/js/jquery-3.3.1.min.js"></script>
+    <script src="/public/front/js/bootstrap.min.js"></script>
+    <script src="/public/front/js/jquery-ui.min.js"></script>
+    <script src="/public/front/js/jquery.countdown.min.js"></script>
+    <script src="/public/front/js/jquery.nice-select.min.js"></script>
+    <script src="/public/front/js/jquery.zoom.min.js"></script>
+    <script src="/public/front/js/jquery.dd.min.js"></script>
+    <script src="/public/front/js/jquery.slicknav.js"></script>
+    <script src="/public/front/js/owl.carousel.min.js"></script>
+    <script src="/public/front/js/main.js"></script>
 </body>
 
 </html>
