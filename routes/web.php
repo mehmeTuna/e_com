@@ -13,7 +13,6 @@
 
 //herhangi bir url eslesme olmaz ise bu sayfa goruntulenecek
 Route::any('/', 'WelcomeController@index');
-Route::get('detay', 'WelcomeController@demov');
 
 Route::get('pdf', 'AdminController@ordersInvoice');
 Route::get('excel', 'Admincontroller@excel');
@@ -23,9 +22,16 @@ Route::get('galeri', 'WelcomeController@gallery');
 
 Route::get('404', 'WelcomeController@noPage');
 
+Route::get('kayit-ol', 'WelcomeController@registerPage');
+Route::post('kayit-ol', 'WelcomeController@register');
+
+Route::get('giris', 'WelcomeController@loginPage');
+Route::post('giris', 'WelcomeController@login');
+
+Route::get('cikis-yap', 'WelcomeController@logOut');
+
 Route::get('yonetim/giris', 'AdminController@loginPage');
 Route::post('business/loginData', 'AdminController@login');
-
 Route::post('business/logout', 'AdminController@logout');
 
 Route::middleware(['admin'])->group(function () {
@@ -57,5 +63,7 @@ Route::middleware(['admin'])->group(function () {
     Route::post('content/ekle', 'AdminController@newAbout');
     Route::post('content/list', 'AdminController@getAbout');
 });
+
+Route::get('{productSLugName}', 'WelcomeController@productPage');
 
 Route::get('*', 'WelcomeController@index');

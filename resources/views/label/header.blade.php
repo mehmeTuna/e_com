@@ -1,122 +1,131 @@
-<!DOCTYPE html>
-<html lang="tr">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Escape Bar & Grill| Home</title>
-    <link rel="stylesheet" href="/public/css/style.css">
-    <link rel="stylesheet" href="/public/css/tooltipster.css">
-    <link rel="stylesheet" href="/public/css/magnific-popup.css">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
-    <!-- favicon -->
-    <link rel="icon" href="favicon.ico">
-</head>
-
-<body>
-
-    <main>
-        <!--SOCIAL LINKS-->
-        <aside>
-            <a target="_blank" ; href="https://www.facebook.com/EscapeWorthing/">
-                <svg x="0px" y="0px" width="150px" height="40px">
-                    <polygon fill="#2d4c8b" points="150,40 7.001,40 0,33 0,7 6.918,0 150,0 " />
-                    <image xlink:href="/public/images/facebook.png" x="23" y="10" width="9px" height="18px" />
-                    <text x="55" y="24">Like Us!</text>
-                </svg>
-            </a>
-            <a href="#">
-                <svg x="0px" y="0px" width="150px" height="40px">
-                    <polygon fill="#34dfe6" points="150,40 7.001,40 0,33 0,7 6.918,0 150,0 " />
-                    <image xlink:href="/public/images/twitter.png" x="17" y="12" width="23px" height="16px" />
-                    <text x="55" y="24">Follow Us!</text>
-                </svg>
-            </a>
-            <a target="_blank" ; href="https://api.whatsapp.com/send?phone=0447827292641&text=Booking">
-                <svg x="0px" y="0px" width="150px" height="40px">
-                    <polygon fill="#e842ab" points="150,40 7.001,40 0,33 0,7 6.918,0 150,0 " />
-                    <image xlink:href="/public/images/flickr.png" x="17" y="16" width="18px" height="7px" />
-                    <text x="55" y="24">Booking Now</text>
-                </svg>
-            </a>
-            <a href="#">
-                <svg x="0px" y="0px" width="150px" height="40px">
-                    <polygon fill="#ff9000" points="150,40 7.001,40 0,33 0,7 6.918,0 150,0 " />
-                    <image xlink:href="/public/images/rss.png" x="18" y="12" width="16px" height="16px" />
-                    <text x="55" y="24">Rss Feed</text>
-                </svg>
-            </a>
-            <a href="#">
-                <svg x="0px" y="0px" width="150px" height="40px">
-                    <polygon fill="#33517f" points="150,40 7.001,40 0,33 0,7 6.918,0 150,0 " />
-                    <image xlink:href="/public/images/vimeo.png" x="18" y="13" width="17px" height="15px" />
-                    <text x="55" y="24">Vimeo</text>
-                </svg>
-            </a>
-        </aside>
-        <!--/SOCIAL LINKS-->
-
-        <!--HEADER-->
-        <header>
-            <div id="main-nav-wrap">
-                <nav id="main-nav">
-                    <ul>
-                        <li><a href="index.php">Home</a></li>
-                        <li><a href="menu.php">Menu</a></li>
-                        <li><a href="index.php#contact">Contact</a></li>
-                        <li class="sub-items"><a href="#">Features</a>
-                            <ul>
-                                <li><a href="index.php#about-wrap">About Us</a></li>
-                                <li><a href="gallery.php">Gallery</a></li>
-                                <li><a target="_blank" ;
-                                        href="https://api.whatsapp.com/send?phone=0447827292641&text=Booking">Booking
-                                        Now</a></li>
-                                <li><a href="index.php#map">Find Us</a></li>
-
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="responsive-nav">
-                        <li><a href="index.php">Home</a></li>
-                        <li><a href="menu.php">Menu</a></li>
-                        <li class="sub-items"><a href="#">Features</a>
-                            <ul>
-                                <li><a href="index.php#about-wrap">About Us</a></li>
-                                <li><a href="gallery.php">Gallery</a></li>
-                                <li><a target="_blank" ;
-                                        href="https://api.whatsapp.com/send?phone=0447827292641&text=Booking">Booking
-                                        Now</a></li>
-                                <li><a href="index.php#map">Find Us</a></li>
-
-                            </ul>
-                        </li>
-                        <li><a href="index.php#contact">Contact</a></li>
-                    </ul>
-                    <a href="#" id="pull"></a>
-                </nav>
+<header class="header-section">
+    <div class="header-top">
+        <div class="container">
+            <div class="ht-left">
+                <div class="mail-service">
+                    <i class=" fa fa-phone"></i>
+                    {{$siteData->email}}
+                </div>
+                <div class="phone-service">
+                    <i class=" fa fa-phone"></i>
+                    {{$siteData->phone}}
+                </div>
             </div>
-            <figure>
-                @if (isset($data->logo[0]))
-                <img src="{{$data->logo[0]->url}}" alt="Mozzarella-logo">
-                @endif
-                <figcaption>Escape</figcaption>
-            </figure>
-            <ul class="main-slider">
-                @if (isset($data->slider))
-                @foreach($data->slider as $slider)
-                <li class="first">
-                    <img src="{{$slider->url}}" alt="stars-moustache">
-                    <a href="https://api.whatsapp.com/send?phone=0447827292641&text=Booking" target="_blank"
-                        class="square-button">Book Now For</a>
-                </li>
-                @endforeach
-                @endif
-            </ul>
-            <div class="pager-container">
-                @if (isset($data->slider))
-                @foreach($data->slider as $key => $slider)
-                <a href="" data-slide-index="{{$key}}"></a>
-                @endforeach
-                @endif
+            <div class="ht-right">
+                @if(session('userId', false))
+                    <a href="/cikis-yap" class="login-panel"><i class="fa fa-user"></i>Çıkış Yap</a>
+                    @else
+                    <a href="/giris" class="login-panel"><i class="fa fa-user"></i>Giriş Yap</a>
+                    @endif
+
+                <div class="top-social">
+                    <a href="#"><i class="ti-facebook"></i></a>
+                    <a href="#"><i class="ti-twitter-alt"></i></a>
+                    <a href="#"><i class="ti-linkedin"></i></a>
+                    <a href="#"><i class="ti-pinterest"></i></a>
+                </div>
             </div>
-        </header>
-        <!--/HEADER-->
+        </div>
+    </div>
+    <div class="container">
+        <div class="inner-header">
+            <div class="row">
+                <div class="col-lg-2 col-md-2">
+                    <div class="logo">
+                        <a href="/">
+                            <img src="{{$logoUrl}}" alt="{{$siteData->name}}">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-7">
+                    <div class="advanced-search">
+                        <div class="input-group">
+                            <input type="text" id="searchValue" placeholder="Ara">
+                            <button type="button" onclick="search()"><i class="ti-search"></i></button>
+                        </div>
+                        <script>
+                          function search(){
+                            const value = document.getElementById('searchValue').value.trim()
+                            if(value.length > 3){
+                              window.location.href = `/ara/${value}`
+                            }
+                          }
+                        </script>
+                    </div>
+                </div>
+                <div class="col-lg-3 text-right col-md-3">
+                    <ul class="nav-right">
+                        <li class="cart-icon">
+                            <a href="#">
+                                <i class="icon_bag_alt"></i>
+                                <span>{{$cartCount}}</span>
+                            </a>
+                            <div class="cart-hover">
+                                <div class="select-items">
+                                    <table>
+                                        <tbody>
+                                        @foreach($cartItems as $value)
+                                            <tr>
+                                                <td class="si-pic"><img src="/public/front/img/select-product-1.jpg"
+                                                                        alt=""></td>
+                                                <td class="si-text">
+                                                    <div class="product-selected">
+                                                        <p>$60.00 x 1</p>
+                                                        <h6>Kabino Bedside Table</h6>
+                                                    </div>
+                                                </td>
+                                                <td class="si-close">
+                                                    <i class="ti-close"></i>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="select-total">
+                                    <span>Toplam:</span>
+                                    <h5>{{$cartTotal}}</h5>
+                                </div>
+                                <div class="select-button">
+                                    <a href="/sepet" class="primary-btn view-card">Sepete Git</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="cart-price">{{$cartTotal}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="nav-item">
+        <div class="container">
+            <div class="nav-depart">
+                <div class="depart-btn">
+                    <i class="ti-menu"></i>
+                    <span>Kategoriler</span>
+                    <ul class="depart-hover">
+                        @foreach($categories as $value)
+                            <li class=""><a href="{{$value->slug}}">{{$value->name}}</a></li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+            <nav class="nav-menu mobile-menu">
+                <ul>
+                    @foreach($categories as $value)
+                        <li><a href="{{$value->slug}}">{{$value->name}}</a>
+                            @if($value->subCategory != (object)[])
+                                <ul class="dropdown">
+                                    @foreach($value->subCategory as $value)
+                                        <li><a href="{{$value->slug}}">{{$value->name}}</a></li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </li>
+                    @endforeach
+                </ul>
+            </nav>
+            <div id="mobile-menu-wrap"></div>
+        </div>
+    </div>
+</header>

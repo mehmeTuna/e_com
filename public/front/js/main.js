@@ -12,14 +12,6 @@
 (function ($) {
 
     /*------------------
-        Preloader
-    --------------------*/
-    $(window).on('load', function () {
-        $(".loader").fadeOut();
-        $("#preloder").delay(200).fadeOut("slow");
-    });
-
-    /*------------------
         Background Set
     --------------------*/
     $('.set-bg').each(function () {
@@ -195,14 +187,6 @@
 	});
 	minamount.val('$' + rangeSlider.slider("values", 0));
     maxamount.val('$' + rangeSlider.slider("values", 1));
-
-    /*-------------------
-		Radio Btn
-	--------------------- */
-    $(".fw-size-choose .sc-item label, .pd-size-choose .sc-item label").on('click', function () {
-        $(".fw-size-choose .sc-item label, .pd-size-choose .sc-item label").removeClass('active');
-        $(this).addClass('active');
-    });
     
     /*-------------------
 		Nice Select
@@ -225,26 +209,6 @@
 
     $('.product-pic-zoom').zoom();
     
-    /*-------------------
-		Quantity change
-	--------------------- */
-    var proQty = $('.pro-qty');
-	proQty.prepend('<span class="dec qtybtn">-</span>');
-	proQty.append('<span class="inc qtybtn">+</span>');
-	proQty.on('click', '.qtybtn', function () {
-		var $button = $(this);
-		var oldValue = $button.parent().find('input').val();
-		if ($button.hasClass('inc')) {
-			var newVal = parseFloat(oldValue) + 1;
-		} else {
-			// Don't allow decrementing below zero
-			if (oldValue > 0) {
-				var newVal = parseFloat(oldValue) - 1;
-			} else {
-				newVal = 0;
-			}
-		}
-		$button.parent().find('input').val(newVal);
-	});
+
 
 })(jQuery);
