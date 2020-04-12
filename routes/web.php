@@ -34,6 +34,12 @@ Route::get('yonetim/giris', 'AdminController@loginPage');
 Route::post('business/loginData', 'AdminController@login');
 Route::post('business/logout', 'AdminController@logout');
 
+Route::get('sepet', 'WelcomeController@sepet');
+Route::post('user/cart', 'WelcomeController@addCartItem');
+Route::middleware(['user'])->group(function(){
+    Route::get('hesabim', 'WelcomeController@myAccountPage');
+});
+
 Route::middleware(['admin'])->group(function () {
     Route::get('yonetim', 'AdminController@home');
     Route::get('yonetim/anasayfa', 'AdminController@home');
@@ -64,6 +70,6 @@ Route::middleware(['admin'])->group(function () {
     Route::post('content/list', 'AdminController@getAbout');
 });
 
-Route::get('{productSLugName}', 'WelcomeController@productPage');
+Route::get('{sLugName}', 'WelcomeController@showPage');
 
 Route::get('*', 'WelcomeController@index');

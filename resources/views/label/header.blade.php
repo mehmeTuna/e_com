@@ -19,6 +19,13 @@
                     @endif
 
                 <div class="top-social">
+                    @if(session('userId', false))
+                        <a href="/hesabim" ><i class="fa fa-user"></i>Hesabim</a>
+
+                    @endif
+                </div>
+
+                <div class="top-social">
                     <a href="#"><i class="ti-facebook"></i></a>
                     <a href="#"><i class="ti-twitter-alt"></i></a>
                     <a href="#"><i class="ti-linkedin"></i></a>
@@ -56,40 +63,86 @@
                 <div class="col-lg-3 text-right col-md-3">
                     <ul class="nav-right">
                         <li class="cart-icon">
-                            <a href="#">
+                            <a href="/sepet">
                                 <i class="icon_bag_alt"></i>
                                 <span>{{$cartCount}}</span>
                             </a>
+                           <!--
                             <div class="cart-hover">
                                 <div class="select-items">
                                     <table>
                                         <tbody>
                                         @foreach($cartItems as $value)
-                                            <tr>
-                                                <td class="si-pic"><img src="/public/front/img/select-product-1.jpg"
-                                                                        alt=""></td>
-                                                <td class="si-text">
-                                                    <div class="product-selected">
-                                                        <p>$60.00 x 1</p>
-                                                        <h6>Kabino Bedside Table</h6>
-                                                    </div>
-                                                </td>
-                                                <td class="si-close">
-                                                    <i class="ti-close"></i>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="select-total">
-                                    <span>Toplam:</span>
-                                    <h5>{{$cartTotal}}</h5>
+                            @if(count($value['options']['selectBox']) > 0)
+                                @foreach($value['options']['selectBox'] as $selectBox)
+                                    @foreach($selectBox as $item)
+                                        <tr>
+                                            <td class="si-pic">
+                                                <img src="{{$value['name']}}" alt="{{$value['name']}}">
+                                                            </td>
+                                                            <td class="si-text">
+                                                                <div class="product-selected">
+                                                                    <p>{{$value['price']}} x {{$item['name']}}</p>
+                                                                    <h6>{{$value['name']}}</h6>
+                                                                </div>
+                                                            </td>
+                                                            <td class="si-close">
+                                                                <i class="ti-close"></i>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                @endforeach
+                            @endif
+                            @if(count($value['options']['checkBox']) > 0)
+                                @foreach($value['options']['checkBox'] as $selectBox)
+                                    @foreach($selectBox as $item)
+                                        <tr>
+                                            <td class="si-pic">
+                                                <img src="{{$value['name']}}" alt="{{$value['name']}}">
+                                                            </td>
+                                                            <td class="si-text">
+                                                                <div class="product-selected">
+                                                                    <p>{{$value['price']}} x {{$item['name']}}</p>
+                                                                    <h6>{{$value['name']}}</h6>
+                                                                </div>
+                                                            </td>
+                                                            <td class="si-close">
+                                                                <i class="ti-close"></i>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                @endforeach
+                            @endif
+                            @if($value['quantity'] > 0)
+                                <tr>
+                                    <td class="si-pic">
+                                        <img src="{{$value['img']}}" alt="{{$value['name']}}">
+                                                    </td>
+                                                    <td class="si-text">
+                                                        <div class="product-selected">
+                                                            <p>{{$value['price']}} x </p>
+                                                            <h6>{{$value['name']}}</h6>
+                                                        </div>
+                                                    </td>
+                                                    <td class="si-close">
+                                                        <i class="ti-close"></i>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                        @endforeach
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="select-total">
+                            <span>Toplam:</span>
+                            <h5>{{$cartTotal}}</h5>
                                 </div>
                                 <div class="select-button">
                                     <a href="/sepet" class="primary-btn view-card">Sepete Git</a>
                                 </div>
                             </div>
+-->
                         </li>
                         <li class="cart-price">{{$cartTotal}}</li>
                     </ul>
