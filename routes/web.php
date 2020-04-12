@@ -38,6 +38,7 @@ Route::get('sepet', 'WelcomeController@sepet');
 Route::post('user/cart', 'WelcomeController@addCartItem');
 Route::middleware(['user'])->group(function(){
     Route::get('hesabim', 'WelcomeController@myAccountPage');
+    Route::post('user/update', 'WelcomeController@userUpdate');
 });
 
 Route::middleware(['admin'])->group(function () {

@@ -194,6 +194,46 @@ class WelcomeController extends Controller
     public function myAccountPage()
     {
         //TODO: kullanici hesabim sayfasi ve guncelleyebilecegi kisimlar
+        $commonData = $this->getCommonData();
+        $products = Product::where('active', 1)->get();
+        $user = User::find(session('userId'));
+
+        if($user == null) return redirect('/');
+
+        return view('myAccount', [
+            'logoUrl' => $commonData->logoUrl,
+            'siteData' => $commonData->siteData,
+            'categories' => $commonData->categories,
+            'products' => $products,
+            'cartCount' => $commonData->cartCount,
+            'cartItems' => $commonData->cartItems,
+            'cartTotal' => $commonData->cartTotal,
+            'user' => $user
+        ]);
+    }
+
+    public function userUpdate(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'adress' => 'sometimes|min:3|max:255',
+            'email' => 'sometimes|email|unique:users',
+            'phone' => 'sometimes|integer'
+        ]);
+
+        if ($validator->fails()) {
+            return response()
+                ->json([
+                    'status' => false
+                ]);
+        }
+
+        $user = User::find(session('userId'))->update($request->toArray());
+
+        return response()
+            ->json([
+                'status' => true
+            ]);
     }
 
     public function sepet()

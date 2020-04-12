@@ -388,10 +388,6 @@
     });
 
     function addItem() {
-        console.log('selectBox', selectBoxData)
-        console.log('checkBoxData', checkBoxData)
-        console.log('price', productPrice)
-        console.log('product Quantity', productQuantity)
         axios.post('/user/cart',{
             productId: productId,
             productQuantity: productQuantity,

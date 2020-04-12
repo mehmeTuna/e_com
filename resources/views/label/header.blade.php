@@ -18,12 +18,12 @@
                     <a href="/giris" class="login-panel"><i class="fa fa-user"></i>Giriş Yap</a>
                     @endif
 
-                <div class="top-social">
                     @if(session('userId', false))
-                        <a href="/hesabim" ><i class="fa fa-user"></i>Hesabim</a>
-
+                        <div class="top-social">
+                            <a href="/hesabim" ><i class="fa fa-user"></i>Hesabim</a>
+                        </div>
                     @endif
-                </div>
+
 
                 <div class="top-social">
                     <a href="#"><i class="ti-facebook"></i></a>
