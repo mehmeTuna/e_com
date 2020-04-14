@@ -75,7 +75,7 @@ class WelcomeController extends Controller
     {
         $price = isset($request->price) ? $request->price : '' ;
         $category = Category::where('active', 1)->where('nameSlug', $sLugName)->first();
-        $features = Features::where('active', 1)->get();
+        $features = Features::where('active', 1)->limit(6)->get();
 
         if($category == null){
             return redirect('/');
@@ -92,7 +92,9 @@ class WelcomeController extends Controller
             default :
                 if(isset($request->minPrice) && isset($request->maxPrice)){
                     $products = $category->products()->whereBetween('price', [$request->minPrice, $request->maxPrice])->get();
-                }else{
+                }else if(isset($request->option)){
+                    $products = $category->products()->get();
+                }else {
                     $products = $category->products;
                 }
                 break;
@@ -191,6 +193,44 @@ class WelcomeController extends Controller
         ]);
     }
 
+    public function deleteCartItem(Request $request)
+    {
+        if(!isset($request->productId)){
+            return response()->json([
+                'status' => false
+                ]);
+        }
+
+        $id = (int)$request->productId ;
+        $cart = session('cart', []);
+        $item = -1 ;
+        $cartTotal = session('cartTotal', 0);
+        $price = 0;
+
+        for ($count = 0 ; $count < count($cart) ; $count++){
+            if($cart[$count]['id'] == $id){
+                $item = $count ;
+                $price = $cart[$count]['price'] ;
+                break;
+            }
+        }
+
+        if($item != -1){
+            array_splice($cart, $item, 1);
+
+            $price = $cartTotal - $price;
+        }
+
+        session()->pull('cart');
+        session()->put('cart', $cart);
+        session()->pull('cartTotal');
+        session()->put('cartTotal', $price);
+
+        return response()->json([
+                'status' => true
+            ]);
+    }
+
     public function myAccountPage()
     {
         //TODO: kullanici hesabim sayfasi ve guncelleyebilecegi kisimlar
@@ -250,6 +290,27 @@ class WelcomeController extends Controller
         ]);
     }
 
+    public function search($search)
+    {
+        $commonData = $this->getCommonData();
+        $products = Product::where('active', 1)->where('name','LIKE','%'.$search.'%')->get();
+
+        if($products == null){
+            return redirect('/');
+        }
+
+        return view('categoryPage', [
+            'logoUrl' => $commonData->logoUrl,
+            'siteData' => $commonData->siteData,
+            'categories' => $commonData->categories,
+            'cartCount' => $commonData->cartCount,
+            'cartItems' => $commonData->cartItems,
+            'cartTotal' => $commonData->cartTotal,
+            'productItems' => $products,
+            'features' => Features::where('active', 1)->limit(6)->get()
+        ]);
+    }
+
     public function index()
     {
         $commonData = $this->getCommonData();
@@ -287,6 +348,7 @@ class WelcomeController extends Controller
             'username' => 'required|unique:users,email',
             'password' => 'required|min:4|max:25',
             'address' => 'required|min:3|max:100',
+            'phone' => 'required|min:6|max:20'
         ]);
 
 
@@ -298,7 +360,7 @@ class WelcomeController extends Controller
             'firstname' => $request->fullName,
             'lastname' => '',
             'verification_code' => str_random(10),
-            'phone' => '',
+            'phone' => $request->phone,
             'email' => $request->username,
             'password' => Hash::make($request->password),
             'adress' => $request->address,
@@ -358,10 +420,15 @@ class WelcomeController extends Controller
 
     public function about()
     {
-        $about = About::where('id', 1)->active()->first();
+        $commonData = $this->getCommonData();
 
         return view('about', [
-            'data' => $about,
+            'logoUrl' => $commonData->logoUrl,
+            'siteData' => $commonData->siteData,
+            'categories' => $commonData->categories,
+            'cartCount' => $commonData->cartCount,
+            'cartItems' => $commonData->cartItems,
+            'cartTotal' => $commonData->cartTotal,
         ]);
     }
 

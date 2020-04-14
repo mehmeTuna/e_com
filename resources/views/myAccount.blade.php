@@ -90,11 +90,8 @@
         return axios.post('/user/update',{
           adress: name.trim()
         }).then(function (response) {
-          return response
+          window.location.reload()
         })
-      })
-      .then(results => {
-        window.location.reload()
       });
     }
     function phoneUpdate(){
@@ -112,11 +109,8 @@
         return axios.post('/user/update',{
           phone: name.trim()
         }).then(function (response) {
-          return response
+          window.location.reload()
         })
-      })
-      .then(results => {
-        window.location.reload()
       });
     }
     function emailUpdate(){
@@ -134,11 +128,8 @@
         return axios.post('/user/update',{
           email: name.trim()
         }).then(function (response) {
-          console.log(response.data)
+          window.location.reload()
         })
-      })
-      .then(results => {
-        window.location.reload()
       });
     }
 </script>

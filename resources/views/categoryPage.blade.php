@@ -27,7 +27,9 @@
             <div class="col-lg-12">
                 <div class="breadcrumb-text product-more">
                     <a href="/"><i class="fa fa-home"></i> AnaSayfa</a>
-                    <a href="/{{$category->nameSlug}}">{{$category->name}}</a>
+                    @if(isset($category))
+                        <a href="/{{$category->nameSlug}}">{{$category->name}}</a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -75,34 +77,13 @@
                     <div class="fw-size-choose">
                         @foreach($features as $value)
                             <div class="sc-item">
-                                <label for="m-size">
+                                <input type="radio" id="s-size">
+                                <label for="s-size">
                                     <a class="filter-btn" href="?option={{$value->id}}">
                                         {{$value->name}}
                                     </a></label>
                             </div>
                         @endforeach
-                    </div>
-                </div>
-                <div class="filter-widget">
-
-                    <h4 class="fw-title">Size</h4>
-                    <div class="fw-size-choose">
-                        <div class="sc-item">
-                            <input type="radio" id="s-size">
-                            <label for="s-size">s</label>
-                        </div>
-                        <div class="sc-item">
-                            <input type="radio" id="m-size">
-                            <label for="m-size">m</label>
-                        </div>
-                        <div class="sc-item">
-                            <input type="radio" id="l-size">
-                            <label for="l-size">l</label>
-                        </div>
-                        <div class="sc-item">
-                            <input type="radio" id="xs-size">
-                            <label for="xs-size">xs</label>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -115,8 +96,8 @@
                                     <option value="price=plus">Fiyata gore Artan</option>
                                     <option value="price=minus">Fiyata gore Azalan </option>
                                 </select>
-                                <select class="p-show">
-                                    <option value="">Show:</option>
+                                <select class="sorting">
+                                    <option value="">Toplam: {{count($productItems)}}</option>
                                 </select>
                             </div>
                         </div>
@@ -127,7 +108,10 @@
                 </div>
                 <div class="product-list">
                     <div class="row">
-                        @foreach($productItems as $value)
+                        @if(count($productItems) == 0)
+                            <h4 style="width: 100%" class="text-center ">Urun bulunamadi</h4>
+                        @else
+                            @foreach($productItems as $value)
                             <div class="col-lg-4 col-sm-6">
                                 <div class="product-item">
                                     <div class="pi-pic">
@@ -152,6 +136,7 @@
                                 </div>
                             </div>
                         @endforeach
+                        @endif
                     </div>
                 </div>
             </div>

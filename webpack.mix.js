@@ -1,4 +1,4 @@
-let mix = require('laravel-mix');
+let mix = require('laravel-mix')
 
 /*
  |--------------------------------------------------------------------------
@@ -11,7 +11,13 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.react('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+mix
+  .react('resources/assets/js/app.js', 'public/js')
+  .sass('resources/assets/sass/app.scss', 'public/css')
 
-mix.react('resources/assets/js/business/login/app.js', 'public/business/login/js');
+mix.react(
+  'resources/assets/js/business/login/app.js',
+  'public/business/login/js'
+)
+
+mix.react('resources/assets/js/payment/app.js', 'public/frontPayment/js')

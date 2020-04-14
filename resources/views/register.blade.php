@@ -54,6 +54,10 @@
                             <input type="text" id="username" name="username">
                         </div>
                         <div class="group-input">
+                            <label for="con-pass">Telefon *</label>
+                            <input type="text" id="con-pass" name="phone" onkeyup="this.value.replace(this.value=this.value.replace(/[^\d]/,''))">
+                        </div>
+                        <div class="group-input">
                             <label for="pass">Parola *</label>
                             <input type="password" id="pass" name="password">
                         </div>
@@ -97,7 +101,6 @@
 
 @endcomponent
 <!-- Footer Section End -->
-
 
 
 <!-- Js Plugins -->

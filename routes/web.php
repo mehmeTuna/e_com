@@ -17,8 +17,9 @@ Route::any('/', 'WelcomeController@index');
 Route::get('pdf', 'AdminController@ordersInvoice');
 Route::get('excel', 'Admincontroller@excel');
 
-Route::get('hakkinda', 'WelcomeController@about');
+Route::get('hakkimizda', 'WelcomeController@about');
 Route::get('galeri', 'WelcomeController@gallery');
+Route::get('iletisim', 'WelcomeController@about');
 
 Route::get('404', 'WelcomeController@noPage');
 
@@ -34,8 +35,11 @@ Route::get('yonetim/giris', 'AdminController@loginPage');
 Route::post('business/loginData', 'AdminController@login');
 Route::post('business/logout', 'AdminController@logout');
 
+Route::get('ara/{search}', 'WelcomeController@search');
 Route::get('sepet', 'WelcomeController@sepet');
 Route::post('user/cart', 'WelcomeController@addCartItem');
+Route::post('user/cart/delete', 'WelcomeController@deleteCartItem');
+
 Route::middleware(['user'])->group(function(){
     Route::get('hesabim', 'WelcomeController@myAccountPage');
     Route::post('user/update', 'WelcomeController@userUpdate');
