@@ -40,7 +40,11 @@ Route::get('sepet', 'WelcomeController@sepet');
 Route::post('user/cart', 'WelcomeController@addCartItem');
 Route::post('user/cart/delete', 'WelcomeController@deleteCartItem');
 
-Route::middleware(['user'])->group(function(){
+Route::post('pay', 'PaymentController@creditCard');
+
+Route::get('item', 'PaymentController@cart');
+
+Route::middleware(['user'])->group(function () {
     Route::get('hesabim', 'WelcomeController@myAccountPage');
     Route::post('user/update', 'WelcomeController@userUpdate');
 });

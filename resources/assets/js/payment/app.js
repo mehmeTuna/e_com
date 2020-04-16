@@ -1,11 +1,16 @@
+require('./../bootstrap')
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 
 import 'react-credit-cards/es/styles-compiled.css'
 import Cards from 'react-credit-cards'
 import Popup from 'reactjs-popup'
+import axios from 'axios'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
-require('./../bootstrap')
+const sweet = withReactContent(Swal)
 
 window.React = require('react')
 
@@ -33,6 +38,7 @@ export default class App extends React.Component {
     }
     this.handleInputFocus = this.handleInputFocus.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleInputFocus(e) {
@@ -43,6 +49,30 @@ export default class App extends React.Component {
     const {name, value} = e.target
 
     this.setState({[name]: value})
+  }
+
+  handleSubmit() {
+    if (
+      this.state.cvc === '' ||
+      this.state.expiry === '' ||
+      this.state.name === '' ||
+      this.state.number === ''
+    ) {
+      sweet.fire({
+        title: 'Gerekli alanlari doldurunuz',
+        timer: 1500
+      })
+      return
+    }
+
+    axios
+      .post('/pay', {
+        cvc: this.state.cvc,
+        expiry: this.state.expiry,
+        name: this.state.name,
+        number: this.state.number
+      })
+      .then(res => console.log(res))
   }
   render() {
     return (
@@ -98,12 +128,12 @@ export default class App extends React.Component {
                     />
                   </div>
                 </div>
-                <div className="d-flex justify-content-end pr-2">
-                  <button type="button" className="btn btn-primary">
-                    Odeme Yap
-                  </button>
-                </div>
               </form>
+              <div className="d-flex justify-content-end pr-2">
+                <button className="btn btn-primary" onClick={this.handleSubmit}>
+                  Odeme Yap
+                </button>
+              </div>
             </div>
           </div>
         </Modal>

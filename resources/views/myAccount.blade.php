@@ -63,7 +63,38 @@
             <div class="col-lg-6 offset-lg-1">
                 <div class="contact-form">
                     <div class="leave-comment">
-                        <h4>Siparisiniz bulunmamaktadir</h4>
+
+                        @if($orders == null)
+                            <h4>Siparisiniz bulunmamaktadir</h4>
+                        @else
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">siparis numarasi</th>
+                                    <th scope="col">Urun</th>
+                                    <th scope="col">ozellik</th>
+                                    <th scope="col">Fiyat</th>
+                                    <th scope="col">Tarih</th>
+                                    <th scope="col">Durum</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($orders as $value)
+                                        <tr>
+                                            <th scope="row">{{$value->id}}</th>
+                                            <td>{{$value->product->name}}</td>
+                                            <td>
+                                                {{$value->selectbox != '' ? $value->selectbox->name : ''}}
+                                                {{$value->checkbox != '' ? $value->checkbox->name : ''}}
+                                            </td>
+                                            <td>{{$value->price}}</td>
+                                            <td>{{$value->date}}</td>
+                                            <td>{{$value->durum}}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @endif
                     </div>
                 </div>
             </div>

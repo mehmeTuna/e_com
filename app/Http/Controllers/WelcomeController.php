@@ -7,37 +7,36 @@ use App\Category;
 use App\Features;
 use App\Product;
 use App\User;
-use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Validator;
 
 class WelcomeController extends Controller
 {
 
     public function getCommonData()
     {
-        $logoUrl = '/public/virus.png';
-
         $siteData = About::find(1);
-        $categories = Category::where('active', 1)->where('upId',  null)->limit(15)->get();
+        $logoUrl = $siteData->logo[0]->url;
+        $categories = Category::where('active', 1)->where('upId', null)->limit(6)->get();
 
-        $categories = $categories->map(function($value){
-            $data = (object)[];
-            $data->name = $value->name ;
-            $data->slug = $value->nameSlug ;
-            $data->img = $value->img ;
+        $categories = $categories->map(function ($value) {
+            $data = (object) [];
+            $data->name = $value->name;
+            $data->slug = $value->nameSlug;
+            $data->img = $value->img;
             $data->subCategory = Category::where('active', 1)->where('upId', $value->id)->get();
-            $data->subCategory = $data->subCategory->map(function($value){
-                $data = (object)[];
-                $data->name = $value->name ;
-                $data->slug = $value->nameSlug ;
-                $data->img = $value->img ;
-                return $data ;
+            $data->subCategory = $data->subCategory->map(function ($value) {
+                $data = (object) [];
+                $data->name = $value->name;
+                $data->slug = $value->nameSlug;
+                $data->img = $value->img;
+                return $data;
             });
             return $data;
         });
 
-        return (object)[
+        return (object) [
             'logoUrl' => $logoUrl,
             'siteData' => $siteData,
             'categories' => $categories,
@@ -52,12 +51,12 @@ class WelcomeController extends Controller
         $commonData = $this->getCommonData();
 
         $product = Product::where('active', 1)->where('nameSlug', $sLugName)->first();
-        if($product == null){
+        if ($product == null) {
             return $this->showCategoryPage($sLugName, $commonData, $request);
         }
 
         $otherProducts = Product::where('active', 1)->where('categoryId', $product->categoryId)->limit(6)->get();
-        return view('productDetail',[
+        return view('productDetail', [
             'logoUrl' => $commonData->logoUrl,
             'siteData' => $commonData->siteData,
             'categories' => $commonData->categories,
@@ -67,40 +66,40 @@ class WelcomeController extends Controller
             'product' => $product,
             'productCategory' => $product->category,
             'features' => $product->featuresItems,
-            'otherProducts' => $otherProducts
+            'otherProducts' => $otherProducts,
         ]);
     }
 
     public function showCategoryPage($sLugName, $commonData, $request)
     {
-        $price = isset($request->price) ? $request->price : '' ;
+        $price = isset($request->price) ? $request->price : '';
         $category = Category::where('active', 1)->where('nameSlug', $sLugName)->first();
         $features = Features::where('active', 1)->limit(6)->get();
 
-        if($category == null){
+        if ($category == null) {
             return redirect('/');
         }
 
-        $products = null ;
-        switch ($price){
+        $products = null;
+        switch ($price) {
             case 'plus':
                 $products = $category->products()->orderBy('price', 'ASC')->get();
                 break;
             case 'minus':
                 $products = $category->products()->orderBy('price', 'DESC')->get();
                 break;
-            default :
-                if(isset($request->minPrice) && isset($request->maxPrice)){
+            default:
+                if (isset($request->minPrice) && isset($request->maxPrice)) {
                     $products = $category->products()->whereBetween('price', [$request->minPrice, $request->maxPrice])->get();
-                }else if(isset($request->option)){
+                } else if (isset($request->option)) {
                     $products = $category->products()->get();
-                }else {
+                } else {
                     $products = $category->products;
                 }
                 break;
         }
 
-        if($products == null){
+        if ($products == null) {
             return redirect('/');
         }
 
@@ -113,73 +112,73 @@ class WelcomeController extends Controller
             'cartTotal' => $commonData->cartTotal,
             'category' => $category,
             'productItems' => $products,
-            'features' => $features
+            'features' => $features,
         ]);
     }
 
     public function addCartItem(Request $request)
     {
-       //TODO::request e kontrol eklenecek
-       //TODO: bir sonraki asamada sepeti optimize et
+        //TODO::request e kontrol eklenecek
+        //TODO: bir sonraki asamada sepeti optimize et
         $cart = session('cart', []);
         $cartTotal = session('cartTotal', 0);
         $product = Product::find($request->productId);
-        $items = $product->featuresItems ;
-        $quantity = (int)$request->productQuantity < $product->minorders ? $product->minorders :  $request->productQuantity;
+        $items = $product->featuresItems;
+        $quantity = (int) $request->productQuantity < $product->minorders ? $product->minorders : $request->productQuantity;
         $price = $product->price * $quantity;
         $options = ['checkBox' => [], 'selectBox' => []];
-        $isOption= false ;
+        $isOption = false;
 
-        if($product == null){
-            return response()->json(['status' => false , 'text'=> 'urun bulunamadi']);
+        if ($product == null) {
+            return response()->json(['status' => false, 'text' => 'urun bulunamadi']);
         }
 
-        foreach ($items as $value){
-            if($value->id == $request->checkBox){
+        foreach ($items as $value) {
+            if ($value->id == $request->checkBox) {
                 $isOption = true;
-                $price = $quantity * $value->price ;
+                $price = $quantity * $value->price;
                 array_push($options['checkBox'], [
                     'id' => $value->id,
                     'name' => $value->name,
-                    'quantity' => $quantity
+                    'quantity' => $quantity,
                 ]);
-            }else if($value->id == $request->selectBox){
-                $isOption = true ;
+            } else if ($value->id == $request->selectBox) {
+                $isOption = true;
                 array_push($options['selectBox'], [
                     'id' => $value->id,
                     'name' => $value->name,
-                    'quantity' => $quantity
+                    'quantity' => $quantity,
                 ]);
             }
         }
 
-        $isAlreadyProduct = false ;
-        for ($count = 0 ; $count < count($cart) ; $count++){
-            if($cart[$count]['id'] == $product->id){
-                $isAlreadyProduct = true ;
+        $isAlreadyProduct = false;
+        for ($count = 0; $count < count($cart); $count++) {
+            if ($cart[$count]['id'] == $product->id) {
+                $isAlreadyProduct = true;
 
-                if($isOption == false){
-                    $cart[$count]['quantity'] = $cart[$count]['quantity'] + $quantity ;
+                if ($isOption == false) {
+                    $cart[$count]['quantity'] = $cart[$count]['quantity'] + $quantity;
                 }
 
-                $cart[$count]['price'] = $cart[$count]['price'] + $price ;
-                if(isset($options['selectBox']) && count($options['selectBox'])){
+                $cart[$count]['price'] = $cart[$count]['price'] + $price;
+                if (isset($options['selectBox']) && count($options['selectBox'])) {
                     array_push($cart[$count]['options']['selectBox'], $options['selectBox']);
                 }
-                if(isset($options['checkBox']) && count($options['checkBox'])){
+                if (isset($options['checkBox']) && count($options['checkBox'])) {
                     array_push($cart[$count]['options']['checkBox'], $options['checkBox']);
                 }
             }
         }
 
-        if($isAlreadyProduct == false){
+        if ($isAlreadyProduct == false) {
             array_push($cart, [
                 'id' => $product->id,
                 'name' => $product->name,
                 'quantity' => $isOption == false ? $quantity : 0,
                 'price' => $price,
                 'img' => $product->img,
-                'options' => $options
+                'options' => $options,
             ]);
         }
 
@@ -189,33 +188,33 @@ class WelcomeController extends Controller
         session()->put('cartTotal', $cartTotal + $price);
         return response()->json([
             'cart' => $cart,
-             'cartTotal' => $cartTotal + $price
+            'cartTotal' => $cartTotal + $price,
         ]);
     }
 
     public function deleteCartItem(Request $request)
     {
-        if(!isset($request->productId)){
+        if (!isset($request->productId)) {
             return response()->json([
-                'status' => false
-                ]);
+                'status' => false,
+            ]);
         }
 
-        $id = (int)$request->productId ;
+        $id = (int) $request->productId;
         $cart = session('cart', []);
-        $item = -1 ;
+        $item = -1;
         $cartTotal = session('cartTotal', 0);
         $price = 0;
 
-        for ($count = 0 ; $count < count($cart) ; $count++){
-            if($cart[$count]['id'] == $id){
-                $item = $count ;
-                $price = $cart[$count]['price'] ;
+        for ($count = 0; $count < count($cart); $count++) {
+            if ($cart[$count]['id'] == $id) {
+                $item = $count;
+                $price = $cart[$count]['price'];
                 break;
             }
         }
 
-        if($item != -1){
+        if ($item != -1) {
             array_splice($cart, $item, 1);
 
             $price = $cartTotal - $price;
@@ -227,8 +226,8 @@ class WelcomeController extends Controller
         session()->put('cartTotal', $price);
 
         return response()->json([
-                'status' => true
-            ]);
+            'status' => true,
+        ]);
     }
 
     public function myAccountPage()
@@ -237,8 +236,22 @@ class WelcomeController extends Controller
         $commonData = $this->getCommonData();
         $products = Product::where('active', 1)->get();
         $user = User::find(session('userId'));
+        $orders = $user->orders()->get()->map(function($value){
+            $data = (object)[];
+            $product = Product::find($value['productId']);
+            $data->durum = 'Hazirlaniyor';
+            $data->id = $value['order_id'];
+            $data->product = $product;
+            $data->price = $value['price'];
+            $data->date = $value['created_at'];
+            $data->selectbox = $value['selectbox'] == null ? '' : $product->featuresItems()->where('features.type', 'selectBox')->where('features.id', $value['selectbox'])->first();
+            $data->checkbox = $value['checkbox'] == null ? '' : $product->featuresItems()->where('features.type', 'checkBox')->where('features.id', $value['checkbox'])->first();
+            return $data;
+        });
 
-        if($user == null) return redirect('/');
+        if ($user == null) {
+            return redirect('/');
+        }
 
         return view('myAccount', [
             'logoUrl' => $commonData->logoUrl,
@@ -248,7 +261,8 @@ class WelcomeController extends Controller
             'cartCount' => $commonData->cartCount,
             'cartItems' => $commonData->cartItems,
             'cartTotal' => $commonData->cartTotal,
-            'user' => $user
+            'user' => $user,
+            'orders' => $orders
         ]);
     }
 
@@ -258,13 +272,13 @@ class WelcomeController extends Controller
         $validator = Validator::make($request->all(), [
             'adress' => 'sometimes|min:3|max:255',
             'email' => 'sometimes|email|unique:users',
-            'phone' => 'sometimes|integer'
+            'phone' => 'sometimes|integer',
         ]);
 
         if ($validator->fails()) {
             return response()
                 ->json([
-                    'status' => false
+                    'status' => false,
                 ]);
         }
 
@@ -272,7 +286,7 @@ class WelcomeController extends Controller
 
         return response()
             ->json([
-                'status' => true
+                'status' => true,
             ]);
     }
 
@@ -280,7 +294,7 @@ class WelcomeController extends Controller
     {
         $commonData = $this->getCommonData();
 
-        return view('sepet',[
+        return view('sepet', [
             'logoUrl' => $commonData->logoUrl,
             'siteData' => $commonData->siteData,
             'categories' => $commonData->categories,
@@ -293,9 +307,9 @@ class WelcomeController extends Controller
     public function search($search)
     {
         $commonData = $this->getCommonData();
-        $products = Product::where('active', 1)->where('name','LIKE','%'.$search.'%')->get();
+        $products = Product::where('active', 1)->where('name', 'LIKE', '%' . $search . '%')->get();
 
-        if($products == null){
+        if ($products == null) {
             return redirect('/');
         }
 
@@ -307,7 +321,7 @@ class WelcomeController extends Controller
             'cartItems' => $commonData->cartItems,
             'cartTotal' => $commonData->cartTotal,
             'productItems' => $products,
-            'features' => Features::where('active', 1)->limit(6)->get()
+            'features' => Features::where('active', 1)->limit(6)->get(),
         ]);
     }
 
@@ -323,7 +337,7 @@ class WelcomeController extends Controller
             'products' => $products,
             'cartCount' => $commonData->cartCount,
             'cartItems' => $commonData->cartItems,
-            'cartTotal' => $commonData->cartTotal
+            'cartTotal' => $commonData->cartTotal,
         ]);
     }
 
@@ -337,7 +351,7 @@ class WelcomeController extends Controller
             'categories' => $commonData->categories,
             'cartCount' => $commonData->cartCount,
             'cartItems' => $commonData->cartItems,
-            'cartTotal' => $commonData->cartTotal
+            'cartTotal' => $commonData->cartTotal,
         ]);
     }
 
@@ -348,11 +362,10 @@ class WelcomeController extends Controller
             'username' => 'required|unique:users,email',
             'password' => 'required|min:4|max:25',
             'address' => 'required|min:3|max:100',
-            'phone' => 'required|min:6|max:20'
+            'phone' => 'required|min:6|max:20',
         ]);
 
-
-        if($validator->fails() || $request->contract != true){
+        if ($validator->fails() || $request->contract != true) {
             return redirect('/kayit-ol');
         }
 
@@ -381,7 +394,7 @@ class WelcomeController extends Controller
             'categories' => $commonData->categories,
             'cartCount' => $commonData->cartCount,
             'cartItems' => $commonData->cartItems,
-            'cartTotal' => $commonData->cartTotal
+            'cartTotal' => $commonData->cartTotal,
         ]);
     }
 
@@ -392,15 +405,14 @@ class WelcomeController extends Controller
             'password' => 'required|min:4|max:25',
         ]);
 
-
-        if($validator->fails() ){
+        if ($validator->fails()) {
             return redirect('/giris');
         }
 
-        $user = User::where( 'email' ,$request->username)->first();
+        $user = User::where('email', $request->username)->first();
 
-        if (!Hash::check($request->password, $user->password)){
-            return redirect('/giris') ;
+        if (!Hash::check($request->password, $user->password)) {
+            return redirect('/giris');
         }
 
         session()->put('userId', $user->id);
@@ -408,7 +420,8 @@ class WelcomeController extends Controller
         return redirect('/');
     }
 
-    public function logOut(){
+    public function logOut()
+    {
         session()->forget('userId');
         return redirect('/');
     }
