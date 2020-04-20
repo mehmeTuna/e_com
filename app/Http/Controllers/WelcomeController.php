@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\About;
+use App\Brands;
 use App\Category;
 use App\Features;
 use App\Product;
@@ -19,6 +20,7 @@ class WelcomeController extends Controller
         $siteData = About::find(1);
         $logoUrl = $siteData->logo[0]->url;
         $categories = Category::where('active', 1)->where('upId', null)->limit(6)->get();
+        $brands = Brands::where('active', 1)->get();
 
         $categories = $categories->map(function ($value) {
             $data = (object) [];
@@ -42,7 +44,8 @@ class WelcomeController extends Controller
             'categories' => $categories,
             'cartCount' => count(session('cart', [])),
             'cartItems' => session('cart', []),
-            'cartTotal' => session('cartTotal', 0)
+            'cartTotal' => session('cartTotal', 0),
+            'brands' => $brands
         ];
     }
 
@@ -67,6 +70,7 @@ class WelcomeController extends Controller
             'productCategory' => $product->category,
             'features' => $product->featuresItems,
             'otherProducts' => $otherProducts,
+            'brands' => $commonData->brands
         ]);
     }
 
@@ -113,6 +117,7 @@ class WelcomeController extends Controller
             'category' => $category,
             'productItems' => $products,
             'features' => $features,
+            'brands' => $commonData->brands
         ]);
     }
 
@@ -262,7 +267,8 @@ class WelcomeController extends Controller
             'cartItems' => $commonData->cartItems,
             'cartTotal' => $commonData->cartTotal,
             'user' => $user,
-            'orders' => $orders
+            'orders' => $orders,
+            'brands' => $commonData->brands
         ]);
     }
 
@@ -301,6 +307,7 @@ class WelcomeController extends Controller
             'cartCount' => $commonData->cartCount,
             'cartItems' => $commonData->cartItems,
             'cartTotal' => $commonData->cartTotal,
+            'brands' => $commonData->brands
         ]);
     }
 
@@ -322,6 +329,7 @@ class WelcomeController extends Controller
             'cartTotal' => $commonData->cartTotal,
             'productItems' => $products,
             'features' => Features::where('active', 1)->limit(6)->get(),
+            'brands' => $commonData->brands
         ]);
     }
 
@@ -335,9 +343,11 @@ class WelcomeController extends Controller
             'siteData' => $commonData->siteData,
             'categories' => $commonData->categories,
             'products' => $products,
+            'yeniEklenenler' => Product::with('category')->where('active', 1)->orderBy('created_at', 'ASC')->get(),
             'cartCount' => $commonData->cartCount,
             'cartItems' => $commonData->cartItems,
             'cartTotal' => $commonData->cartTotal,
+            'brands' => $commonData->brands
         ]);
     }
 
@@ -352,6 +362,7 @@ class WelcomeController extends Controller
             'cartCount' => $commonData->cartCount,
             'cartItems' => $commonData->cartItems,
             'cartTotal' => $commonData->cartTotal,
+            'brands' => $commonData->brands
         ]);
     }
 
@@ -395,6 +406,7 @@ class WelcomeController extends Controller
             'cartCount' => $commonData->cartCount,
             'cartItems' => $commonData->cartItems,
             'cartTotal' => $commonData->cartTotal,
+            'brands' => $commonData->brands
         ]);
     }
 
@@ -442,6 +454,7 @@ class WelcomeController extends Controller
             'cartCount' => $commonData->cartCount,
             'cartItems' => $commonData->cartItems,
             'cartTotal' => $commonData->cartTotal,
+            'brands' => $commonData->brands
         ]);
     }
 

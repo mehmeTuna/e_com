@@ -41,8 +41,10 @@
 <!--/GALLERY-->
 
 
-@component('label.footer', [
-'data' => $data
-])
+@component('label.footer',[
+  'logoUrl' => $logoUrl,
+  'siteData' => $siteData,
+  'brands' => $brands
+  ])
 
 @endcomponent

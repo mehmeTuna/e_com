@@ -196,7 +196,7 @@
                     <div class="specification-table">
                       <table>
                         <tr>
-                          <td class="p-catagory">Customer Rating</td>
+                          <td class="p-catagory">Detaylar</td>
                           <td>
                             <div class="pd-rating">
                               <i class="fa fa-star"></i>
@@ -209,43 +209,15 @@
                           </td>
                         </tr>
                         <tr>
-                          <td class="p-catagory">Price</td>
+                          <td class="p-catagory">Fiyat</td>
                           <td>
-                            <div class="p-price">$495.00</div>
+                            <div class="p-price">{{$product->price}}</div>
                           </td>
                         </tr>
                         <tr>
-                          <td class="p-catagory">Add To Cart</td>
+                          <td class="p-catagory">Sepete Ekle</td>
                           <td>
-                            <div class="cart-add">+ add to cart</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="p-catagory">Availability</td>
-                          <td>
-                            <div class="p-stock">22 in stock</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="p-catagory">Weight</td>
-                          <td>
-                            <div class="p-weight">1,3kg</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="p-catagory">Size</td>
-                          <td>
-                            <div class="p-size">Xxl</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="p-catagory">Color</td>
-                          <td><span class="cs-color"></span></td>
-                        </tr>
-                        <tr>
-                          <td class="p-catagory">Sku</td>
-                          <td>
-                            <div class="p-code">00012</div>
+                            <div class="cart-add">+ Sepete Ekle</div>
                           </td>
                         </tr>
                       </table>
@@ -312,8 +284,13 @@
     <!-- Related Products Section End -->
 
     <!-- Footer Section Begin -->
-    @component('label.footer',[ 'logoUrl' => $logoUrl, 'siteData' => $siteData
-    ]) @endcomponent
+    @component('label.footer',[
+      'logoUrl' => $logoUrl,
+      'siteData' => $siteData,
+      'brands' => $brands
+      ])
+
+    @endcomponent
     <!-- Footer Section End -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -384,13 +361,8 @@
                   swal({
                       text: 'Sepete Eklendi',
                       timer: 1500
-                  })
+                  }).then(()=> window.location.reload())
                   // handle success
-                  console.log(response.data);
-              })
-              .catch(function(error) {
-                  // handle error
-                  console.log(error);
               })
       }
 

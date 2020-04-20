@@ -78,88 +78,31 @@
                 <div class="col-lg-12">
                     <div class="filter-control">
                         <ul>
-                            <li class="active">Category Name</li>
+                            <li class="active">Yeni Eklenenler</li>
                         </ul>
                     </div>
                     <div class="product-slider owl-carousel">
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="/public/front/img/products/women-1.jpg" alt="">
-                                <div class="sale">Sale</div>
-
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Coat</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
-                                </a>
-                                <div class="product-price">
-                                    $14.00
-                                    <span>$35.00</span>
+                        @foreach($yeniEklenenler as $value)
+                            <div class="product-item">
+                                <div class="pi-pic">
+                                    <img src="{{$value->img}}" alt="{{$value->name}}">
+                                    <div class="sale">Yeni</div>
+                                    <ul>
+                                        <li class="w-icon active"><a href="{{$value->nameSlug}}"><i class="icon_bag_alt"></i></a></li>
+                                        <li class="quick-view"><a href="{{$value->nameSlug}}">Urunu Incele</a></li>
+                                    </ul>
+                                </div>
+                                <div class="pi-text">
+                                    <div class="catagory-name">{{$value->category->name}}</div>
+                                    <a href="#">
+                                        <h5>{{$value->name}}</h5>
+                                    </a>
+                                    <div class="product-price">
+                                        {{$value->price}}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="/public/front/img/products/women-2.jpg" alt="">
-
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Shoes</div>
-                                <a href="#">
-                                    <h5>Guangzhou sweater</h5>
-                                </a>
-                                <div class="product-price">
-                                    $13.00
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="/public/front/img/products/women-3.jpg" alt="">
-
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
-                                </a>
-                                <div class="product-price">
-                                    $34.00
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="/public/front/img/products/women-4.jpg" alt="">
-
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
-                                <a href="#">
-                                    <h5>Converse Shoes</h5>
-                                </a>
-                                <div class="product-price">
-                                    $34.00
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -173,88 +116,31 @@
                 <div class="col-lg-12">
                     <div class="filter-control">
                         <ul>
-                            <li class="active">Category Name</li>
+                            <li class="active">Trendler</li>
                         </ul>
                     </div>
                     <div class="product-slider owl-carousel">
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="/public/front/img/products/women-1.jpg" alt="">
-                                <div class="sale">Sale</div>
-
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Coat</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
-                                </a>
-                                <div class="product-price">
-                                    $14.00
-                                    <span>$35.00</span>
+                        @foreach($yeniEklenenler as $value)
+                            <div class="product-item">
+                                <div class="pi-pic">
+                                    <img src="{{$value->img}}" alt="{{$value->name}}">
+                                    <div class="sale">Yeni</div>
+                                    <ul>
+                                        <li class="w-icon active"><a href="{{$value->nameSlug}}"><i class="icon_bag_alt"></i></a></li>
+                                        <li class="quick-view"><a href="{{$value->nameSlug}}">Urunu Incele</a></li>
+                                    </ul>
+                                </div>
+                                <div class="pi-text">
+                                    <div class="catagory-name">{{$value->category->name}}</div>
+                                    <a href="#">
+                                        <h5>{{$value->name}}</h5>
+                                    </a>
+                                    <div class="product-price">
+                                        {{$value->price}}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="/public/front/img/products/women-2.jpg" alt="">
-
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Shoes</div>
-                                <a href="#">
-                                    <h5>Guangzhou sweater</h5>
-                                </a>
-                                <div class="product-price">
-                                    $13.00
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="/public/front/img/products/women-3.jpg" alt="">
-
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
-                                </a>
-                                <div class="product-price">
-                                    $34.00
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="/public/front/img/products/women-4.jpg" alt="">
-
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
-                                <a href="#">
-                                    <h5>Converse Shoes</h5>
-                                </a>
-                                <div class="product-price">
-                                    $34.00
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -268,88 +154,31 @@
                 <div class="col-lg-12">
                     <div class="filter-control">
                         <ul>
-                            <li class="active">Category Name</li>
+                            <li class="active">Ilginizi Cekebilir</li>
                         </ul>
                     </div>
                     <div class="product-slider owl-carousel">
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="/public/front/img/products/women-1.jpg" alt="">
-                                <div class="sale">Sale</div>
-
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Coat</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
-                                </a>
-                                <div class="product-price">
-                                    $14.00
-                                    <span>$35.00</span>
+                        @foreach($yeniEklenenler as $value)
+                            <div class="product-item">
+                                <div class="pi-pic">
+                                    <img src="{{$value->img}}" alt="{{$value->name}}">
+                                    <div class="sale">Yeni</div>
+                                    <ul>
+                                        <li class="w-icon active"><a href="{{$value->nameSlug}}"><i class="icon_bag_alt"></i></a></li>
+                                        <li class="quick-view"><a href="{{$value->nameSlug}}">Urunu Incele</a></li>
+                                    </ul>
+                                </div>
+                                <div class="pi-text">
+                                    <div class="catagory-name">{{$value->category->name}}</div>
+                                    <a href="#">
+                                        <h5>{{$value->name}}</h5>
+                                    </a>
+                                    <div class="product-price">
+                                        {{$value->price}}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="/public/front/img/products/women-2.jpg" alt="">
-
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Shoes</div>
-                                <a href="#">
-                                    <h5>Guangzhou sweater</h5>
-                                </a>
-                                <div class="product-price">
-                                    $13.00
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="/public/front/img/products/women-3.jpg" alt="">
-
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
-                                </a>
-                                <div class="product-price">
-                                    $34.00
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="/public/front/img/products/women-4.jpg" alt="">
-
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
-                                <a href="#">
-                                    <h5>Converse Shoes</h5>
-                                </a>
-                                <div class="product-price">
-                                    $34.00
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -555,7 +384,8 @@
     <!-- Footer Section Begin -->
     @component('label.footer',[
     'logoUrl' => $logoUrl,
-    'siteData' => $siteData
+    'siteData' => $siteData,
+    'brands' => $brands
     ])
 
     @endcomponent

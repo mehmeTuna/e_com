@@ -220,16 +220,15 @@ class AdminController extends Controller
         $selectBox = [];
         try {
             $selectBox = json_decode($request->selectBox);
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return response()->json([
-                'status' => false
+                'status' => false,
             ]);
         }
 
-        foreach ($selectBox as $value)
-        {
+        foreach ($selectBox as $value) {
             $features = Features::create([
-                'product_id' => $product->id ,
+                'product_id' => $product->id,
                 'name' => $value->title,
                 'type' => 'selectBox',
                 'price' => $product->price,
@@ -239,20 +238,19 @@ class AdminController extends Controller
         $checkBox = [];
         try {
             $checkBox = json_decode($request->checkBox);
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return response()->json([
-                'status' => false
+                'status' => false,
             ]);
         }
 
-        foreach ($checkBox as $value)
-        {
+        foreach ($checkBox as $value) {
             $features = Features::create([
-                'product_id' => $product->id ,
+                'product_id' => $product->id,
                 'name' => $value->title,
                 'type' => 'checkBox',
                 'price' => $value->price,
-                ]);
+            ]);
         }
 
         return response()->json([
@@ -415,6 +413,7 @@ class AdminController extends Controller
     public function orderConfirmation(Request $request)
     {
         $id = $request->id;
+        $type = $request->type ;
         $company = $request->company;
         $trackingNumber = $request->trackingNumber;
 
@@ -424,10 +423,14 @@ class AdminController extends Controller
                 'status' => false,
             ]);
         }
-
-        $order->m_status = 2;
-        $order->company = $company;
-        $order->trackingNumber = $request->trackingNumber;
+        if($type == 'iptal'){
+            $order->m_status = 2;
+        }
+        if($type == 'onay'){
+            $order->m_status = 1;
+            $order->company = $company;
+            $order->trackingNumber = $trackingNumber;
+        }
 
         $order->save();
 
@@ -436,24 +439,23 @@ class AdminController extends Controller
         ]);
     }
 
-    public function getOrders()
+    public function getOrders(Request $request)
     {
-        $orders = Orders::all();
+        $status = 0;
+        
+        switch ($request->type){
+            case 'coming':
+                $status = 0;
+                break;
+            case 'approved':
+                $status = 1;
+            break;
+            case 'cancel';
+                $status =2;
+            break;
+        }
 
-        $orders = $orders->map(function ($value) {
-            switch ($value->m_status) {
-                case 0:
-                    $value->m_status = 'wait';
-                    break;
-                case 1:
-                    $value->m_status = 'confirm';
-                    break;
-                case 2:
-                    $value->m_status = 'cancel';
-                    break;
-            }
-            return $value;
-        });
+        $orders = Orders::where('orders.m_status',$status)->with(['user', 'status', 'items', 'items.product', 'items.selectBox','items.checkBox', 'items.product.category'])->get();
 
         return response()->json([
             'status' => true,

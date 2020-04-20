@@ -120,9 +120,10 @@
 
 <!-- Footer Section Begin -->
 @component('label.footer',[
-'logoUrl' => $logoUrl,
-'siteData' => $siteData
-])
+  'logoUrl' => $logoUrl,
+  'siteData' => $siteData,
+  'brands' => $brands
+  ])
 
 @endcomponent
 <!-- Footer Section End -->

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $hidden = [ 'updated_at'];
+    protected $hidden = [ 'updated_at', 'categoryId'];
     protected $guarded = ['id'];
     protected $table = 'products';
     public $timestamps = true;

@@ -65,86 +65,10 @@
                         <li class="cart-icon">
                             <a href="/sepet">
                                 <i class="icon_bag_alt"></i>
-                                <span>{{$cartCount}}</span>
+                                <span id="cart-count">{{$cartCount}}</span>
                             </a>
-                            <!--
-                            <div class="cart-hover">
-                                <div class="select-items">
-                                    <table>
-                                        <tbody>
-                                        @foreach($cartItems as $value)
-                            @if(count($value['options']['selectBox']) > 0)
-                                @foreach($value['options']['selectBox'] as $selectBox)
-                                    @foreach($selectBox as $item)
-                                        <tr>
-                                            <td class="si-pic">
-                                                <img src="{{$value['name']}}" alt="{{$value['name']}}">
-                                                            </td>
-                                                            <td class="si-text">
-                                                                <div class="product-selected">
-                                                                    <p>{{$value['price']}} x {{$item['name']}}</p>
-                                                                    <h6>{{$value['name']}}</h6>
-                                                                </div>
-                                                            </td>
-                                                            <td class="si-close">
-                                                                <i class="ti-close"></i>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                @endforeach
-                            @endif
-                            @if(count($value['options']['checkBox']) > 0)
-                                @foreach($value['options']['checkBox'] as $selectBox)
-                                    @foreach($selectBox as $item)
-                                        <tr>
-                                            <td class="si-pic">
-                                                <img src="{{$value['name']}}" alt="{{$value['name']}}">
-                                                            </td>
-                                                            <td class="si-text">
-                                                                <div class="product-selected">
-                                                                    <p>{{$value['price']}} x {{$item['name']}}</p>
-                                                                    <h6>{{$value['name']}}</h6>
-                                                                </div>
-                                                            </td>
-                                                            <td class="si-close">
-                                                                <i class="ti-close"></i>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                @endforeach
-                            @endif
-                            @if($value['quantity'] > 0)
-                                <tr>
-                                    <td class="si-pic">
-                                        <img src="{{$value['img']}}" alt="{{$value['name']}}">
-                                                    </td>
-                                                    <td class="si-text">
-                                                        <div class="product-selected">
-                                                            <p>{{$value['price']}} x </p>
-                                                            <h6>{{$value['name']}}</h6>
-                                                        </div>
-                                                    </td>
-                                                    <td class="si-close">
-                                                        <i class="ti-close"></i>
-                                                    </td>
-                                                </tr>
-                                            @endif
-                        @endforeach
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="select-total">
-                            <span>Toplam:</span>
-                            <h5>{{$cartTotal}}</h5>
-                                </div>
-                                <div class="select-button">
-                                    <a href="/sepet" class="primary-btn view-card">Sepete Git</a>
-                                </div>
-                            </div>
--->
                         </li>
-                        <li class="cart-price">{{$cartTotal}}</li>
+                        <li class="cart-price" id="cart-total">{{$cartTotal}}</li>
                     </ul>
                 </div>
             </div>

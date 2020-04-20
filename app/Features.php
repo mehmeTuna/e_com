@@ -9,6 +9,7 @@ class Features extends Model
     protected $hidden = ['created_at', 'updated_at'];
     protected $guarded = ['id'];
     protected $table = 'features';
+    protected $primaryKey= 'id';
     public $timestamps = true;
 
     public function scopeActive($query)
