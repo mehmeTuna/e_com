@@ -58,7 +58,7 @@ class WelcomeController extends Controller
             return $this->showCategoryPage($sLugName, $commonData, $request);
         }
 
-        $otherProducts = Product::where('active', 1)->where('categoryId', $product->categoryId)->limit(6)->get();
+        $otherProducts = Product::where('active', 1)->with(['category', 'featuresItems'])->where('categoryId', $product->categoryId)->limit(6)->get();
         return view('productDetail', [
             'logoUrl' => $commonData->logoUrl,
             'siteData' => $commonData->siteData,
@@ -105,7 +105,7 @@ class WelcomeController extends Controller
 
         if ($products == null) {
             return redirect('/');
-        }
+        } 
 
         return view('categoryPage', [
             'logoUrl' => $commonData->logoUrl,
@@ -190,7 +190,7 @@ class WelcomeController extends Controller
         session()->pull('cart');
         session()->put('cart', $cart);
         session()->pull('cartTotal');
-        session()->put('cartTotal', $cartTotal + $price);
+        session()->put('cartTotal', ($cartTotal + $price) < 0 ? 0 : ($cartTotal + $price));
         return response()->json([
             'cart' => $cart,
             'cartTotal' => $cartTotal + $price,
@@ -228,7 +228,7 @@ class WelcomeController extends Controller
         session()->pull('cart');
         session()->put('cart', $cart);
         session()->pull('cartTotal');
-        session()->put('cartTotal', $price);
+        session()->put('cartTotal', round($price < 0 ? 0 : $price, 2));
 
         return response()->json([
             'status' => true,

@@ -83,25 +83,26 @@
                     </div>
                     <div class="product-slider owl-carousel">
                         @foreach($yeniEklenenler as $value)
-                            <div class="product-item">
-                                <div class="pi-pic">
-                                    <img src="{{$value->img}}" alt="{{$value->name}}">
-                                    <div class="sale">Yeni</div>
-                                    <ul>
-                                        <li class="w-icon active"><a href="{{$value->nameSlug}}"><i class="icon_bag_alt"></i></a></li>
-                                        <li class="quick-view"><a href="{{$value->nameSlug}}">Urunu Incele</a></li>
-                                    </ul>
-                                </div>
-                                <div class="pi-text">
-                                    <div class="catagory-name">{{$value->category->name}}</div>
-                                    <a href="#">
-                                        <h5>{{$value->name}}</h5>
-                                    </a>
-                                    <div class="product-price">
-                                        {{$value->price}}
-                                    </div>
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <img src="{{$value->img}}" alt="{{$value->name}}">
+                                <div class="sale">Yeni</div>
+                                <ul>
+                                    <li class="w-icon active" onClick='addCartItem({{$value->id}})' style='cursor:pointer;'><i
+                                            class="icon_bag_alt"></i></li>
+                                    <li class="quick-view"><a href="{{$value->nameSlug}}">Urunu Incele</a></li>
+                                </ul>
+                            </div>
+                            <div class="pi-text">
+                                <div class="catagory-name">{{$value->category->name}}</div>
+                                <a href="#">
+                                    <h5>{{$value->name}}</h5>
+                                </a>
+                                <div class="product-price">
+                                    {{$value->price}}
                                 </div>
                             </div>
+                        </div>
                         @endforeach
                     </div>
                 </div>
@@ -121,25 +122,26 @@
                     </div>
                     <div class="product-slider owl-carousel">
                         @foreach($yeniEklenenler as $value)
-                            <div class="product-item">
-                                <div class="pi-pic">
-                                    <img src="{{$value->img}}" alt="{{$value->name}}">
-                                    <div class="sale">Yeni</div>
-                                    <ul>
-                                        <li class="w-icon active"><a href="{{$value->nameSlug}}"><i class="icon_bag_alt"></i></a></li>
-                                        <li class="quick-view"><a href="{{$value->nameSlug}}">Urunu Incele</a></li>
-                                    </ul>
-                                </div>
-                                <div class="pi-text">
-                                    <div class="catagory-name">{{$value->category->name}}</div>
-                                    <a href="#">
-                                        <h5>{{$value->name}}</h5>
-                                    </a>
-                                    <div class="product-price">
-                                        {{$value->price}}
-                                    </div>
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <img src="{{$value->img}}" alt="{{$value->name}}">
+                                <div class="sale">Yeni</div>
+                                <ul>
+                                    <li class="w-icon active" onClick='addCartItem({{$value->id}})' style='cursor:pointer;'><i
+                                            class="icon_bag_alt"></i></li>
+                                    <li class="quick-view"><a href="{{$value->nameSlug}}">Urunu Incele</a></li>
+                                </ul>
+                            </div>
+                            <div class="pi-text">
+                                <div class="catagory-name">{{$value->category->name}}</div>
+                                <a href="#">
+                                    <h5>{{$value->name}}</h5>
+                                </a>
+                                <div class="product-price">
+                                    {{$value->price}}
                                 </div>
                             </div>
+                        </div>
                         @endforeach
                     </div>
                 </div>
@@ -159,12 +161,12 @@
                     </div>
                     <div class="product-slider owl-carousel">
                         @foreach($yeniEklenenler as $value)
-                            <div class="product-item">
-                                <div class="pi-pic">
-                                    <img src="{{$value->img}}" alt="{{$value->name}}">
-                                    <div class="sale">Yeni</div>
-                                    <ul>
-                                        <li class="w-icon active"><a href="{{$value->nameSlug}}"><i class="icon_bag_alt"></i></a></li>
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <img src="{{$value->img}}" alt="{{$value->name}}">
+                                <div class="sale">Yeni</div>
+                                <ul>
+                                        <li class="w-icon active" onClick='addCartItem({{$value->id}})' style='cursor:pointer;'><i class="icon_bag_alt"></i></li>
                                         <li class="quick-view"><a href="{{$value->nameSlug}}">Urunu Incele</a></li>
                                     </ul>
                                 </div>

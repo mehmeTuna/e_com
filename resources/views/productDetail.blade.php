@@ -258,9 +258,7 @@
                   <i class="icon_heart_alt"></i>
                 </div>
                 <ul>
-                  <li class="w-icon active">
-                    <a href="#"><i class="icon_bag_alt"></i></a>
-                  </li>
+                <li class="w-icon active" onClick='addCartItem({{$value->id}})' style='cursor:pointer;'><i class="icon_bag_alt"></i></li>
                   <li class="quick-view">
                     <a href="{{$value->nameSlug}}">Ürünü İncele</a>
                   </li>
@@ -292,8 +290,6 @@
 
     @endcomponent
     <!-- Footer Section End -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
       var selectBoxData = '';

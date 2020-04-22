@@ -473,7 +473,7 @@ ol {
   height: 100%;
   border: none;
   font-size: 16px;
-  color: #d1d1d1;
+  color: #000;
   padding-left: 20px;
 }
 
@@ -1257,13 +1257,38 @@ ol {
   display: inline-block;
   background: #ffffff;
 }
-
 .product-item .pi-pic ul li.w-icon.active a {
   background: #e7ab3c;
   color: #ffffff;
 }
 
 .product-item .pi-pic ul li a {
+  font-size: 16px;
+  font-weight: 700;
+  color: #252525;
+  display: block;
+  padding: 16px 18px 12px 19px;
+}
+
+.product-item .pi-pic ul li.w-icon.active i {
+  background: #e7ab3c;
+  color: #ffffff;
+}
+
+.product-item .pi-pic ul li i {
+  font-size: 16px;
+  font-weight: 700;
+  color: #252525;
+  display: block;
+  padding: 16px 18px 12px 19px;
+}
+
+.product-item .pi-pic ul li.w-icon.active i {
+  background: #e7ab3c;
+  color: #ffffff;
+}
+
+.product-item .pi-pic ul li i {
   font-size: 16px;
   font-weight: 700;
   color: #252525;
