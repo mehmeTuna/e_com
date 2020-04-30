@@ -14,7 +14,8 @@
     "laravel/framework": "5.4.*",
     "laravel/tinker": "~1.0",
     "rap2hpoutre/fast-excel": "^1.7",
-    "simplesoftwareio/simple-qrcode": "^2.0"
+    "simplesoftwareio/simple-qrcode": "^2.0",
+    "webpatser/laravel-uuid": "2.*"
   },
   "require-dev": {
     "fzaninotto/faker": "^1.9",

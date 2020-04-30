@@ -20,7 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //v1 api route
 
 Route::prefix('v1')->group(function(){
-    Route::get('hello', function(){
-        return response(\App\Cart\Cart::id('0870874')->getCount());
-    });
+    Route::post('addCartItem', 'CartController@add');
+    Route::post('deleteCartItem', 'CartController@delete');
+    Route::get('getCartCount', 'CartController@getCartCount');
+    Route::get('getCartItems', 'CartController@getCartItems');
 });
