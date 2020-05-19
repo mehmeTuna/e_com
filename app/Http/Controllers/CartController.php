@@ -15,6 +15,10 @@ class CartController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function add(Request $request)
     {
         $cart = Cart::userId($this->userId)->add([

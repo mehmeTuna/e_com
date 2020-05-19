@@ -1,6 +1,5 @@
 {
     "/business/login/js/app.js": "/business/login/js/app.js",
     "/frontPayment/js/app.js": "/frontPayment/js/app.js",
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/js/app.js": "/js/app.js"
 }

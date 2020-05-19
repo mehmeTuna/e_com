@@ -17,7 +17,7 @@ class AdminAuthMiddleware
     {   
         if(!session()->has('admin'))
         {
-            return redirect('/');
+            return redirect('/yonetim/giris');
         }
         
         return $next($request);

@@ -11,6 +11,7 @@ import LogoSlider from './LogoSlider'
 import Orders from './Orders'
 import Products from './Products'
 import Category from './Category'
+import Content from './Content'
 
 class App extends React.Component {
   constructor(props) {
@@ -42,6 +43,11 @@ class App extends React.Component {
                     </Route>
                     <Route path="/yonetim/anasayfa">
                       <Home />
+                    </Route>
+                    <Route path="/yonetim/icerik">
+                      <div className="mx-auto">
+                        <Content />
+                      </div>
                     </Route>
                     <Route path="/">
                       <Home />

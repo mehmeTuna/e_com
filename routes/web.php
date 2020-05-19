@@ -49,6 +49,17 @@ Route::middleware(['user'])->group(function () {
     Route::post('user/update', 'WelcomeController@userUpdate');
 });
 
+Route::prefix('icerik')->group(function(){
+    Route::get('/', 'WelcomeController@articleList');
+    Route::get('{slug}', 'WelcomeController@showArticle');
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('blogs', 'WelcomeController@blogs');
+    Route::post('blog', 'WelcomeController@blogCreate');
+    Route::delete('blog/{id}', 'WelcomeController@blogDelete');
+});
+
 Route::middleware(['admin'])->group(function () {
     Route::get('yonetim', 'AdminController@home');
     Route::get('yonetim/anasayfa', 'AdminController@home');
@@ -58,6 +69,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('yonetim/siparisler', 'AdminController@home');
     Route::get('yonetim/urunler', 'AdminController@home');
     Route::get('yonetim/kategoriler', 'AdminController@home');
+    Route::get('yonetim/icerik', 'AdminController@home');
 
     Route::post('category/create', 'AdminController@categoryCreate');
     Route::post('category/list', 'AdminController@categoryList');

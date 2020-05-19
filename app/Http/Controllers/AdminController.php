@@ -9,6 +9,7 @@ use App\Features;
 use App\Http\Requests\SiteUpdateDataRequest;
 use App\Orders;
 use App\Product;
+use App\Blogs;
 use FastExcel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;

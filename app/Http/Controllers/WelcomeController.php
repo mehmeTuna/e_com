@@ -6,11 +6,16 @@ use App\About;
 use App\Brands;
 use App\Category;
 use App\Features;
+use App\Http\Requests\UserLoginRequest;
+use App\Http\Requests\UserRegisterRequest;
+use App\Http\Requests;
 use App\Product;
 use App\User;
+use App\Blogs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Validator;
+use Illuminate\Support\Str;
 
 class WelcomeController extends Controller
 {
@@ -241,7 +246,7 @@ class WelcomeController extends Controller
         $commonData = $this->getCommonData();
         $products = Product::where('active', 1)->get();
         $user = User::find(session('userId'));
-        $orders = $user->orders()->get()->map(function($value){
+        $orders = $user->orders()->get()->map(function($value){ //TODO:: bu kisimi iliskiye bagla ve dunzenle
             $data = (object)[];
             $product = Product::find($value['productId']);
             $data->durum = 'Hazirlaniyor';
@@ -366,17 +371,9 @@ class WelcomeController extends Controller
         ]);
     }
 
-    public function register(Request $request)
+    public function register(UserRegisterRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'fullName' => 'required|min:3|max:255',
-            'username' => 'required|unique:users,email',
-            'password' => 'required|min:4|max:25',
-            'address' => 'required|min:3|max:100',
-            'phone' => 'required|min:6|max:20',
-        ]);
-
-        if ($validator->fails() || $request->contract != true) {
+        if ( $request->contract != true) {
             return redirect('/kayit-ol');
         }
 
@@ -410,20 +407,11 @@ class WelcomeController extends Controller
         ]);
     }
 
-    public function login(Request $request)
+    public function login(UserLoginRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'username' => 'required|email',
-            'password' => 'required|min:4|max:25',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/giris');
-        }
-
         $user = User::where('email', $request->username)->first();
 
-        if (!Hash::check($request->password, $user->password)) {
+        if ($user == null || !Hash::check($request->password, $user->password)) {
             return redirect('/giris');
         }
 
@@ -460,10 +448,76 @@ class WelcomeController extends Controller
 
     public function gallery()
     {
-        $about = About::where('id', 1)->active()->first();
+        $about = About::find(1);
 
         return view('gallery', [
             'data' => $about,
+        ]);
+    }
+
+    public function blogs()
+    {
+        return response()->json(Blogs::active()->orderBy('created_at', 'ASC')->get());
+    }
+
+    public function blogCreate(Request $request)
+    {
+        $this->validate($request,[
+            'content'=>'required|min:2',
+            'title' => 'required|min:2'
+         ]);
+
+        Blogs::create([
+            'title' => $request['title'],
+            'content' => $request['content'],
+            'url'  => Str::limit($request['title'], 10)
+        ]);
+
+        return response()->json(['status' => true]);
+    }
+
+    public function blogDelete($id)
+    {
+        $blogs = Blogs::find($id)->update(['active' => 0]);
+
+        return response()->json(['status' => true]);
+    }
+
+    public function showArticle(Request $request)
+    {
+
+        $commonData = $this->getCommonData();
+        $content = Blogs::where('url', $request->slug)->where('active', 1)->first();
+
+        if($content == null){
+            return redirect('/');
+        }
+
+        return view('blog.detail', [
+            'content' => $content,
+            'logoUrl' => $commonData->logoUrl,
+            'siteData' => $commonData->siteData,
+            'categories' => $commonData->categories,
+            'cartCount' => $commonData->cartCount,
+            'cartItems' => $commonData->cartItems,
+            'cartTotal' => $commonData->cartTotal,
+            'brands' => $commonData->brands
+        ]);
+    }
+
+    public function articleList(){
+        $commonData = $this->getCommonData();
+        $articles = Blogs::where('active', 1)->limit(60)->get();
+
+        return view('blog.list', [
+            'articles' => $articles,
+            'logoUrl' => $commonData->logoUrl,
+            'siteData' => $commonData->siteData,
+            'categories' => $commonData->categories,
+            'cartCount' => $commonData->cartCount,
+            'cartItems' => $commonData->cartItems,
+            'cartTotal' => $commonData->cartTotal,
+            'brands' => $commonData->brands
         ]);
     }
 }

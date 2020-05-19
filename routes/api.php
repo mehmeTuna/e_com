@@ -25,3 +25,9 @@ Route::prefix('v1')->group(function(){
     Route::get('getCartCount', 'CartController@getCartCount');
     Route::get('getCartItems', 'CartController@getCartItems');
 });
+
+Route::prefix('v1')->group(function(){
+    Route::get('blogs', 'WelcomeController@blogs');
+    Route::post('blog', 'WelcomeController@blogCreate');
+    Route::delete('blog/{id}', 'WelcomeController@blogDelete');
+});

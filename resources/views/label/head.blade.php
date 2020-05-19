@@ -28,7 +28,7 @@
     }
 
     .banner-section-item {
-        transition: 0.2;
+        transition: 0.2s;
         border-radius: 5px;
         color: #636363;
     }

@@ -41,6 +41,7 @@
                     <ul>
                         <li><a href="/hakkimizda">Hakkımızda</a></li>
                         <li><a href="/iletisim">İletişim</a></li>
+                        <li><a href="/icerik">İçeriklerimiz</a></li>
                     </ul>
                 </div>
             </div>
