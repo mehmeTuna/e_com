@@ -41,6 +41,11 @@ const BlogList = ({blogs, deleteBlog}) => {
             </div>
           </a>
           <div className="d-flex justif-content-end align-items-center">
+            <img
+              style={{maxWidth: '60px', maxHeight: '60px'}}
+              src={blog.img}
+              className="w-25 rounded mx-auto d-block"
+            />
             <div className="flex-fill">
               <p className="mb-1">{renderHTML(blog.title.substring(0, 20))}</p>
               <small>{renderHTML(blog.title)}</small>
@@ -68,32 +73,18 @@ export default class Content extends React.Component {
     this.state = {
       blogs: [],
       blog: '',
-      title: ''
+      title: '',
+      img: []
     }
-    this.newBlog = this.newBlog.bind(this)
     this.deleteBlog = this.deleteBlog.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   async componentDidMount() {
     const {data} = await Axios.get('/v1/blogs')
 
     this.setState({blogs: data})
-  }
-
-  async newBlog() {
-    if (this.state.blog === '' || this.state.title === '') {
-      alert('Gerekli Alanlari doldurunuz')
-      return
-    }
-
-    const {data} = await Axios.post('/v1/blog', {
-      content: this.state.blog,
-      title: this.state.title
-    })
-
-    if (data.status == true) {
-      location.reload()
-    }
   }
 
   async deleteBlog(id) {
@@ -104,11 +95,74 @@ export default class Content extends React.Component {
     }
   }
 
+  handleChange(event) {
+    if (this.state.img.length >= 4) return
+    let images = []
+    images.push({
+      url: URL.createObjectURL(event.target.files[0]),
+      file: event.target.files[0]
+    })
+    this.setState({
+      img: images
+    })
+  }
+
+  async handleSubmit() {
+    if (
+      this.state.img.length === 0 ||
+      this.state.title === '' ||
+      this.state.blog === ''
+    ) {
+      alert('Gerekli Alanlari Doldurunuz')
+      return
+    }
+
+    let formData = new FormData()
+
+    formData.set('title', this.state.title)
+    formData.set('img', this.state.img[0].file)
+    formData.set('content', this.state.blog)
+
+    const {data} = await Axios.post('/v1/blog', formData, {
+      headers: {
+        'content-type': 'multipart/form-data' // do not forget this
+      }
+    })
+
+    if (data.status === true) {
+      window.location.reload()
+    }
+  }
+
   render() {
     return (
       <>
         <h3 className="my-4 text-center">Yeni Blog Yazisi Ekle</h3>
-        <div className="form-group">
+        <div className="d-flex justify-content-start">
+          {this.state.img.length > 0 &&
+            this.state.img.map((val, key) => (
+              <img
+                key={key}
+                src={val.url}
+                className="w-25 rounded mx-auto d-block"
+              />
+            ))}
+        </div>
+        <div className="input-group">
+          <div className="custom-file">
+            <input
+              type="file"
+              className="custom-file-input"
+              id="inputGroupFile01"
+              onChange={this.handleChange}
+              aria-describedby="inputGroupFileAddon01"
+            />
+            <label className="custom-file-label" htmlFor="inputGroupFile01">
+              Yuklemek icin resim secin
+            </label>
+          </div>
+        </div>
+        <div className="form-group mt-4">
           <label className="text-center">Makale Basligi</label>
           <input
             value={this.state.title}
@@ -127,7 +181,7 @@ export default class Content extends React.Component {
           <button
             type="button"
             className="btn btn-success"
-            onClick={this.newBlog}
+            onClick={this.handleSubmit}
           >
             Yaziyi Ekle
           </button>

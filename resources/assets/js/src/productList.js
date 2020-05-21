@@ -1,5 +1,9 @@
 import React from 'react'
 import Axios from 'axios'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+const sweet = withReactContent(Swal)
 
 function deleteProduct(id, name) {
   sweet.fire(`${name} ürünü silmek istediğinize eminmisiniz ?`).then(result => {
@@ -14,7 +18,6 @@ function deleteProduct(id, name) {
 }
 
 const ProductList = ({products}) => {
-  console.log(products)
   return (
     <div className="col-12 grid-margin stretch-card">
       <div className="card">
@@ -45,7 +48,13 @@ const ProductList = ({products}) => {
                 {products.length > 0 &&
                   products.map((e, key) => (
                     <tr key={key}>
-                      <td>#</td>
+                      <td>
+                        <i
+                          style={{cursor: 'pointer'}}
+                          onClick={() => deleteProduct(e.id, e.name)}
+                          className="icon-trash"
+                        ></i>
+                      </td>
                       <td>{e.code}</td>
                       <td>
                         <img src={e.img} className="rounded d-block" />

@@ -33,7 +33,7 @@
                             <div class="col-lg-6 col-sm-6">
                                 <div class="blog-item">
                                     <div class="bi-pic">
-                                        <img src="{{$article->img}}" alt="">
+                                        <img style='width: auto; max-height: 150px;' src="{{$article->img}}" alt="">
                                     </div>
                                     <div class="bi-text">
                                         <a href="/icerik/{{$article->url}}">

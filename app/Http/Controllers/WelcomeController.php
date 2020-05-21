@@ -464,13 +464,24 @@ class WelcomeController extends Controller
     {
         $this->validate($request,[
             'content'=>'required|min:2',
-            'title' => 'required|min:2'
+            'title' => 'required|min:2',
+            'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
          ]);
+
+         $img = '';
+         if ($request->hasFile('img')) {
+            $image = $request->file('img');
+            $name = time() . rand(1, 100) . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/images');
+            $image->move($destinationPath, $name);
+            $img = '/public/images/' . $name;
+        }
 
         Blogs::create([
             'title' => $request['title'],
             'content' => $request['content'],
-            'url'  => Str::limit($request['title'], 10)
+            'url'  => Str::limit($request['title'], 10),
+            'img' => $img
         ]);
 
         return response()->json(['status' => true]);

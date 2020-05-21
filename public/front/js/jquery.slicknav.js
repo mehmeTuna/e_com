@@ -1,3 +1,4 @@
+
 ;(function ($, document, window) {
     var
     // default settings object.

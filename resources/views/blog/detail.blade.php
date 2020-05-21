@@ -31,7 +31,7 @@
                             <p><span>{{$content->created_at}}</span></p>
                         </div>
                         <div class="blog-large-pic">
-                            <img src="{{$content->img}}" alt="">
+                            <img style='max-width: 100px; max-height: 100px;' src="{{$content->img}}" alt="">
                         </div>
                         <div class="blog-detail-desc">
                             <p>{{$content->content}}
