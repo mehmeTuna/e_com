@@ -33,8 +33,8 @@
     <!-- Hero Section End -->
 
     <!-- Banner Section Begin -->
-    <div class="banner-section spad">
-        <div class="container-fluid">
+    <div class="d-none d-md-inline d-lg-inline d-xl-inline banner-section spad">
+        <div class="mt-2 mx-2 container-fluid">
             <div class="row flex-row flex-no-wrap">
                 <div style='cursor:pointer'
                     class="banner-section-item col-sm-3 col-lg-2 d-flex align-items-center justify-content-center p-3 mb-1">
@@ -227,43 +227,19 @@
 
 
     <!-- Instagram Section Begin -->
-    <div class="instagram-photo">
-        <div class="insta-item set-bg" data-setbg="/public/front/img/insta-1.jpg">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
-            </div>
-        </div>
-        <div class="insta-item set-bg" data-setbg="/public/front/img/insta-2.jpg">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
-            </div>
-        </div>
-        <div class="insta-item set-bg" data-setbg="/public/front/img/insta-3.jpg">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
-            </div>
-        </div>
-        <div class="insta-item set-bg" data-setbg="/public/front/img/insta-4.jpg">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
-            </div>
-        </div>
-        <div class="insta-item set-bg" data-setbg="/public/front/img/insta-5.jpg">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
-            </div>
-        </div>
-        <div class="insta-item set-bg" data-setbg="/public/front/img/insta-6.jpg">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
-            </div>
-        </div>
+    <div class="instagram-photo mt-2">
+            <?php $count = 0 ;?>
+            @foreach($instagram['graphql']['user']['edge_owner_to_timeline_media']['edges'] as $photo)
+                @if($count < 6)
+                <?php $count++ ?>
+                <div class="insta-item set-bg" data-setbg="{{$photo['node']['display_url']}}">
+                    <div class="inside-text">
+                        <i class="ti-instagram"></i>
+                        <h5><a href="https://instagram.com/{{$instagram['dd_username']}}">{{$instagram['dd_username']}}</a></h5>
+                    </div>
+                </div>
+                @endif
+            @endforeach
     </div>
     <!-- Instagram Section End -->
 

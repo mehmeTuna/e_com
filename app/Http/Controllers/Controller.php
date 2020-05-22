@@ -77,4 +77,10 @@ class Controller extends BaseController
 
         }
     }
+    
+    public function getInstagramImages($username)
+    {
+        $response = file_get_contents("https://instagram.com/{$username}/?__a=1");
+        return json_decode($response, true);
+    }
 }

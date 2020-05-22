@@ -340,8 +340,12 @@ class WelcomeController extends Controller
 
     public function index()
     {
+        $instagramUsername = 'iskenderun.xyz';
         $commonData = $this->getCommonData();
         $products = Product::where('active', 1)->get();
+        $instagram = $this->getInstagramImages($instagramUsername);
+        $instagram['dd_username'] = $instagramUsername ;
+        //dd($instagram);
 
         return view('home', [
             'logoUrl' => $commonData->logoUrl,
@@ -352,7 +356,8 @@ class WelcomeController extends Controller
             'cartCount' => $commonData->cartCount,
             'cartItems' => $commonData->cartItems,
             'cartTotal' => $commonData->cartTotal,
-            'brands' => $commonData->brands
+            'brands' => $commonData->brands,
+            'instagram' => $instagram
         ]);
     }
 
