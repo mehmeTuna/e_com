@@ -8,14 +8,7 @@
 <body>
 
     <!-- Header Section Begin -->
-    @component('label.header', [
-    'logoUrl' => $logoUrl,
-    'siteData' => $siteData,
-    'categories' => $categories,
-    'cartCount' => $cartCount,
-    'cartItems' => $cartItems,
-    'cartTotal' => $cartTotal
-    ])
+    @component('label.header')
     @endcomponent
     <!-- Header End -->
 
@@ -48,11 +41,7 @@
 
 
     <!-- Footer Section Begin -->
-    @component('label.footer',[
-    'logoUrl' => $logoUrl,
-    'siteData' => $siteData,
-    'brands' => $brands
-    ])
+    @component('label.footer')
 
     @endcomponent
     <!-- Footer Section End -->

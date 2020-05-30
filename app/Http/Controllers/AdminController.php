@@ -166,43 +166,25 @@ class AdminController extends Controller
     {
         $productName = $request->name;
         $category = $request->category;
-        $quantity = $request->quantity < 0 ? 1 : $request->quantity;
-        $price = $request->price;
         $content = $request->cardText;
         $code = $request->code;
-        $minorders = $request->minorders;
+        $options = json_decode($request->options);
+        $imgList = [
+            'img0',
+            'img1',
+            'img2',
+            'img3'
+        ] ;
         $img = [];
 
-        if ($request->hasFile('img0')) {
-            $image = $request->file('img0');
-            $name = time() . rand(1, 100) . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $image->move($destinationPath, $name);
-            $img[0] = '/public/images/' . $name;
-        }
-
-        if ($request->hasFile('img1')) {
-            $image = $request->file('img1');
-            $name = time() . rand(1, 100) . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $image->move($destinationPath, $name);
-            $img[1] = '/public/images/' . $name;
-        }
-
-        if ($request->hasFile('img2')) {
-            $image = $request->file('img2');
-            $name = time() . rand(1, 100) . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $image->move($destinationPath, $name);
-            $img[2] = '/public/images/' . $name;
-        }
-
-        if ($request->hasFile('img3')) {
-            $image = $request->file('img3');
-            $name = time() . rand(1, 100) . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $image->move($destinationPath, $name);
-            $img[3] = '/public/images/' . $name;
+        foreach($imgList as $value){
+            if ($request->hasFile($value)) {
+                $image = $request->file($value);
+                $name = time() . rand(1, 100) . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('/images');
+                $image->move($destinationPath, $name);
+                $img[] = '/public/images/' . $name;
+            }    
         }
 
         $product = Product::create([
@@ -217,42 +199,6 @@ class AdminController extends Controller
             'code' => $code,
             'minorders' => (int) $minorders,
         ]);
-
-        $selectBox = [];
-        try {
-            $selectBox = json_decode($request->selectBox);
-        } catch (Exception $e) {
-            return response()->json([
-                'status' => false,
-            ]);
-        }
-
-        foreach ($selectBox as $value) {
-            $features = Features::create([
-                'product_id' => $product->id,
-                'name' => $value->title,
-                'type' => 'selectBox',
-                'price' => $product->price,
-            ]);
-        }
-
-        $checkBox = [];
-        try {
-            $checkBox = json_decode($request->checkBox);
-        } catch (Exception $e) {
-            return response()->json([
-                'status' => false,
-            ]);
-        }
-
-        foreach ($checkBox as $value) {
-            $features = Features::create([
-                'product_id' => $product->id,
-                'name' => $value->title,
-                'type' => 'checkBox',
-                'price' => $value->price,
-            ]);
-        }
 
         return response()->json([
             'status' => true,

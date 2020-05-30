@@ -4,9 +4,7 @@
 
   <body>
     <!-- Header Section Begin -->
-    @component('label.header', [ 'logoUrl' => $logoUrl, 'siteData' => $siteData,
-    'categories' => $categories, 'cartCount' => $cartCount, 'cartItems' =>
-    $cartItems, 'cartTotal' => $cartTotal ]) @endcomponent
+    @component('label.header') @endcomponent
     <!-- Header End -->
 
     <!-- Breadcrumb Section Begin -->
@@ -282,11 +280,7 @@
     <!-- Related Products Section End -->
 
     <!-- Footer Section Begin -->
-    @component('label.footer',[
-      'logoUrl' => $logoUrl,
-      'siteData' => $siteData,
-      'brands' => $brands
-      ])
+    @component('label.footer')
 
     @endcomponent
     <!-- Footer Section End -->

@@ -12,6 +12,7 @@ import Orders from './Orders'
 import Products from './Products'
 import Category from './Category'
 import Content from './Content'
+import ProductCreate from './ProductCreate'
 
 class App extends React.Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class App extends React.Component {
                       <Orders />
                     </Route>
                     <Route path="/yonetim/urunler">
-                      <Products />
+                      <ProductCreate />
                     </Route>
                     <Route path="/yonetim/kategoriler">
                       <Category />

@@ -20,66 +20,24 @@ use Illuminate\Support\Str;
 class WelcomeController extends Controller
 {
 
-    public function getCommonData()
-    {
-        $siteData = About::find(1);
-        $logoUrl = $siteData->logo[0]->url;
-        $categories = Category::where('active', 1)->where('upId', null)->limit(6)->get();
-        $brands = Brands::where('active', 1)->get();
-
-        $categories = $categories->map(function ($value) {
-            $data = (object) [];
-            $data->name = $value->name;
-            $data->slug = $value->nameSlug;
-            $data->img = $value->img;
-            $data->subCategory = Category::where('active', 1)->where('upId', $value->id)->get();
-            $data->subCategory = $data->subCategory->map(function ($value) {
-                $data = (object) [];
-                $data->name = $value->name;
-                $data->slug = $value->nameSlug;
-                $data->img = $value->img;
-                return $data;
-            });
-            return $data;
-        });
-
-        return (object) [
-            'logoUrl' => $logoUrl,
-            'siteData' => $siteData,
-            'categories' => $categories,
-            'cartCount' => count(session('cart', [])),
-            'cartItems' => session('cart', []),
-            'cartTotal' => session('cartTotal', 0),
-            'brands' => $brands
-        ];
-    }
-
     public function showPage($sLugName, Request $request)
     {
-        $commonData = $this->getCommonData();
 
         $product = Product::where('active', 1)->where('nameSlug', $sLugName)->first();
         if ($product == null) {
-            return $this->showCategoryPage($sLugName, $commonData, $request);
+            return $this->showCategoryPage($sLugName, $request);
         }
 
         $otherProducts = Product::where('active', 1)->with(['category', 'featuresItems'])->where('categoryId', $product->categoryId)->limit(6)->get();
         return view('productDetail', [
-            'logoUrl' => $commonData->logoUrl,
-            'siteData' => $commonData->siteData,
-            'categories' => $commonData->categories,
-            'cartCount' => $commonData->cartCount,
-            'cartItems' => $commonData->cartItems,
-            'cartTotal' => $commonData->cartTotal,
             'product' => $product,
             'productCategory' => $product->category,
             'features' => $product->featuresItems,
             'otherProducts' => $otherProducts,
-            'brands' => $commonData->brands
         ]);
     }
 
-    public function showCategoryPage($sLugName, $commonData, $request)
+    public function showCategoryPage($sLugName, $request)
     {
         $price = isset($request->price) ? $request->price : '';
         $category = Category::where('active', 1)->where('nameSlug', $sLugName)->first();
@@ -113,16 +71,9 @@ class WelcomeController extends Controller
         } 
 
         return view('categoryPage', [
-            'logoUrl' => $commonData->logoUrl,
-            'siteData' => $commonData->siteData,
-            'categories' => $commonData->categories,
-            'cartCount' => $commonData->cartCount,
-            'cartItems' => $commonData->cartItems,
-            'cartTotal' => $commonData->cartTotal,
             'category' => $category,
             'productItems' => $products,
             'features' => $features,
-            'brands' => $commonData->brands
         ]);
     }
 
@@ -243,8 +194,6 @@ class WelcomeController extends Controller
     public function myAccountPage()
     {
         //TODO: kullanici hesabim sayfasi ve guncelleyebilecegi kisimlar
-        $commonData = $this->getCommonData();
-        $products = Product::where('active', 1)->get();
         $user = User::find(session('userId'));
         $orders = $user->orders()->get()->map(function($value){ //TODO:: bu kisimi iliskiye bagla ve dunzenle
             $data = (object)[];
@@ -264,16 +213,8 @@ class WelcomeController extends Controller
         }
 
         return view('myAccount', [
-            'logoUrl' => $commonData->logoUrl,
-            'siteData' => $commonData->siteData,
-            'categories' => $commonData->categories,
-            'products' => $products,
-            'cartCount' => $commonData->cartCount,
-            'cartItems' => $commonData->cartItems,
-            'cartTotal' => $commonData->cartTotal,
             'user' => $user,
             'orders' => $orders,
-            'brands' => $commonData->brands
         ]);
     }
 
@@ -303,22 +244,11 @@ class WelcomeController extends Controller
 
     public function sepet()
     {
-        $commonData = $this->getCommonData();
-
-        return view('sepet', [
-            'logoUrl' => $commonData->logoUrl,
-            'siteData' => $commonData->siteData,
-            'categories' => $commonData->categories,
-            'cartCount' => $commonData->cartCount,
-            'cartItems' => $commonData->cartItems,
-            'cartTotal' => $commonData->cartTotal,
-            'brands' => $commonData->brands
-        ]);
+        return view('sepet');
     }
 
     public function search($search)
     {
-        $commonData = $this->getCommonData();
         $products = Product::where('active', 1)->where('name', 'LIKE', '%' . $search . '%')->get();
 
         if ($products == null) {
@@ -326,54 +256,28 @@ class WelcomeController extends Controller
         }
 
         return view('categoryPage', [
-            'logoUrl' => $commonData->logoUrl,
-            'siteData' => $commonData->siteData,
-            'categories' => $commonData->categories,
-            'cartCount' => $commonData->cartCount,
-            'cartItems' => $commonData->cartItems,
-            'cartTotal' => $commonData->cartTotal,
             'productItems' => $products,
             'features' => Features::where('active', 1)->limit(6)->get(),
-            'brands' => $commonData->brands
         ]);
     }
 
     public function index()
     {
-        $instagramUsername = 'iskenderun.xyz';
-        $commonData = $this->getCommonData();
         $products = Product::where('active', 1)->get();
+        $instagramUsername = 'iskenderun.xyz';
         $instagram = $this->getInstagramImages($instagramUsername);
         $instagram['dd_username'] = $instagramUsername ;
-        //dd($instagram);
 
         return view('home', [
-            'logoUrl' => $commonData->logoUrl,
-            'siteData' => $commonData->siteData,
-            'categories' => $commonData->categories,
+            'instagram' => $instagram,
             'products' => $products,
-            'yeniEklenenler' => Product::with('category')->where('active', 1)->orderBy('created_at', 'ASC')->get(),
-            'cartCount' => $commonData->cartCount,
-            'cartItems' => $commonData->cartItems,
-            'cartTotal' => $commonData->cartTotal,
-            'brands' => $commonData->brands,
-            'instagram' => $instagram
+            'yeniEklenenler' => Product::with('category')->where('active', 1)->limit(15)->orderBy('created_at', 'ASC')->get(),
         ]);
     }
 
     public function registerPage()
     {
-        $commonData = $this->getCommonData();
-
-        return view('register', [
-            'logoUrl' => $commonData->logoUrl,
-            'siteData' => $commonData->siteData,
-            'categories' => $commonData->categories,
-            'cartCount' => $commonData->cartCount,
-            'cartItems' => $commonData->cartItems,
-            'cartTotal' => $commonData->cartTotal,
-            'brands' => $commonData->brands
-        ]);
+        return view('register');
     }
 
     public function register(UserRegisterRequest $request)
@@ -399,17 +303,7 @@ class WelcomeController extends Controller
 
     public function loginPage()
     {
-        $commonData = $this->getCommonData();
-
-        return view('login', [
-            'logoUrl' => $commonData->logoUrl,
-            'siteData' => $commonData->siteData,
-            'categories' => $commonData->categories,
-            'cartCount' => $commonData->cartCount,
-            'cartItems' => $commonData->cartItems,
-            'cartTotal' => $commonData->cartTotal,
-            'brands' => $commonData->brands
-        ]);
+        return view('login');
     }
 
     public function login(UserLoginRequest $request)
@@ -438,17 +332,7 @@ class WelcomeController extends Controller
 
     public function about()
     {
-        $commonData = $this->getCommonData();
-
-        return view('about', [
-            'logoUrl' => $commonData->logoUrl,
-            'siteData' => $commonData->siteData,
-            'categories' => $commonData->categories,
-            'cartCount' => $commonData->cartCount,
-            'cartItems' => $commonData->cartItems,
-            'cartTotal' => $commonData->cartTotal,
-            'brands' => $commonData->brands
-        ]);
+        return view('about');
     }
 
     public function gallery()
@@ -501,8 +385,6 @@ class WelcomeController extends Controller
 
     public function showArticle(Request $request)
     {
-
-        $commonData = $this->getCommonData();
         $content = Blogs::where('url', $request->slug)->where('active', 1)->first();
 
         if($content == null){
@@ -511,29 +393,14 @@ class WelcomeController extends Controller
 
         return view('blog.detail', [
             'content' => $content,
-            'logoUrl' => $commonData->logoUrl,
-            'siteData' => $commonData->siteData,
-            'categories' => $commonData->categories,
-            'cartCount' => $commonData->cartCount,
-            'cartItems' => $commonData->cartItems,
-            'cartTotal' => $commonData->cartTotal,
-            'brands' => $commonData->brands
-        ]);
+           ]);
     }
 
     public function articleList(){
-        $commonData = $this->getCommonData();
         $articles = Blogs::where('active', 1)->limit(60)->get();
 
         return view('blog.list', [
             'articles' => $articles,
-            'logoUrl' => $commonData->logoUrl,
-            'siteData' => $commonData->siteData,
-            'categories' => $commonData->categories,
-            'cartCount' => $commonData->cartCount,
-            'cartItems' => $commonData->cartItems,
-            'cartTotal' => $commonData->cartTotal,
-            'brands' => $commonData->brands
         ]);
     }
 }
