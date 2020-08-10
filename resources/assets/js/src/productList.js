@@ -18,6 +18,7 @@ function deleteProduct(id, name) {
 }
 
 const ProductList = ({products}) => {
+  console.log(products)
   return (
     <div className="col-12 grid-margin stretch-card">
       <div className="card">
@@ -35,13 +36,12 @@ const ProductList = ({products}) => {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Kod</th>
-                  <th>img</th>
                   <th>Adi</th>
-                  <th>Fiyati</th>
-                  <th>stok</th>
-                  <th>minimum siparis</th>
-                  <th>Kategori</th>
+                  <th>Content</th>
+                  <th>Gorsel</th>
+                  <th>Kayit Tarihi</th>
+                  <th>Kategoriler</th>
+                  <th>Opsiyonlar</th>
                 </tr>
               </thead>
               <tbody>
@@ -55,15 +55,38 @@ const ProductList = ({products}) => {
                           className="icon-trash"
                         ></i>
                       </td>
-                      <td>{e.code}</td>
+                      <td>{e.name}</td>
+                      <td>{e.content}</td>
                       <td>
                         <img src={e.img} className="rounded d-block" />
                       </td>
-                      <td>{e.name}</td>
-                      <td>{e.price}</td>
-                      <td>{e.stok}</td>
-                      <td>{e.minorders}</td>
-                      <td>{e.category}</td>
+                      <td>{e.created_at}</td>
+                      <td>
+                        {e.categories.length > 0 &&
+                          e.categories.map((e, key) => (
+                            <>
+                              <p key={key}>Ad: {e.category.name} </p>{' '}
+                              <hr className="m-0" />
+                            </>
+                          ))}
+                      </td>
+                      <td>
+                        {e.features_items.length > 0 &&
+                          e.features_items.map((e, key) => (
+                            <>
+                              <div key={key}>
+                                <p>ad: {e.name}</p>
+                                <hr className="m-0" />
+                                <p>adet: {e.quantity}</p>
+                                <hr className="m-0" />
+                                <p>min adet: {e.min_order}</p>
+                                <hr className="m-0" />
+                                <p>fiyat: {e.price}</p>
+                              </div>
+                              <hr className="m-0 border border-danger border-bottom" />
+                            </>
+                          ))}
+                      </td>
                     </tr>
                   ))}
               </tbody>

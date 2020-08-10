@@ -87,7 +87,7 @@
                                 </ul>
                             </div>
                             <div class="pi-text">
-                                <div class="catagory-name">{{$value->category->name}}</div>
+                           
                                 <a href="#">
                                     <h5>{{$value->name}}</h5>
                                 </a>
@@ -126,7 +126,6 @@
                                 </ul>
                             </div>
                             <div class="pi-text">
-                                <div class="catagory-name">{{$value->category->name}}</div>
                                 <a href="#">
                                     <h5>{{$value->name}}</h5>
                                 </a>
@@ -164,7 +163,6 @@
                                     </ul>
                                 </div>
                                 <div class="pi-text">
-                                    <div class="catagory-name">{{$value->category->name}}</div>
                                     <a href="#">
                                         <h5>{{$value->name}}</h5>
                                     </a>
@@ -219,22 +217,7 @@
     <!-- Deal Of The Week Section End -->
 
 
-    <!-- Instagram Section Begin -->
-    <div class="instagram-photo mt-2">
-            <?php $count = 0 ;?>
-            @foreach($instagram['graphql']['user']['edge_owner_to_timeline_media']['edges'] as $photo)
-                @if($count < 6)
-                <?php $count++ ?>
-                <div class="insta-item set-bg" data-setbg="{{$photo['node']['display_url']}}">
-                    <div class="inside-text">
-                        <i class="ti-instagram"></i>
-                        <h5><a href="https://instagram.com/{{$instagram['dd_username']}}">{{$instagram['dd_username']}}</a></h5>
-                    </div>
-                </div>
-                @endif
-            @endforeach
-    </div>
-    <!-- Instagram Section End -->
+   
 
     <!-- Latest Blog Section Begin -->
     <section class="latest-blog spad">

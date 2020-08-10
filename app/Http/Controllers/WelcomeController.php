@@ -20,6 +20,11 @@ use Illuminate\Support\Str;
 class WelcomeController extends Controller
 {
 
+    public function comingSoon()
+    {
+        return view('comingSoon');
+    }
+
     public function showPage($sLugName, Request $request)
     {
 
@@ -265,19 +270,14 @@ class WelcomeController extends Controller
     {
         $products = Product::where('active', 1)->get();
         $instagramUsername = 'iskenderun.xyz';
-        $instagram = $this->getInstagramImages($instagramUsername);
-        $instagram['dd_username'] = $instagramUsername ;
+     //   $instagram = $this->getInstagramImages($instagramUsername);
+    //    $instagram['dd_username'] = $instagramUsername ;
 
         return view('home', [
-            'instagram' => $instagram,
             'products' => $products,
-            'yeniEklenenler' => Product::with('category')->where('active', 1)->limit(15)->orderBy('created_at', 'ASC')->get(),
+            'yeniEklenenler' => Product::with('categories')->where('active', 1)->limit(15)->orderBy('created_at', 'ASC')->get(),
+            'blogs' => Blogs::where('active', 1)->get()
         ]);
-    }
-
-    public function registerPage()
-    {
-        return view('register');
     }
 
     public function register(UserRegisterRequest $request)
@@ -301,11 +301,6 @@ class WelcomeController extends Controller
         return redirect('/');
     }
 
-    public function loginPage()
-    {
-        return view('login');
-    }
-
     public function login(UserLoginRequest $request)
     {
         $user = User::where('email', $request->username)->first();
@@ -321,32 +316,8 @@ class WelcomeController extends Controller
 
     public function logOut()
     {
-        session()->forget('userId');
+        session()->forget(User::SESSION_NAME);
         return redirect('/');
-    }
-
-    public function noPage()
-    {
-        return view('404');
-    }
-
-    public function about()
-    {
-        return view('about');
-    }
-
-    public function gallery()
-    {
-        $about = About::find(1);
-
-        return view('gallery', [
-            'data' => $about,
-        ]);
-    }
-
-    public function blogs()
-    {
-        return response()->json(Blogs::active()->orderBy('created_at', 'ASC')->get());
     }
 
     public function blogCreate(Request $request)

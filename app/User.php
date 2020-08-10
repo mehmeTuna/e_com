@@ -14,6 +14,8 @@ class User extends Authenticatable
     protected $table = 'users';
     protected $primaryKey = 'id';
 
+    const SESSION_NAME = 'userId';
+
     public function orders()
     {
         return $this->hasManyThrough('App\OrderItems','App\Orders', 'user_id', 'order_id');

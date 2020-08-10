@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $hidden = [ 'updated_at', 'categoryId'];
+    protected $hidden = [ 'updated_at'];
     protected $guarded = ['id'];
     protected $table = 'products';
     public $timestamps = true;
@@ -25,9 +25,9 @@ class Product extends Model
         $this->attributes['otherImg'] = json_encode($value, true);
     }
 
-    public function category()
+    public function categories()
     {
-        return $this->hasOne('App\Category', 'id', 'categoryId') ;
+        return $this->hasMany('App\ProductCategory', 'product_id', 'id');
     }
 
     public function featuresItems()

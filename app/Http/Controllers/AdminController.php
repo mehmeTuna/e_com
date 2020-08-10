@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Mockery\Exception;
+use App\ProductCategory; 
 use PDF;
 
 class AdminController extends Controller
@@ -164,11 +165,12 @@ class AdminController extends Controller
 
     public function productCreate(Request $request)
     {
-        $productName = $request->name;
-        $category = $request->category;
-        $content = $request->cardText;
-        $code = $request->code;
-        $options = json_decode($request->options);
+        $updateProduct = [];
+        $updateProduct['name'] = $request->name;
+        $updateProduct['nameSlug'] = str_slug($request->name);
+
+    
+        $updateProduct['content'] = $request->cardText;
         $imgList = [
             'img0',
             'img1',
@@ -186,19 +188,30 @@ class AdminController extends Controller
                 $img[] = '/public/images/' . $name;
             }    
         }
+        $updateProduct['otherImg'] = $img ;
+        $updateProduct['img'] = $img[0];
 
-        $product = Product::create([
-            'price' => $price,
-            'name' => $productName,
-            'nameSlug' => str_slug($productName),
-            'quantity' => $quantity,
-            'categoryId' => $category,
-            'content' => $content,
-            'img' => $img[0],
-            'otherImg' => $img,
-            'code' => $code,
-            'minorders' => (int) $minorders,
-        ]);
+        $product = Product::create($updateProduct);
+
+        $options = json_decode($request->options, true);
+        foreach($options as $key => $value){
+            $feature = Features::create([
+                'product_id' => $product->id,
+                'name' => $value['title'],
+                'quantity' => $value['stock'],
+                'min_order' => $value['minOrders'],
+                'price' => $value['price'],
+            ]);
+        }
+
+        $category = json_decode($request->category, true);
+        foreach($category as $key => $value){
+            $category = ProductCategory::create([
+                'product_id' => $product->id,
+                'category_id' => $value['id']
+
+            ]);
+        }
 
         return response()->json([
             'status' => true,
@@ -219,29 +232,15 @@ class AdminController extends Controller
 
     public function productList()
     {
-        $product = Product::where('active', 1)->orderBy('created_at', 'desc')->get();
-
-        $result = $product->map(function ($val) {
-            $data = (object) [];
-            $category = Category::where('id', $val->categoryId)->first();
-            $data->id = $val->id;
-            $data->code = $val->code;
-            $data->img = $val->img;
-            $data->name = $val->name;
-            $data->minorders = $val->minorders;
-            $data->content = $val->content;
-            $data->date = $val->created_at->toDateString();
-            $data->category = $category->name;
-            $data->stok = $val->quantity;
-            $data->price = $val->price;
-            $data->selectBox = Features::where('active', 1)->where('type', 'selectBox')->where('product_id', $val->id)->get();
-            $data->checkBox = Features::where('active', 1)->where('type', 'checkBox')->where('product_id', $val->id)->get();
-            return $data;
-        });
+        \DB::connection()->enableQueryLog();
+      
+        $product = Product::where('active', 1)->with(['categories.category', 'featuresItems'])->orderBy('created_at', 'desc')->get();
+        $queries = \DB::getQueryLog();
+        //return dd($queries);
 
         return response()->json([
             'status' => true,
-            'data' => $result,
+            'data' => $product,
         ]);
     }
 

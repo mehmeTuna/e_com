@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Axios from 'axios'
 import Popup from 'reactjs-popup'
+import ProductList from './productList'
 
 const Modal = ({open, setOpen, addOption}) => {
   const [title, setTitle] = useState('')
@@ -62,7 +63,7 @@ const Modal = ({open, setOpen, addOption}) => {
                 }
                 type="number"
                 className="form-control"
-                placeholder="Urun Kodu"
+                placeholder="Urun Fiyat"
               />
             </div>
           </div>
@@ -76,7 +77,7 @@ const Modal = ({open, setOpen, addOption}) => {
                 }
                 type="text"
                 className="form-control"
-                placeholder="Urun Kodu"
+                placeholder="Stok"
               />
             </div>
           </div>
@@ -169,6 +170,7 @@ export default function ProductCreate() {
   const [productName, setProductName] = useState('')
   const [productCode, setProductCode] = useState('')
   const [content, setContent] = useState('')
+  const [produdts, setProduct] = useState([])
   const [img, setImg] = useState([])
   const [alert, setAlert] = useState(false)
   const [category, setCategory] = useState([])
@@ -183,8 +185,15 @@ export default function ProductCreate() {
         setCategory(data.data)
       }
     }
+    const getProductList = async () => {
+      const {data} = await Axios.get('/product/list')
+      if (data.status === true) {
+        setProduct(data.data)
+      }
+    }
 
     getCategoryList()
+    getProductList()
   }, [])
 
   const updateCategory = e => {
@@ -218,7 +227,7 @@ export default function ProductCreate() {
     ])
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (
       productName === '' ||
       productCode === '' ||
@@ -236,20 +245,17 @@ export default function ProductCreate() {
     productForm.append('category', JSON.stringify(selectedCategory))
     productForm.append('code', productCode)
     productForm.append('cardText', content)
-    productForm.append('options', option)
+    productForm.append('options', JSON.stringify(option))
 
     for (let a = 0; a < img.length; a++) {
-      formData.set('img' + a, img[a].file)
+      productForm.set('img' + a, img[a].file)
     }
 
-    console.log({
-      productName,
-      productCode,
-      content,
-      img,
-      selectedCategory,
-      option
-    })
+    const {data} = await Axios.post('/product/create', productForm)
+
+    if (data.status) {
+      window.location.reload()
+    }
   }
 
   const modelShowUpdate = () => {
@@ -271,7 +277,7 @@ export default function ProductCreate() {
           <div className="col-sm-12 col-md-4 col-lg-4 row">
             {img.length !== 0 &&
               img.map((val, key) => (
-                <div className="col row align-items-center">
+                <div key={key} className="col row align-items-center">
                   <img
                     key={key}
                     src={val.url}
@@ -370,6 +376,7 @@ export default function ProductCreate() {
           </button>
         </div>
       </div>
+      {produdts.length > 0 && <ProductList products={produdts} />}
     </>
   )
 }
